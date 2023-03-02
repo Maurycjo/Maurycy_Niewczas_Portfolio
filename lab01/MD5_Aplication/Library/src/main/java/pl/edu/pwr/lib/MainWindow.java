@@ -5,17 +5,20 @@ import java.awt.event.*;
 import java.io.PrintStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 public class MainWindow extends JFrame{
 
-
-    MainWindow() {
+    FileHandler fHander = new FileHandler();
+   // static JList fileList;
+    public MainWindow() {
         // The data
-        final Object [] data = {"A","B","C"};
-
-
+        fHander.fillFilesList();
+        //JList fileList = new JList<String>();
         JFrame frame = new JFrame();
         frame.setSize(400, 200);
-        frame.add( new JScrollPane( new JList( data )));
+
+        frame.add( new JScrollPane( new JList(fHander.getFiles().toArray())));
 
         frame.add( new JButton("Usuń pamięć programu"){{
             addActionListener( new ActionListener() {
