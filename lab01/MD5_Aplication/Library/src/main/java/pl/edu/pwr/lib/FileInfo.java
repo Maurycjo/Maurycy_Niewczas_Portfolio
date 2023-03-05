@@ -1,6 +1,8 @@
 package pl.edu.pwr.lib;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class FileInfo {
 
@@ -63,4 +65,10 @@ public class FileInfo {
         }
         return text;
     }
+
+    public void createFileInfoFile(){
+
+    }
+
+
 }

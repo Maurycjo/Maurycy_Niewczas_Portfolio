@@ -38,6 +38,7 @@ public class MainWindow extends JFrame {
         setSize(320, 400);
 
         pathField.setText(FileHandler.getCurrentPath());
+        pathField.setEditable(false);
 
         cl = new CardLayout();
         cardPanel.setLayout(cl);
@@ -89,7 +90,7 @@ public class MainWindow extends JFrame {
         {
             public void actionPerformed(ActionEvent arg0)
             {
-                System.out.println("next");
+                fileHandler.createNewFileInfoFile();
             }
         });
 
