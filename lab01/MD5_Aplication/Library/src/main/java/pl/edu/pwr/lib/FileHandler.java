@@ -1,31 +1,48 @@
 package pl.edu.pwr.lib;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class FileHandler {
 
-    public String getCurrentPath() {
-        return currentPath;
-    }
+    private static String currentPath = "/home/mniewczas/Desktop/";
 
-    private String currentPath ="/home/mniewczas/Desktop/md5";
 
     public ArrayList<FileInfo> getFiles() {
         return files;
     }
 
+    public String pathName(){
+        return currentPath.toString();
+    }
+
     private ArrayList<FileInfo> files = new ArrayList<>();
+
 
     public void fillFilesList(){
 
-        // fill list for tests
-        for(int i=0;i<15;i++){
-            files.add(new FileInfo("file " + Integer.toString(i)));
+        try (Stream<Path> paths = Files.list(Paths.get(currentPath))) {
+            paths.forEach(path -> files.add(new FileInfo(path.getFileName().toString())));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
+
+
     public void calculateMD5(){
 
     }
+
+    public void loadFilesFromCurrentPath(){
+
+    }
+
+
+
+
 
 }

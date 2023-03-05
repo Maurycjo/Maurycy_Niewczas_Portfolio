@@ -20,13 +20,13 @@ public class FileInfo {
     public String toString() {
         switch (fileState) {
             case UNCHANGED:
-                return fileName + " Niezmieniony";
+                return "Niezmieniony | "+ fileName;
             case CHANGED:
-                return fileName + " Zmieniony";
+                return "Zmieniony    | " + fileName;
             case NEW:
-                return fileName + " Nowy";
+                return "Nowy         | " + fileName;
             case DELETED:
-                return fileName + " Usunięty";
+                return "Usunięty     | " + fileName;
             default:
                 return "Błąd";
         }

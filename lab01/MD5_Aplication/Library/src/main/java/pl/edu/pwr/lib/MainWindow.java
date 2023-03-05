@@ -21,7 +21,7 @@ public class MainWindow extends JFrame {
         setTitle("Aplikacja MD5");
         setSize(320, 400);
 
-        JTextField pathField = new JTextField(fHander.getCurrentPath());
+        JTextField pathField = new JTextField(fHander.pathName());
 
         cl = new CardLayout();
         cardPanel.setLayout(cl);
