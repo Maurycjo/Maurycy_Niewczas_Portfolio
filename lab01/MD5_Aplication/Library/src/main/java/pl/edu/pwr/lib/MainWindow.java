@@ -19,15 +19,18 @@ public class MainWindow extends JFrame {
         JPanel cardPanel = new JPanel();
 
         setTitle("Aplikacja MD5");
-        setSize(320, 200);
+        setSize(320, 400);
+
+        JTextField pathField = new JTextField(fHander.getCurrentPath());
 
         cl = new CardLayout();
         cardPanel.setLayout(cl);
         JPanel jp = new JPanel();
 
         JScrollPane sp = new JScrollPane(new JList(fHander.getFiles().toArray()));
-        //cardPanel.add(new JScrollPane( new JList(fHander.getFiles().toArray())));
+
         cardPanel.add(sp);
+
 
         JPanel buttonPanel = new JPanel();
         JButton firstBtn = new JButton("First");
@@ -74,7 +77,8 @@ public class MainWindow extends JFrame {
             }
         });
 
-        getContentPane().add(cardPanel, BorderLayout.NORTH);
+        getContentPane().add(pathField, BorderLayout.NORTH);
+        getContentPane().add(cardPanel, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
     }
 }
