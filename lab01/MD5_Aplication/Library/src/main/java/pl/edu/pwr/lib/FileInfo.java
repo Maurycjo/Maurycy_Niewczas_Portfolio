@@ -11,8 +11,11 @@ public class FileInfo {
 
     public FileInfo(String name){
         fileName = name;
-        path = FileHandler.getCurrentPath() + fileName;
+        path = FileHandler.getCurrentPath() + "/" + fileName;
         checkIfDirectory();
+    }
+    public String getFileName(){
+        return fileName;
     }
 
     private void checkIfDirectory(){

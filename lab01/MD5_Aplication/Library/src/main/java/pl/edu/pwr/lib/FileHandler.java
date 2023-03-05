@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 public class FileHandler {
 
     
-    private static String currentPath = "/home/mniewczas/Desktop/";
+    private static String currentPath = "/home/mniewczas/Desktop";
 
 
     public void parentPath(){
@@ -18,6 +18,14 @@ public class FileHandler {
         if(file.getParentFile()!=null){
           currentPath = file.getAbsoluteFile().getParent();
         }
+    }
+
+    public void childPath(String fileName){
+        File file = new File(currentPath + "/" + fileName);
+        if(file.isDirectory()){
+            currentPath+="/"+fileName;
+        }
+
     }
 
     public ArrayList<FileInfo> getFiles() {

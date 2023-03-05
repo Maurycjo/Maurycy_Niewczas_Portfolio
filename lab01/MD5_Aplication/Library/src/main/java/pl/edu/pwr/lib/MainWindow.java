@@ -5,6 +5,8 @@ package pl.edu.pwr.lib;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.*;
 
@@ -43,6 +45,16 @@ public class MainWindow extends JFrame {
 
         fileHandler.fillFilesList();
         jFileList.setListData(fileHandler.getFiles().toArray());
+        jFileList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt){
+                JList jFileList = (JList)evt.getSource();
+                if(evt.getClickCount()==2){
+                    int index = jFileList.locationToIndex(evt.getPoint());
+                    fileHandler.childPath(fileHandler.getFiles().get(index).getFileName());
+                    updateJfileList();
+                }
+            }
+        });
         JScrollPane sp = new JScrollPane(jFileList);
         //JScrollPane sp = new JScrollPane(new JList(fileHandler.getFiles().toArray()));
 
