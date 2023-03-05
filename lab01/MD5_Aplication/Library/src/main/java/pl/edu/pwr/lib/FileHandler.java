@@ -1,5 +1,6 @@
 package pl.edu.pwr.lib;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +13,13 @@ public class FileHandler {
     private static String currentPath = "/home/mniewczas/Desktop/";
 
 
-    
+    public void parentPath(){
+        File file = new File(currentPath);
+        if(file.getParentFile()!=null){
+          currentPath = file.getAbsoluteFile().getParent();
+        }
+    }
+
     public ArrayList<FileInfo> getFiles() {
         return files;
     }

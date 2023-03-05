@@ -1,3 +1,0 @@
-module Application {
-    requires Library;
-}

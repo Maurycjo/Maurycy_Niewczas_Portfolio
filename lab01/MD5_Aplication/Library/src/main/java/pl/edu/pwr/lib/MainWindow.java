@@ -5,6 +5,7 @@ package pl.edu.pwr.lib;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.*;
 
 // class extends JFrame
@@ -14,6 +15,7 @@ public class MainWindow extends JFrame {
     private CardLayout cl;
     FileHandler fileHandler = new FileHandler();
     JList jFileList = new JList();
+    JTextField pathField = new JTextField();
 
     private void updateJfileList(){
 
@@ -21,6 +23,9 @@ public class MainWindow extends JFrame {
         jFileList.removeAll();
         jFileList.setListData(fileHandler.getFiles().toArray());
         jFileList.repaint();
+
+        pathField.setText(FileHandler.getCurrentPath());
+
     }
 
     public MainWindow()
@@ -30,7 +35,7 @@ public class MainWindow extends JFrame {
         setTitle("Aplikacja MD5");
         setSize(320, 400);
 
-        JTextField pathField = new JTextField(fileHandler.getCurrentPath());
+        pathField.setText(FileHandler.getCurrentPath());
 
         cl = new CardLayout();
         cardPanel.setLayout(cl);
@@ -45,37 +50,30 @@ public class MainWindow extends JFrame {
 
 
         JPanel buttonPanel = new JPanel();
-        JButton firstBtn = new JButton("First");
-        JButton nextBtn = new JButton("Next");
-        JButton previousBtn = new JButton("Previous");
-        JButton lastBtn = new JButton("Last");
+        JButton backButton = new JButton("Powrót");
+        JButton refreshButton = new JButton("Odśwież");
+        JButton deleteButton = new JButton("Usuń dane");
+        //JButton lastBtn = new JButton("Last");
 
-        buttonPanel.add(firstBtn);
-        buttonPanel.add(nextBtn);
-        buttonPanel.add(previousBtn);
-        buttonPanel.add(lastBtn);
+        buttonPanel.add(backButton);
+        buttonPanel.add(refreshButton);
+        buttonPanel.add(deleteButton);
+        //buttonPanel.add(lastBtn);
 
         // add ActionListeners
-        firstBtn.addActionListener(new ActionListener()
+        backButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0)
             {
-                updateJfileList();
+            fileHandler.parentPath();
+            updateJfileList();
 
-                System.out.println("first");
+
             }
 
         });
 
-        lastBtn.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent arg0)
-            {
-                System.out.println("last");
-            }
-        });
-
-        nextBtn.addActionListener(new ActionListener()
+        refreshButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0)
             {
@@ -83,7 +81,7 @@ public class MainWindow extends JFrame {
             }
         });
 
-        previousBtn.addActionListener(new ActionListener()
+        deleteButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0)
             {
