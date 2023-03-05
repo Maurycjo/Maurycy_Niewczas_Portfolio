@@ -1,12 +1,29 @@
 package pl.edu.pwr.lib;
 
+import java.io.File;
+
 public class FileInfo {
 
     private String fileName;
+    private String path;
     private FileStateEnum fileState  = FileStateEnum.UNCHANGED;
+    private boolean isDirectory;
 
     public FileInfo(String name){
         fileName = name;
+        path = FileHandler.getCurrentPath() + fileName;
+        checkIfDirectory();
+    }
+
+    private void checkIfDirectory(){
+        File file = new File(path);
+        if(file.isDirectory()){
+            isDirectory=true;
+        }
+        else{
+            isDirectory=false;
+        }
+
     }
 
     enum FileStateEnum {
@@ -18,17 +35,29 @@ public class FileInfo {
 
     @Override
     public String toString() {
+        String text;
         switch (fileState) {
             case UNCHANGED:
-                return "Niezmieniony | "+ fileName;
+                text = "Niezmieniony | "+ fileName;
+                break;
             case CHANGED:
-                return "Zmieniony    | " + fileName;
+                text = "Zmieniony    | " + fileName;
+                break;
             case NEW:
-                return "Nowy         | " + fileName;
+                text = "Nowy         | " + fileName;
+                break;
             case DELETED:
-                return "Usunięty     | " + fileName;
+                text = "Usunięty     | " + fileName;
+                break;
             default:
                 return "Błąd";
         }
+        if(isDirectory){
+            text = "Dir  | " + text;
+        }
+        else{
+            text = "File | " + text;
+        }
+        return text;
     }
 }

@@ -1,6 +1,5 @@
 package pl.edu.pwr.lib;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,15 +8,21 @@ import java.util.stream.Stream;
 
 public class FileHandler {
 
+    
     private static String currentPath = "/home/mniewczas/Desktop/";
 
 
+    
     public ArrayList<FileInfo> getFiles() {
         return files;
     }
 
-    public String pathName(){
-        return currentPath.toString();
+    public static void setCurrentPath(String currentPath) {
+        FileHandler.currentPath = currentPath;
+    }
+
+    public static String getCurrentPath(){
+        return currentPath;
     }
 
     private ArrayList<FileInfo> files = new ArrayList<>();
@@ -25,6 +30,7 @@ public class FileHandler {
 
     public void fillFilesList(){
 
+        files.clear();
         try (Stream<Path> paths = Files.list(Paths.get(currentPath))) {
             paths.forEach(path -> files.add(new FileInfo(path.getFileName().toString())));
         } catch (Exception e) {

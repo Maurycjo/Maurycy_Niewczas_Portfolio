@@ -12,22 +12,34 @@ public class MainWindow extends JFrame {
 
 
     private CardLayout cl;
-    FileHandler fHander = new FileHandler();
+    FileHandler fileHandler = new FileHandler();
+    JList jFileList = new JList();
+
+    private void updateJfileList(){
+
+        fileHandler.fillFilesList();
+        jFileList.removeAll();
+        jFileList.setListData(fileHandler.getFiles().toArray());
+        jFileList.repaint();
+    }
+
     public MainWindow()
     {
-        fHander.fillFilesList();
+        //fileHandler.fillFilesList();
         JPanel cardPanel = new JPanel();
-
         setTitle("Aplikacja MD5");
         setSize(320, 400);
 
-        JTextField pathField = new JTextField(fHander.pathName());
+        JTextField pathField = new JTextField(fileHandler.getCurrentPath());
 
         cl = new CardLayout();
         cardPanel.setLayout(cl);
         JPanel jp = new JPanel();
 
-        JScrollPane sp = new JScrollPane(new JList(fHander.getFiles().toArray()));
+        fileHandler.fillFilesList();
+        jFileList.setListData(fileHandler.getFiles().toArray());
+        JScrollPane sp = new JScrollPane(jFileList);
+        //JScrollPane sp = new JScrollPane(new JList(fileHandler.getFiles().toArray()));
 
         cardPanel.add(sp);
 
@@ -48,8 +60,11 @@ public class MainWindow extends JFrame {
         {
             public void actionPerformed(ActionEvent arg0)
             {
+                updateJfileList();
+
                 System.out.println("first");
             }
+
         });
 
         lastBtn.addActionListener(new ActionListener()
@@ -72,7 +87,10 @@ public class MainWindow extends JFrame {
         {
             public void actionPerformed(ActionEvent arg0)
             {
+
                 System.out.println("prev");
+                FileHandler.setCurrentPath("/home/mniewczas/Desktop/md5/");
+                updateJfileList();
 
             }
         });
