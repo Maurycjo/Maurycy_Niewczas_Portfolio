@@ -11,24 +11,23 @@ import javax.swing.*;
 public class MainWindow extends JFrame {
 
 
-    // Declaration of objects
-    // of CardLayout class.
     private CardLayout cl;
     FileHandler fHander = new FileHandler();
     public MainWindow()
     {
         fHander.fillFilesList();
+        JPanel cardPanel = new JPanel();
 
         setTitle("Aplikacja MD5");
         setSize(320, 200);
-        JPanel cardPanel = new JPanel();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
 
         cl = new CardLayout();
         cardPanel.setLayout(cl);
         JPanel jp = new JPanel();
-        cardPanel.add(new JScrollPane( new JList(fHander.getFiles().toArray())));
+
+        JScrollPane sp = new JScrollPane(new JList(fHander.getFiles().toArray()));
+        //cardPanel.add(new JScrollPane( new JList(fHander.getFiles().toArray())));
+        cardPanel.add(sp);
 
         JPanel buttonPanel = new JPanel();
         JButton firstBtn = new JButton("First");

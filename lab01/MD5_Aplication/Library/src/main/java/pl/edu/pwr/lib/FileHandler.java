@@ -15,7 +15,7 @@ public class FileHandler {
     public void fillFilesList(){
 
         // fill list for tests
-        for(int i=0;i<3;i++){
+        for(int i=0;i<15;i++){
             files.add(new FileInfo("file " + Integer.toString(i)));
         }
 
