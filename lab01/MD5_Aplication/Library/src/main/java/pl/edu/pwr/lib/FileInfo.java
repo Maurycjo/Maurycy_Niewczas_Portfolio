@@ -8,7 +8,7 @@ public class FileInfo {
 
     private String fileName;
     private String path;
-    private FileStateEnum fileState  = FileStateEnum.UNCHANGED;
+    private FileStateEnum fileState  = FileStateEnum.NEW;
     private boolean isDirectory;
 
     public FileInfo(String name){
@@ -29,6 +29,10 @@ public class FileInfo {
             isDirectory=false;
         }
 
+    }
+
+    public void setFileState(FileStateEnum fileState) {
+        this.fileState = fileState;
     }
 
     enum FileStateEnum {

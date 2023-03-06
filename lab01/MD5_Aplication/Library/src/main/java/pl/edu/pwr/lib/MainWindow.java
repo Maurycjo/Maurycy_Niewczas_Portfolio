@@ -24,8 +24,8 @@ public class MainWindow extends JFrame {
         fileHandler.fillFilesList();
         jFileList.removeAll();
         jFileList.setListData(fileHandler.getFiles().toArray());
+        fileHandler.createNewFileInfoFile();
         jFileList.repaint();
-
         pathField.setText(FileHandler.getCurrentPath());
 
     }
@@ -90,7 +90,7 @@ public class MainWindow extends JFrame {
         {
             public void actionPerformed(ActionEvent arg0)
             {
-                fileHandler.createNewFileInfoFile();
+                updateJfileList();
             }
         });
 
