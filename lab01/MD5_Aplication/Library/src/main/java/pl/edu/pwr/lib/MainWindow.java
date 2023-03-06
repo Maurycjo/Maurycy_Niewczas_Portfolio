@@ -44,7 +44,7 @@ public class MainWindow extends JFrame {
         cardPanel.setLayout(cl);
         JPanel jp = new JPanel();
 
-        fileHandler.fillFilesList();
+        updateJfileList();
         jFileList.setListData(fileHandler.getFiles().toArray());
         jFileList.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt){
@@ -99,9 +99,8 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent arg0)
             {
 
-                System.out.println("prev");
-                FileHandler.setCurrentPath("/home/mniewczas/Desktop/md5/");
-                updateJfileList();
+              fileHandler.deleteMD5Directory();
+              updateJfileList();
 
             }
         });

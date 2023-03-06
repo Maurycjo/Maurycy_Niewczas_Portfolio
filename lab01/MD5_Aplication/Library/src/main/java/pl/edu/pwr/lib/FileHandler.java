@@ -7,6 +7,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.SequenceInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,20 +15,59 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.stream.Stream;
 
 public class FileHandler {
 
-    
-    private static String currentPath = "/home/mniewczas/Desktop/md5";
-    private static final String md5Path = "/home/mniewczas/.md5";
+    public FileHandler(){
+        createMD5Directory();
+    }
+
+    private static String currentPath = "/home/mniewczas/Desktop";
+    private static String md5Path = "/home/mniewczas/.md5";
     private ArrayList<FileInfo> files = new ArrayList<>();
     private String md5Hash;
 
+
+    public void createMD5Directory() {
+
+        Path tempPath = Paths.get(md5Path);
+        if (!Files.exists(tempPath)) {
+
+            try {
+                Files.createDirectory(tempPath);
+                Files.createDirectory(Path.of(tempPath + "/home"));
+                Files.createDirectory(Path.of(tempPath+"/home/mniewczas"));
+                Files.createDirectory(Path.of(tempPath+"/home/mniewczas/Desktop"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void deleteMD5Directory(){
+
+        try {
+            Files.deleteIfExists(Paths.get(md5Path));
+            createMD5Directory();
+            currentPath = "/home/mniewczas/Desktop/md5";
+            md5Path = "/home/mniewczas/.md5";
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
     public void parentPath(){
         Path path = Paths.get(currentPath);
+
         if(path.getParent()!=null){
           currentPath = String.valueOf(path.getParent().toAbsolutePath());
+          md5Path = String.valueOf(Paths.get(md5Path).getParent().toAbsolutePath());
         }
     }
 
@@ -35,6 +75,7 @@ public class FileHandler {
         Path path = Paths.get(currentPath + "/" + fileName);
         if(Files.isDirectory(path)){
             currentPath+="/"+fileName;
+            md5Path+="/"+fileName;
         }
 
     }
@@ -63,13 +104,16 @@ public class FileHandler {
     public void createNewFileInfoFile(){
 
         for (FileInfo file:files) {
-            Path filePath = Paths.get(md5Path + "/" + file.getFileName() + ".txt");
+            Path filePath = Paths.get(md5Path + "/" + file.getFileName());
 
             try{
                 if(Files.exists(filePath)){
 
+                    if(file.isDirectory()){
+                        continue;
+                    }
                     String oldMD5 = Files.readString(filePath);
-                    String newMD5 = calculateMD5(file.getFileName());
+                    String newMD5 = calculateMD5File(file.getFileName());
 
                     if(oldMD5.equals(newMD5)){
                         file.setFileState(FileInfo.FileStateEnum.UNCHANGED);
@@ -83,8 +127,14 @@ public class FileHandler {
 
                 }
                 else {
-                    Files.createFile(filePath);
-                    Files.write(filePath, calculateMD5(file.getFileName()).getBytes());
+
+                    if(file.isDirectory()){
+                        Files.createDirectory(filePath);
+                    }
+                    else {
+                        Files.createFile(filePath);
+                        Files.write(filePath, calculateMD5File(file.getFileName()).getBytes());
+                    }
                 }
 
             }catch (IOException e){
@@ -98,7 +148,7 @@ public class FileHandler {
 
 
 
-    private String calculateMD5(String fileName) throws IOException, NoSuchAlgorithmException {
+    private String calculateMD5File(String fileName) throws IOException, NoSuchAlgorithmException {
 
         Path filePath = Paths.get(currentPath + "/" + fileName);
 

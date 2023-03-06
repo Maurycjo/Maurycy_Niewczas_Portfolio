@@ -9,6 +9,11 @@ public class FileInfo {
     private String fileName;
     private String path;
     private FileStateEnum fileState  = FileStateEnum.NEW;
+
+    public boolean isDirectory() {
+        return isDirectory;
+    }
+
     private boolean isDirectory;
 
     public FileInfo(String name){
