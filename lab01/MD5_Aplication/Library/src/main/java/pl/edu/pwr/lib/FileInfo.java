@@ -8,6 +8,11 @@ public class FileInfo {
 
     private String fileName;
     private String path;
+
+    public FileStateEnum getFileState() {
+        return fileState;
+    }
+
     private FileStateEnum fileState  = FileStateEnum.NEW;
 
     public boolean isDirectory() {
@@ -58,7 +63,7 @@ public class FileInfo {
                 text = "Zmieniony    | " + fileName;
                 break;
             case NEW:
-                text = "Nowy         | " + fileName;
+                text = "Nowy               | " + fileName;
                 break;
             case DELETED:
                 text = "Usunięty     | " + fileName;

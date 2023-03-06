@@ -1,20 +1,15 @@
 package pl.edu.pwr.lib;
 
-//import java.io.File;
-
-import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.SequenceInputStream;
+
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.Iterator;
 import java.util.stream.Stream;
 
 public class FileHandler {
@@ -26,6 +21,7 @@ public class FileHandler {
     private static String currentPath = "/home/mniewczas/Desktop";
     private static String md5Path = "/home/mniewczas/.md5/home/mniewczas/Desktop";
     private ArrayList<FileInfo> files = new ArrayList<>();
+    private ArrayList<FileInfo> filesBackup = new ArrayList<>();
     private String md5Hash;
 
 
@@ -80,10 +76,6 @@ public class FileHandler {
 
     }
 
-
-
-
-
     public void parentPath(){
         Path path = Paths.get(currentPath);
 
@@ -112,16 +104,43 @@ public class FileHandler {
         return currentPath;
     }
 
-
     public void fillFilesList(){
 
         files.clear();
+        filesBackup.clear();
+
         try (Stream<Path> paths = Files.list(Paths.get(currentPath))) {
             paths.forEach(path -> files.add(new FileInfo(path.getFileName().toString())));
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        try (Stream<Path> paths = Files.list(Paths.get(md5Path))) {
+            paths.forEach(path -> filesBackup.add(new FileInfo(path.getFileName().toString())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (FileInfo file: filesBackup) {
+
+            Path path = Paths.get(currentPath + "/" + file.getFileName());
+            if(!(Files.exists(path))){
+                file.setFileState(FileInfo.FileStateEnum.DELETED);
+                files.add(file);
+                try {
+                    Files.delete(Paths.get(md5Path+ "/" + file.getFileName()));
+                    System.out.println("usunieto");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+            }
+
     }
+
+
 
     public void createNewFileInfoFile(){
 
@@ -139,12 +158,10 @@ public class FileHandler {
 
                     if(oldMD5.equals(newMD5)){
                         file.setFileState(FileInfo.FileStateEnum.UNCHANGED);
-                        System.out.println("unchanged");
                     }
                     else{
                         file.setFileState(FileInfo.FileStateEnum.CHANGED);
                         Files.write(filePath, newMD5.getBytes());
-                        System.out.println("changed");
                     }
 
                 }
@@ -154,8 +171,13 @@ public class FileHandler {
                         Files.createDirectory(filePath);
                     }
                     else {
-                        Files.createFile(filePath);
-                        Files.write(filePath, calculateMD5File(file.getFileName()).getBytes());
+                        if(file.getFileState()== FileInfo.FileStateEnum.DELETED){
+
+                        }
+                        else {
+                            Files.createFile(filePath);
+                            Files.write(filePath, calculateMD5File(file.getFileName()).getBytes());
+                        }
                     }
                 }
 
@@ -166,9 +188,6 @@ public class FileHandler {
             }
         }
     }
-
-
-
 
     private String calculateMD5File(String fileName) throws IOException, NoSuchAlgorithmException {
 
