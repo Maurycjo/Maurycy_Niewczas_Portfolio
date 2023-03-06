@@ -8,9 +8,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.SequenceInputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,14 +24,14 @@ public class FileHandler {
     }
 
     private static String currentPath = "/home/mniewczas/Desktop";
-    private static String md5Path = "/home/mniewczas/.md5";
+    private static String md5Path = "/home/mniewczas/.md5/home/mniewczas/Desktop";
     private ArrayList<FileInfo> files = new ArrayList<>();
     private String md5Hash;
 
 
     public void createMD5Directory() {
 
-        Path tempPath = Paths.get(md5Path);
+        Path tempPath = Paths.get("/home/mniewczas/.md5");
         if (!Files.exists(tempPath)) {
 
             try {
@@ -48,11 +47,31 @@ public class FileHandler {
 
     public void deleteMD5Directory(){
 
+     Path delPath = Paths.get("/home/mniewczas/.md5");
+
         try {
-            Files.deleteIfExists(Paths.get(md5Path));
+            Files.walkFileTree(delPath, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    Files.delete(file);
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    Files.delete(dir);
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Files.deleteIfExists(delPath);
             createMD5Directory();
-            currentPath = "/home/mniewczas/Desktop/md5";
-            md5Path = "/home/mniewczas/.md5";
+            currentPath = "/home/mniewczas/Desktop";
+            md5Path = "/home/mniewczas/.md5/home/mniewczas/Desktop";
 
 
         } catch (IOException e) {
@@ -60,6 +79,9 @@ public class FileHandler {
         }
 
     }
+
+
+
 
 
     public void parentPath(){
