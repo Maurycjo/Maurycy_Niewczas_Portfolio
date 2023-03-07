@@ -9,7 +9,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.stream.Stream;
 
 public class FileHandler {
@@ -151,7 +150,12 @@ public class FileHandler {
                 if(Files.exists(filePath)){
 
                     if(file.isDirectory()){
+
+                        if(file.getFileState()== FileInfo.FileStateEnum.NEW){
+                            file.setFileState(FileInfo.FileStateEnum.OLD);
+                        }
                         continue;
+
                     }
                     String oldMD5 = Files.readString(filePath);
                     String newMD5 = calculateMD5File(file.getFileName());

@@ -1,8 +1,6 @@
 package pl.edu.pwr.lib;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class FileInfo {
 
@@ -49,7 +47,8 @@ public class FileInfo {
         UNCHANGED,
         CHANGED,
         NEW,
-        DELETED
+        DELETED,
+        OLD
     }
 
     @Override
@@ -67,6 +66,9 @@ public class FileInfo {
                 break;
             case DELETED:
                 text = "Usunięty     | " + fileName;
+                break;
+            case OLD:
+                text = "Stary                | " + fileName;
                 break;
             default:
                 return "Błąd";
