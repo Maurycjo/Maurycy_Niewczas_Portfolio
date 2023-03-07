@@ -82,9 +82,4 @@ public class FileInfo {
         return text;
     }
 
-    public void createFileInfoFile(){
-
-    }
-
-
 }
