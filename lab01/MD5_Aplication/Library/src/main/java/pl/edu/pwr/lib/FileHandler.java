@@ -16,9 +16,9 @@ public class FileHandler {
     public FileHandler(){
         createMD5Directory();
     }
-
-    private static String currentPath = "/home/mniewczas/Desktop";
-    private static String md5Path = "/home/mniewczas/.md5/home/mniewczas/Desktop";
+    private static final String pathExpand = "/Desktop";
+    private static String currentPath = System.getProperty("user.home") + pathExpand;
+    private static String md5Path = System.getProperty("user.home") + "/.md5" + currentPath;
     private ArrayList<FileInfo> files = new ArrayList<>();
     private ArrayList<FileInfo> filesBackup = new ArrayList<>();
     private String md5Hash;
@@ -26,14 +26,14 @@ public class FileHandler {
 
     public void createMD5Directory() {
 
-        Path tempPath = Paths.get("/home/mniewczas/.md5");
+        Path tempPath = Paths.get(System.getProperty("user.home")+"/.md5");
         if (!Files.exists(tempPath)) {
 
             try {
                 Files.createDirectory(tempPath);
                 Files.createDirectory(Path.of(tempPath + "/home"));
-                Files.createDirectory(Path.of(tempPath+"/home/mniewczas"));
-                Files.createDirectory(Path.of(tempPath+"/home/mniewczas/Desktop"));
+                Files.createDirectory(Path.of(tempPath + System.getProperty("user.home")));
+                Files.createDirectory(Path.of(tempPath + System.getProperty("user.home") + "/Desktop"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -42,7 +42,7 @@ public class FileHandler {
 
     public void deleteMD5Directory(){
 
-     Path delPath = Paths.get("/home/mniewczas/.md5");
+     Path delPath = Paths.get(System.getProperty("user.home") + "/.md5");
 
         try {
             Files.walkFileTree(delPath, new SimpleFileVisitor<Path>() {
@@ -65,13 +65,14 @@ public class FileHandler {
         try {
             Files.deleteIfExists(delPath);
             createMD5Directory();
-            currentPath = "/home/mniewczas/Desktop";
-            md5Path = "/home/mniewczas/.md5/home/mniewczas/Desktop";
-
+            currentPath = System.getProperty("user.home") + pathExpand;
+            md5Path = System.getProperty("user.home") + "/.md5" + currentPath;
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
 
     }
 
@@ -129,7 +130,6 @@ public class FileHandler {
                 files.add(file);
                 try {
                     Files.delete(Paths.get(md5Path+ "/" + file.getFileName()));
-                    System.out.println("usunieto");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
