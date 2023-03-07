@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.*;
+import javax.swing.UIManager;
 
 // class extends JFrame
 public class MainWindow extends JFrame {
@@ -66,12 +67,10 @@ public class MainWindow extends JFrame {
         JButton backButton = new JButton("Powrót");
         JButton refreshButton = new JButton("Odśwież");
         JButton deleteButton = new JButton("Usuń dane");
-        //JButton lastBtn = new JButton("Last");
 
         buttonPanel.add(backButton);
         buttonPanel.add(refreshButton);
         buttonPanel.add(deleteButton);
-        //buttonPanel.add(lastBtn);
 
         // add ActionListeners
         backButton.addActionListener(new ActionListener()
@@ -98,9 +97,16 @@ public class MainWindow extends JFrame {
         {
             public void actionPerformed(ActionEvent arg0)
             {
+                UIManager.put("OptionPane.noButtonText", "Nie");
+                UIManager.put("OptionPane.yesButtonText", "Tak");
 
-              fileHandler.deleteMD5Directory();
-              updateJfileList();
+            if(JOptionPane.showConfirmDialog(null, "Czy napewno chcesz usunąć wszystkie informacje o statusie plików?","WARNING",
+                    JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+                fileHandler.deleteMD5Directory();
+                updateJfileList();
+            }
+
+
 
             }
         });
