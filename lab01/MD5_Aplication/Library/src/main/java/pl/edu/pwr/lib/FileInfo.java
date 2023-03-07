@@ -65,7 +65,7 @@ public class FileInfo {
                 text = "Nowy               | " + fileName;
                 break;
             case DELETED:
-                text = "Usunięty     | " + fileName;
+                text = "Usunięty          | " + fileName;
                 break;
             case OLD:
                 text = "Stary                | " + fileName;

@@ -93,7 +93,7 @@ public class MainWindow extends JFrame {
                 UIManager.put("OptionPane.noButtonText", "Nie");
                 UIManager.put("OptionPane.yesButtonText", "Tak");
             //confirm window for deletion
-            if(JOptionPane.showConfirmDialog(null, "Czy napewno chcesz usunąć wszystkie informacje o statusie plików?","WARNING",
+            if(JOptionPane.showConfirmDialog(null, "Czy napewno chcesz usunąć wszystkie informacje o statusie plików?","Ostrzeżenie",
                     JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
                 fileHandler.deleteMD5Directory();
                 updateJfileList();
