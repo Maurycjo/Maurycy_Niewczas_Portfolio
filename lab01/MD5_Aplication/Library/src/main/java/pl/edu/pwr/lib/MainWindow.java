@@ -12,7 +12,7 @@ public class MainWindow extends JFrame {
 
     private CardLayout cl;
     FileHandler fileHandler = new FileHandler();
-    JList jFileList = new JList();
+    JList<Object> jFileList = new JList<>();
     JTextField pathField = new JTextField();
 
     private void updateJfileList(){
