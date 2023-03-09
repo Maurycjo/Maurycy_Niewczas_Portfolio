@@ -30,7 +30,7 @@ public class MainWindow extends JFrame {
     {
         JPanel cardPanel = new JPanel();
         setTitle("Aplikacja WeakReferences");
-        setSize(320, 400);
+        setSize(800, 400);
 
         pathField.setText(FileHandler.getCurrentPath());
         pathField.setEditable(false);
@@ -54,6 +54,18 @@ public class MainWindow extends JFrame {
         });
         JScrollPane sp = new JScrollPane(jFileList);
         cardPanel.add(sp);
+
+        //jtextArea for file content
+        JTextArea contentJtextArea = new JTextArea();
+        contentJtextArea.setVisible(true);
+        contentJtextArea.setText("hello content will be there");
+        contentJtextArea.setPreferredSize(new Dimension(100, 100));
+
+        //jtextArea for hash, from memory or disc
+        JTextArea infoJtextArea = new JTextArea();
+        infoJtextArea.setVisible(true);
+        infoJtextArea.setText("From disc\nHash: 1234HashMd5");
+
 
         //Buttons
         JPanel buttonPanel = new JPanel();
@@ -102,7 +114,10 @@ public class MainWindow extends JFrame {
         });
 
         getContentPane().add(pathField, BorderLayout.NORTH);
-        getContentPane().add(cardPanel, BorderLayout.CENTER);
+        getContentPane().add(cardPanel, BorderLayout.WEST);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        getContentPane().add(contentJtextArea, BorderLayout.CENTER);
+        getContentPane().add(infoJtextArea, BorderLayout.EAST);
+
     }
 }
