@@ -1,5 +1,6 @@
 package pl.edu.pwr.window;
 
+import pl.edu.pwr.file.DirElement;
 import pl.edu.pwr.file.ElementInFileSystem;
 import pl.edu.pwr.file.FileHandler;
 
@@ -52,18 +53,15 @@ public class MainWindow extends JFrame {
                 if(evt.getClickCount()==2){
                     //after 2 clicking two times on item in jFile list change directory if possible
                     int index = jFileList.locationToIndex(evt.getPoint());
-                    //fileHandler.childPath(fileHandler.getFiles().get(index).getFileName());
-                    fileHandler.getFiles().get(index).doubleClickedAction();
+                    fileHandler.getFiles().get(index).contentAfterClicked();
+                    if(fileHandler.getFiles().get(index) instanceof DirElement){
+                        fileHandler.childPath(fileHandler.getFiles().get(index).getFileName());
+                    }
                     updateJfileList();
                 }
             }
         });
-        //JScrollPane sp = new JScrollPane(jFileList);
         sp = new JScrollPane(jFileList);
-        //sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
-
-        //cardPanel.add(sp);
 
         //jtextArea for file content
         JTextArea contentJtextArea = new JTextArea();
@@ -75,7 +73,6 @@ public class MainWindow extends JFrame {
         JTextArea infoJtextArea = new JTextArea();
         infoJtextArea.setVisible(true);
         infoJtextArea.setText("From disc\nHash: 1234HashMd5");
-
 
         //Buttons
         JPanel buttonPanel = new JPanel();

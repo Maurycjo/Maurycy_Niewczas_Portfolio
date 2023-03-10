@@ -1,8 +1,5 @@
 package pl.edu.pwr.file;
 
-import java.io.File;
-import org.apache.velocity.shaded.commons.io.FilenameUtils;
-
 abstract public class ElementInFileSystem {
 
     private String fileName;
@@ -19,7 +16,7 @@ abstract public class ElementInFileSystem {
     }
 
     abstract public String getFileNameWithInfo();
-    abstract public void doubleClickedAction();
+    abstract public void contentAfterClicked();
 
 
 }

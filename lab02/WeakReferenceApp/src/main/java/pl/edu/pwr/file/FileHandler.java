@@ -1,7 +1,5 @@
 package pl.edu.pwr.file;
 
-import org.apache.velocity.shaded.commons.io.FilenameUtils;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.*;
@@ -37,6 +35,15 @@ public class FileHandler {
             currentPath = String.valueOf(path.getParent().toAbsolutePath());
         }
     }
+
+    public void childPath(String fileName){
+        //set path 1 level down
+        Path path = Paths.get(currentPath + "/" + fileName);
+        if(Files.isDirectory(path)){
+            currentPath+="/"+fileName;
+        }
+    }
+
     public void fillFilesList(){
         //get all files to FileInfo Array from current path
         files.clear();      //clear before filling

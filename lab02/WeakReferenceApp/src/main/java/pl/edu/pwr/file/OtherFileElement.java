@@ -7,11 +7,11 @@ public class OtherFileElement extends ElementInFileSystem{
     }
 
     public String getFileNameWithInfo(){
-        return "inny | " + getFileName();
+        return "Inny | " + getFileName();
     }
 
     @Override
-    public void doubleClickedAction() {
+    public void contentAfterClicked() {
 
     }
 }

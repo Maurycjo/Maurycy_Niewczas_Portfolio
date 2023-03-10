@@ -16,7 +16,7 @@ public class CsvFileElement extends ElementInFileSystem{
         return content;
     }
 
-    public void doubleClickedAction() {
+    public void contentAfterClicked() {
 
         content = "This is content of csv file";
 
