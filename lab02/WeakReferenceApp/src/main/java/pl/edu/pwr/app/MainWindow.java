@@ -14,13 +14,13 @@ public class MainWindow extends JFrame {
     FileHandler fileHandler = new FileHandler();
     JList<Object> jFileList = new JList<>();
     JTextField pathField = new JTextField();
+    JScrollPane sp ;
 
     private void updateJfileList(){
         //updating JFileList with item from current path and .md5 path
         fileHandler.fillFilesList();
         jFileList.removeAll();
         jFileList.setListData(fileHandler.getFiles().toArray());
-        fileHandler.createNewFileInfoFile();
         jFileList.repaint();
         pathField.setText(FileHandler.getCurrentPath());
 
@@ -28,16 +28,19 @@ public class MainWindow extends JFrame {
 
     public MainWindow()
     {
-        JPanel cardPanel = new JPanel();
+        //JPanel cardPanel = new JPanel();
         setTitle("Aplikacja WeakReferences");
         setSize(800, 400);
 
         pathField.setText(FileHandler.getCurrentPath());
         pathField.setEditable(false);
 
-        cl = new CardLayout();
-        cardPanel.setLayout(cl);
+        //cl = new CardLayout();
+        //cardPanel.setLayout(cl);
         JPanel jp = new JPanel();
+
+        //jFileList.setFixedCellWidth(100);
+
 
         updateJfileList();
         jFileList.setListData(fileHandler.getFiles().toArray());
@@ -52,8 +55,12 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-        JScrollPane sp = new JScrollPane(jFileList);
-        cardPanel.add(sp);
+        //JScrollPane sp = new JScrollPane(jFileList);
+        sp = new JScrollPane(jFileList);
+        //sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+
+        //cardPanel.add(sp);
 
         //jtextArea for file content
         JTextArea contentJtextArea = new JTextArea();
@@ -71,11 +78,10 @@ public class MainWindow extends JFrame {
         JPanel buttonPanel = new JPanel();
         JButton backButton = new JButton("Powrót");
         JButton refreshButton = new JButton("Odśwież");
-        JButton deleteButton = new JButton("Usuń dane");
 
         buttonPanel.add(backButton);
         buttonPanel.add(refreshButton);
-        buttonPanel.add(deleteButton);
+
 
         // add ActionListeners
         backButton.addActionListener(new ActionListener()
@@ -83,8 +89,8 @@ public class MainWindow extends JFrame {
             //go 1 level up in directory
             public void actionPerformed(ActionEvent arg0)
             {
-//            fileHandler.parentPath();
-//            updateJfileList();
+              fileHandler.parentPath();
+              updateJfileList();
             }
         });
 
@@ -97,24 +103,8 @@ public class MainWindow extends JFrame {
             }
         });
 
-        deleteButton.addActionListener(new ActionListener()
-        {
-            //delete all files from .md5
-            public void actionPerformed(ActionEvent arg0)
-            {
-                UIManager.put("OptionPane.noButtonText", "Nie");
-                UIManager.put("OptionPane.yesButtonText", "Tak");
-            //confirm window for deletion
-            if(JOptionPane.showConfirmDialog(null, "Czy napewno chcesz usunąć wszystkie informacje o statusie plików?","Ostrzeżenie",
-                    JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
-                fileHandler.deleteMD5Directory();
-                updateJfileList();
-            }
-            }
-        });
-
         getContentPane().add(pathField, BorderLayout.NORTH);
-        getContentPane().add(cardPanel, BorderLayout.WEST);
+        getContentPane().add(sp, BorderLayout.WEST);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         getContentPane().add(contentJtextArea, BorderLayout.CENTER);
         getContentPane().add(infoJtextArea, BorderLayout.EAST);

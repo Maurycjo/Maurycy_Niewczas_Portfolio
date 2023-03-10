@@ -1,6 +1,8 @@
 package pl.edu.pwr.app;
 
 import java.io.File;
+//import org.apache.commons.io.FilenameUtils;
+import org.apache.velocity.shaded.commons.io.FilenameUtils;
 
 public class FileInfo {
 
@@ -11,7 +13,7 @@ public class FileInfo {
         return fileState;
     }
 
-    private FileStateEnum fileState  = FileStateEnum.NEW;
+    private FileStateEnum fileState;
 
     public boolean isDirectory() {
         return isDirectory;
@@ -22,64 +24,56 @@ public class FileInfo {
     public FileInfo(String name){
         fileName = name;
         path = FileHandler.getCurrentPath() + "/" + fileName;
-        checkIfDirectory();
+
+        if(checkIfDirectory()){
+            fileState = FileStateEnum.DIRECTORY;
+        } else if(FilenameUtils.getExtension(fileName).contains("csv")){
+            fileState = FileStateEnum.CSV;
+        } else{
+            fileState = FileStateEnum.OTHER;
+        }
+
+
     }
     public String getFileName(){
         return fileName;
     }
 
-    private void checkIfDirectory(){
+    private boolean checkIfDirectory(){
         File file = new File(path);
         if(file.isDirectory()){
-            isDirectory=true;
+            return true;
         }
         else{
-            isDirectory=false;
+            return false;
         }
-
     }
+
+
 
     public void setFileState(FileStateEnum fileState) {
         this.fileState = fileState;
     }
 
     enum FileStateEnum {
-        UNCHANGED,
-        CHANGED,
-        NEW,
-        DELETED,
-        OLD
+        DIRECTORY,
+        CSV,
+        OTHER
+
     }
 
     @Override
     public String toString() {
         String text;
         switch (fileState) {
-            case UNCHANGED:
-                text = "Niezmieniony | "+ fileName;
-                break;
-            case CHANGED:
-                text = "Zmieniony    | " + fileName;
-                break;
-            case NEW:
-                text = "Nowy               | " + fileName;
-                break;
-            case DELETED:
-                text = "Usunięty          | " + fileName;
-                break;
-            case OLD:
-                text = "Stary                | " + fileName;
-                break;
+            case DIRECTORY:
+                return  "Dir  | " + fileName;
+            case CSV:
+                return  "Csv  | " + fileName;
             default:
-                return "Błąd";
+                return  "Inny | " + fileName;
         }
-        if(isDirectory){
-            text = "Dir  | " + text;
-        }
-        else{
-            text = "File | " + text;
-        }
-        return text;
+
     }
 
 }
