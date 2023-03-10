@@ -11,7 +11,7 @@ public class DirElement extends ElementInFileSystem{
     }
 
     public String getFileNameWithInfo(){
-        return "Dir  | " + getFileNameWithInfo();
+        return "Dir  | " + getFileName();
     }
 
     //in dir go into directory 1 level down

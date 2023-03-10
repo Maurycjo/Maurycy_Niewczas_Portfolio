@@ -43,12 +43,16 @@ public class FileHandler {
 
 
         try (Stream<Path> paths = Files.list(Paths.get(currentPath))) {
-            paths.filter(path -> path.toString().endsWith(".pdf"))
-                    .forEach(path -> files.add(new CsvFileElement(path.getFileName().toString())));
-//            paths.filter(path -> Files.isDirectory(path))
-//                    .forEach(path -> files.add(new DirElement(path.getFileName().toString())));
-//            paths.filter(path -> !path.toString().endsWith(".csv") && !Files.isDirectory(path))
-//                    .forEach(path -> files.add(new OtherFileElement(path.getFileName().toString())));
+            paths.peek(path -> {
+                        if (path.toString().endsWith(".csv")) {
+                            files.add(new CsvFileElement(path.getFileName().toString()));
+                        } else if (Files.isDirectory(path)) {
+                            files.add(new DirElement(path.getFileName().toString()));
+                        } else {
+                            files.add(new OtherFileElement(path.getFileName().toString()));
+                        }
+                    })
+                    .count(); // kończy strumień, ale nie wykonuje żadnych operacji
         } catch (Exception e) {
             e.printStackTrace();
         }
