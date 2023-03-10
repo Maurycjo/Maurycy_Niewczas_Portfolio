@@ -13,10 +13,13 @@ import javax.swing.*;
 
 public class MainWindow extends JFrame {
 
+
     private CardLayout cl;
     FileHandler fileHandler = new FileHandler();
     JList<Object> jFileList = new JList<>();
     JTextField pathField = new JTextField();
+    private final JTextArea contentJtextArea;
+    private final JTextArea infoJtextArea;
     JScrollPane sp ;
     DefaultListModel listModel = new DefaultListModel();
 
@@ -31,9 +34,18 @@ public class MainWindow extends JFrame {
         jFileList.setModel(listModel);
 
         jFileList.repaint();
-        pathField.setText(FileHandler.getCurrentPath());
+        pathField.setText(fileHandler.getCurrentPath().toString());
 
     }
+
+    private void setContentOnWindow(){
+
+
+        contentJtextArea.setText("hello content will be there");
+        infoJtextArea.setText("From disc\nHash: 1234HashMd5");
+
+    }
+
 
     public MainWindow()
     {
@@ -41,7 +53,7 @@ public class MainWindow extends JFrame {
         setTitle("Aplikacja WeakReferences");
         setSize(800, 400);
 
-        pathField.setText(FileHandler.getCurrentPath());
+        pathField.setText(fileHandler.getCurrentPath().toString());
         pathField.setEditable(false);
 
         JPanel jp = new JPanel();
@@ -53,10 +65,13 @@ public class MainWindow extends JFrame {
                 if(evt.getClickCount()==2){
                     //after 2 clicking two times on item in jFile list change directory if possible
                     int index = jFileList.locationToIndex(evt.getPoint());
-                    fileHandler.getFiles().get(index).contentAfterClicked();
+
                     if(fileHandler.getFiles().get(index) instanceof DirElement){
-                        fileHandler.childPath(fileHandler.getFiles().get(index).getFileName());
+                        System.out.println("click");
+                        fileHandler.setCurrentPath(fileHandler.getFiles().get(index).getFilePath());
+
                     }
+
                     updateJfileList();
                 }
             }
@@ -64,15 +79,15 @@ public class MainWindow extends JFrame {
         sp = new JScrollPane(jFileList);
 
         //jtextArea for file content
-        JTextArea contentJtextArea = new JTextArea();
+        contentJtextArea = new JTextArea();
         contentJtextArea.setVisible(true);
-        contentJtextArea.setText("hello content will be there");
+
         contentJtextArea.setPreferredSize(new Dimension(100, 100));
 
         //jtextArea for hash, from memory or disc
-        JTextArea infoJtextArea = new JTextArea();
+        infoJtextArea = new JTextArea();
         infoJtextArea.setVisible(true);
-        infoJtextArea.setText("From disc\nHash: 1234HashMd5");
+
 
         //Buttons
         JPanel buttonPanel = new JPanel();

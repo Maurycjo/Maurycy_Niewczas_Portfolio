@@ -1,22 +1,32 @@
 package pl.edu.pwr.file;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 abstract public class ElementInFileSystem {
 
-    private String fileName;
+    private Path filePath;
+    private Path fileName;
 
+    public ElementInFileSystem(String path){
+        this.filePath = Paths.get(path);
+        this.fileName = this.filePath.getFileName();
+    }
 
-    public ElementInFileSystem(String name){
-        fileName=name;
+    public Path getFilePath() {
+        return filePath;
     }
-    public String getFileName(){
-        return fileName;
+
+    public void setFilePath(String filePath) {
+        this.filePath = Paths.get(filePath);
     }
-    public void setFileName(String name){
-        fileName=name;
+
+    public String getFileName() {
+        return fileName.toString();
     }
 
     abstract public String getFileNameWithInfo();
-    abstract public void contentAfterClicked();
+
 
 
 }
