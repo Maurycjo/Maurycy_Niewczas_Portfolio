@@ -69,7 +69,8 @@ public class MainWindow extends JFrame {
                     if(fileHandler.getFiles().get(index) instanceof DirElement){
                         System.out.println("click");
                         fileHandler.setCurrentPath(fileHandler.getFiles().get(index).getFilePath());
-
+                    } else{
+                        fileHandler.getFiles().get(index).readFile();
                     }
 
                     updateJfileList();

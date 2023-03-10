@@ -27,8 +27,8 @@ abstract public class ElementInFileSystem {
 
     abstract public String getFileNameWithInfo();
 
-
-
+    public void readFile() {
+    }
 }
 
 

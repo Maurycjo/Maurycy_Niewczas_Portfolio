@@ -31,6 +31,9 @@ public class FileElement extends ElementInFileSystem{
         return "Plik | " + getFileName();
     }
 
+    public void readFile(){
+
+    }
 
     private String calculateMD5File() throws IOException, NoSuchAlgorithmException {
         //calculate md5 checksum for file
