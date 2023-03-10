@@ -1,4 +1,4 @@
-package pl.edu.pwr.app;
+package pl.edu.pwr.window;
 
 
 public class Main {

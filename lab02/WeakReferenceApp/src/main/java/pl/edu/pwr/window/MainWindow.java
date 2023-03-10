@@ -1,4 +1,7 @@
-package pl.edu.pwr.app;
+package pl.edu.pwr.window;
+
+import pl.edu.pwr.file.ElementInFileSystem;
+import pl.edu.pwr.file.FileHandler;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
-import javax.swing.UIManager;
 
 public class MainWindow extends JFrame {
 
@@ -15,12 +17,18 @@ public class MainWindow extends JFrame {
     JList<Object> jFileList = new JList<>();
     JTextField pathField = new JTextField();
     JScrollPane sp ;
+    DefaultListModel listModel = new DefaultListModel();
 
     private void updateJfileList(){
         //updating JFileList with item from current path and .md5 path
         fileHandler.fillFilesList();
         jFileList.removeAll();
-        jFileList.setListData(fileHandler.getFiles().toArray());
+        listModel.clear();
+        for(ElementInFileSystem element:fileHandler.getFiles()){
+            listModel.addElement(element.getFileNameWithInfo());
+        }
+        jFileList.setModel(listModel);
+
         jFileList.repaint();
         pathField.setText(FileHandler.getCurrentPath());
 
@@ -35,22 +43,17 @@ public class MainWindow extends JFrame {
         pathField.setText(FileHandler.getCurrentPath());
         pathField.setEditable(false);
 
-        //cl = new CardLayout();
-        //cardPanel.setLayout(cl);
         JPanel jp = new JPanel();
 
-        //jFileList.setFixedCellWidth(100);
-
-
         updateJfileList();
-        jFileList.setListData(fileHandler.getFiles().toArray());
         jFileList.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt){
                 JList jFileList = (JList)evt.getSource();
                 if(evt.getClickCount()==2){
                     //after 2 clicking two times on item in jFile list change directory if possible
                     int index = jFileList.locationToIndex(evt.getPoint());
-                    fileHandler.childPath(fileHandler.getFiles().get(index).getFileName());
+                    //fileHandler.childPath(fileHandler.getFiles().get(index).getFileName());
+                    fileHandler.getFiles().get(index).doubleClickedAction();
                     updateJfileList();
                 }
             }

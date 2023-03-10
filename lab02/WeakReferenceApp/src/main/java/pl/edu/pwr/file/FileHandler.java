@@ -1,9 +1,10 @@
-package pl.edu.pwr.app;
+package pl.edu.pwr.file;
+
+import org.apache.velocity.shaded.commons.io.FilenameUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -13,26 +14,11 @@ public class FileHandler {
 
     private static final String pathExpand = "/Desktop";
     private static String currentPath = System.getProperty("user.home") + pathExpand; //path that program start in
-    private ArrayList<FileInfo> files = new ArrayList<>(); //FileInfo objects from path
+    private ArrayList<ElementInFileSystem> files = new ArrayList<>(); //FileInfo objects from path
 
-    public void parentPath(){
-        //set paths 1 level up
-        Path path = Paths.get(currentPath);
 
-        if(path.getParent()!=null){
-          currentPath = String.valueOf(path.getParent().toAbsolutePath());
-        }
-    }
 
-    public void childPath(String fileName){
-        //set path 1 level down
-        Path path = Paths.get(currentPath + "/" + fileName);
-        if(Files.isDirectory(path)){
-            currentPath+="/"+fileName;
-        }
-
-    }
-    public ArrayList<FileInfo> getFiles() {
+    public ArrayList<ElementInFileSystem> getFiles() {
         return files;
     }
     public static void setCurrentPath(String currentPath) {
@@ -43,16 +29,30 @@ public class FileHandler {
         return currentPath;
     }
 
+    public void parentPath(){
+        //set paths 1 level up
+        Path path = Paths.get(currentPath);
+
+        if(path.getParent()!=null){
+            currentPath = String.valueOf(path.getParent().toAbsolutePath());
+        }
+    }
     public void fillFilesList(){
         //get all files to FileInfo Array from current path
         files.clear();      //clear before filling
 
-        //get from current path
+
         try (Stream<Path> paths = Files.list(Paths.get(currentPath))) {
-            paths.forEach(path -> files.add(new FileInfo(path.getFileName().toString())));
+            paths.filter(path -> path.toString().endsWith(".pdf"))
+                    .forEach(path -> files.add(new CsvFileElement(path.getFileName().toString())));
+//            paths.filter(path -> Files.isDirectory(path))
+//                    .forEach(path -> files.add(new DirElement(path.getFileName().toString())));
+//            paths.filter(path -> !path.toString().endsWith(".csv") && !Files.isDirectory(path))
+//                    .forEach(path -> files.add(new OtherFileElement(path.getFileName().toString())));
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
     }
 
