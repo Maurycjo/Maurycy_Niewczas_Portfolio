@@ -12,6 +12,8 @@ public class CsvFileElement extends FileElement{
     private float avgTemperature;
     private float avgHumidity;
 
+    private ArrayList<Measurement> measurementArrayList = new ArrayList<>();
+
     public float getAvgPressure() {
         return avgPressure;
     }
@@ -24,7 +26,9 @@ public class CsvFileElement extends FileElement{
         return avgHumidity;
     }
 
-    private ArrayList<Measurement> measurementArrayList = new ArrayList<>();
+    public ArrayList<Measurement> getMeasurementArrayList() {
+        return measurementArrayList;
+    }
 
     public CsvFileElement(String filePath){
         super(filePath);
@@ -41,14 +45,19 @@ public class CsvFileElement extends FileElement{
 
             lines.forEach(line-> {
 
-                String[] result = line.split(";");
+                String[] result = line.split(",");
 
-                String hour = result[0];
-                float pressure = Float.parseFloat(result[1]);
-                float temperature = Float.parseFloat(result[2]);
-                int humidity = Integer.parseInt(result[3]);
 
-                measurementArrayList.add(new Measurement(hour, pressure, temperature, humidity));
+
+                    String hour = result[0];
+
+
+                    float pressure = Float.parseFloat(result[1]);
+                    float temperature = Float.parseFloat(result[2]);
+                    int humidity = Integer.parseInt(result[3]);
+
+                    measurementArrayList.add(new Measurement(hour, pressure, temperature, humidity));
+
 
             });
 
@@ -56,6 +65,7 @@ public class CsvFileElement extends FileElement{
             throw new RuntimeException(e);
         }
 
+        System.out.println(measurementArrayList.size());
     }
 
     private void calculateAverageValues(){
