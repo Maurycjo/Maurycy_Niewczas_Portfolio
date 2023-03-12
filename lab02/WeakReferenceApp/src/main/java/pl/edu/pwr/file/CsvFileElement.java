@@ -64,8 +64,6 @@ public class CsvFileElement extends FileElement{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        System.out.println(measurementArrayList.size());
     }
 
     private void calculateAverageValues(){

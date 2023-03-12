@@ -42,21 +42,15 @@ public class MainWindow extends JFrame {
 
     }
 
-    private void setContentOnWindow(){
-
-
-        contentJtextArea.setText("hello content will be there");
-        infoJtextArea.setText("From disc\nHash: 1234HashMd5");
-
-    }
 
     private void loadRowsToMeasurementTable(int n, CsvFileElement csvFileElement){
 
+        tableModel = (DefaultTableModel) measurementTable.getModel();
+        tableModel.setRowCount(0);
 
 
         for(int i=0;i<n;i++){
             if(i==csvFileElement.getMeasurementArrayList().size()){
-                System.out.println(csvFileElement.getMeasurementArrayList().size());
                 break;
             }else {
 
@@ -66,10 +60,7 @@ public class MainWindow extends JFrame {
 
                 Object[] objs = {String.valueOf(pressure), String.valueOf(temperature), String.valueOf(humidity)};
                 tableModel.addRow(objs);
-                System.out.print(pressure);
 
-                System.out.print(temperature);
-                System.out.print(humidity);
 
             }
 
@@ -88,7 +79,7 @@ public class MainWindow extends JFrame {
 
         JPanel jp = new JPanel();
 
-        tableModel.addRow(columnNames);
+
         measurementTable = new JTable(tableModel);
 
 
@@ -106,7 +97,6 @@ public class MainWindow extends JFrame {
                         fileHandler.getFiles().get(index).readFile();
 
                         if(fileHandler.getFiles().get(index) instanceof CsvFileElement){
-                            System.out.println("hello");
                             loadRowsToMeasurementTable(100, (CsvFileElement) fileHandler.getFiles().get(index));
                         }
 
