@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class MainWindow extends JFrame {
 
-
     private CardLayout cl;
     FileHandler fileHandler = new FileHandler();
     JList<Object> jFileList = new JList<>();
@@ -42,12 +41,10 @@ public class MainWindow extends JFrame {
 
     }
 
-
     private void loadRowsToMeasurementTable(int n, CsvFileElement csvFileElement){
 
         tableModel = (DefaultTableModel) measurementTable.getModel();
         tableModel.setRowCount(0);
-
 
         for(int i=0;i<n;i++){
             if(i==csvFileElement.getMeasurementArrayList().size()){
@@ -60,12 +57,8 @@ public class MainWindow extends JFrame {
 
                 Object[] objs = {String.valueOf(pressure), String.valueOf(temperature), String.valueOf(humidity)};
                 tableModel.addRow(objs);
-
-
             }
-
         }
-
     }
 
     public MainWindow()
@@ -79,9 +72,7 @@ public class MainWindow extends JFrame {
 
         JPanel jp = new JPanel();
 
-
         measurementTable = new JTable(tableModel);
-
 
         updateJfileList();
         jFileList.addMouseListener(new MouseAdapter() {
@@ -99,10 +90,7 @@ public class MainWindow extends JFrame {
                         if(fileHandler.getFiles().get(index) instanceof CsvFileElement){
                             loadRowsToMeasurementTable(100, (CsvFileElement) fileHandler.getFiles().get(index));
                         }
-
-
                     }
-
                     updateJfileList();
                 }
             }
@@ -120,7 +108,6 @@ public class MainWindow extends JFrame {
         infoJtextArea = new JTextArea();
         infoJtextArea.setVisible(true);
 
-
         //Buttons
         JPanel buttonPanel = new JPanel();
         JButton backButton = new JButton("Powrót");
@@ -128,7 +115,6 @@ public class MainWindow extends JFrame {
 
         buttonPanel.add(backButton);
         buttonPanel.add(refreshButton);
-
 
         // add ActionListeners
         backButton.addActionListener(new ActionListener()
@@ -155,6 +141,5 @@ public class MainWindow extends JFrame {
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         getContentPane().add(contentSp, BorderLayout.CENTER);
         getContentPane().add(infoJtextArea, BorderLayout.EAST);
-
     }
 }

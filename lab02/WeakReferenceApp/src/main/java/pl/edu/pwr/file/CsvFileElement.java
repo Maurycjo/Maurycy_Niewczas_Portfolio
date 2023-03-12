@@ -3,7 +3,6 @@ package pl.edu.pwr.file;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class CsvFileElement extends FileElement{
@@ -38,7 +37,6 @@ public class CsvFileElement extends FileElement{
         return "Csv  | " + getFileName();
     }
 
-
     public void readFile(){
 
         try(Stream<String> lines = Files.lines(getFilePath())){
@@ -47,23 +45,18 @@ public class CsvFileElement extends FileElement{
 
                 String[] result = line.split(",");
 
-
-
                     String hour = result[0];
-
-
                     float pressure = Float.parseFloat(result[1]);
                     float temperature = Float.parseFloat(result[2]);
                     int humidity = Integer.parseInt(result[3]);
 
                     measurementArrayList.add(new Measurement(hour, pressure, temperature, humidity));
-
-
             });
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        this.calculateAverageValues();
     }
 
     private void calculateAverageValues(){
@@ -82,6 +75,4 @@ public class CsvFileElement extends FileElement{
         this.avgTemperature = sumTemperature/listSize;
         this.avgHumidity = sumHumidity/listSize;
     }
-
-
 }
