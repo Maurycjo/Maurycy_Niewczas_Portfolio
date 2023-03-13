@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class MainWindow extends JFrame {
 
-    private CardLayout cl;
     FileHandler fileHandler = new FileHandler();
     JList<Object> jFileList = new JList<>();
     JTextField pathField = new JTextField();
@@ -81,7 +80,7 @@ public class MainWindow extends JFrame {
     {
         //JPanel cardPanel = new JPanel();
         setTitle("Aplikacja WeakReferences");
-        setSize(800, 400);
+        setSize(1000, 400);
 
         pathField.setText(fileHandler.getCurrentPath().toString());
         pathField.setEditable(false);
@@ -106,7 +105,10 @@ public class MainWindow extends JFrame {
                         if(fileHandler.getFiles().get(index) instanceof CsvFileElement){
                             loadRowsToMeasurementTable(100, (CsvFileElement) fileHandler.getFiles().get(index));
                             loadAdditionalInfo((CsvFileElement) fileHandler.getFiles().get(index));
+                        } else if(fileHandler.getFiles().get(index) instanceof FileElement){
+                            loadAdditionalInfo((FileElement) fileHandler.getFiles().get(index));
                         }
+
                     }
                     updateJfileList();
                 }
@@ -130,12 +132,14 @@ public class MainWindow extends JFrame {
         JPanel additionalInfoPanel = new JPanel();
         additionalInfoPanel.setLayout(new BoxLayout(additionalInfoPanel, BoxLayout.Y_AXIS));
 
-        fileNameTextField = new JTextField();
-        avgPressureTextField = new JTextField();
-        avgTemperatureTextField = new JTextField();
-        avgHumidityTextField = new JTextField();
-        loadFromTextField = new JTextField();
-        md5TextField = new JTextField();
+
+        fileNameTextField = new JTextField("Nazwa pliku:                                   ");
+        avgPressureTextField = new JTextField("Średnie ciśnienie:                                  ");
+        avgTemperatureTextField = new JTextField("Średnia temperatura:                                  ");
+        avgHumidityTextField = new JTextField("Średnia wilgotność[%]:                                   ");
+        loadFromTextField = new JTextField("Załadowano z                                  ");
+        md5TextField = new JTextField("Hash MD5:                                  ");
+
 
         additionalInfoPanel.add(fileNameTextField);
         additionalInfoPanel.add(avgPressureTextField);
@@ -196,6 +200,17 @@ public class MainWindow extends JFrame {
          md5TextField.setText("Hash MD5: " + csvFileElement.getMd5CheckSum());
 
      }
+
+    private void loadAdditionalInfo(FileElement fileElement){
+
+        fileNameTextField.setText("Nazwa pliku: " + fileElement.getFileName());
+        avgPressureTextField.setText("Średnie ciśnienie: Brak danych");
+        avgTemperatureTextField.setText("Średnia temperatura: Brak danych");
+        avgHumidityTextField.setText("Średnia wilgotność[%]: Brak danych");
+        loadFromTextField.setText("Załadowano z " + "dysku");
+        md5TextField.setText("Hash MD5: " + fileElement.getMd5CheckSum());
+
+    }
 
 
 
