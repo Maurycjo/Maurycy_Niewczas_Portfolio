@@ -5,9 +5,9 @@ public class Measurement {
     private String hour;
     private float pressure;
     private float temperature;
-    private int humidity;
+    private float humidity;
 
-    public Measurement(String hour, float pressure, float temperature, int humidity) {
+    public Measurement(String hour, float pressure, float temperature, float humidity) {
      this.setHour(hour);
      this.setPressure(pressure);
      this.setTemperature(temperature);
@@ -44,11 +44,11 @@ public class Measurement {
         this.temperature = temperature;
     }
 
-    public int getHumidity() {
+    public float getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(int humidity) {
+    public void setHumidity(float humidity) {
         this.humidity = humidity;
     }
 

@@ -66,7 +66,7 @@ public class MainWindow extends JFrame {
 
                 float pressure = csvFileElement.getMeasurementArrayList().get(i).getPressure();
                 float temperature = csvFileElement.getMeasurementArrayList().get(i).getTemperature();
-                int humidity = csvFileElement.getMeasurementArrayList().get(i).getHumidity();
+                float humidity = csvFileElement.getMeasurementArrayList().get(i).getHumidity();
 
                 Object[] objs = {String.valueOf(pressure), String.valueOf(temperature), String.valueOf(humidity)};
                 tableModel.addRow(objs);
@@ -97,17 +97,35 @@ public class MainWindow extends JFrame {
                     //after 2 clicking two times on item in jFile list change directory if possible
                     int index = jFileList.locationToIndex(evt.getPoint());
 
+                    //dir
                     if(fileHandler.getFiles().get(index) instanceof DirElement){
                         fileHandler.setCurrentPath(fileHandler.getFiles().get(index).getFilePath());
                     } else{
-                        fileHandler.getFiles().get(index).readFile();
+
 
                         if(fileHandler.getFiles().get(index) instanceof CsvFileElement){
-                            loadRowsToMeasurementTable(100, (CsvFileElement) fileHandler.getFiles().get(index));
-                            loadAdditionalInfo((CsvFileElement) fileHandler.getFiles().get(index));
+
+                            CsvFileElement currentCsvFileElement;
+
+                            if(fileHandler.getFilesWeakHashMap().get(fileHandler.getFiles().get(index).getFilePath())==null){
+                                currentCsvFileElement= (CsvFileElement) fileHandler.getFiles().get(index);
+                                currentCsvFileElement.readFile();
+                                fileHandler.getFilesWeakHashMap().put(fileHandler.getFiles().get(index).getFilePath(), (FileElement) fileHandler.getFiles().get(index));
+                                loadFromTextField.setText("Załadowano z dysku");
+                            }
+                            else{
+                                currentCsvFileElement = (CsvFileElement) fileHandler.getFilesWeakHashMap().get(fileHandler.getFiles().get(index).getFilePath());
+                                loadFromTextField.setText("Załadowano z pamięci");
+                            }
+
+
+                            loadRowsToMeasurementTable(100, currentCsvFileElement);
+                            loadAdditionalInfo(currentCsvFileElement);
                         } else if(fileHandler.getFiles().get(index) instanceof FileElement){
                             loadAdditionalInfo((FileElement) fileHandler.getFiles().get(index));
                         }
+
+
 
                     }
                     updateJfileList();
@@ -196,7 +214,6 @@ public class MainWindow extends JFrame {
          avgPressureTextField.setText("Średnie ciśnienie: " + csvFileElement.getAvgPressure());
          avgTemperatureTextField.setText("Średnia temperatura: " + csvFileElement.getAvgTemperature());
          avgHumidityTextField.setText("Średnia wilgotność[%]:  "+ csvFileElement.getAvgHumidity());
-         loadFromTextField.setText("Załadowano z " + "dysku");
          md5TextField.setText("Hash MD5: " + csvFileElement.getMd5CheckSum());
 
      }

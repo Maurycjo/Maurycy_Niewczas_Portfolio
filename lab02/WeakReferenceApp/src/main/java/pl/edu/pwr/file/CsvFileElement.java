@@ -2,7 +2,9 @@ package pl.edu.pwr.file;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.WeakHashMap;
 import java.util.stream.Stream;
 
 public class CsvFileElement extends FileElement{
@@ -12,6 +14,7 @@ public class CsvFileElement extends FileElement{
     private float avgHumidity;
 
     private ArrayList<Measurement> measurementArrayList = new ArrayList<>();
+
 
     public float getAvgPressure() {
         return avgPressure;
@@ -48,7 +51,7 @@ public class CsvFileElement extends FileElement{
                     String hour = result[0];
                     float pressure = Float.parseFloat(result[1]);
                     float temperature = Float.parseFloat(result[2]);
-                    int humidity = Integer.parseInt(result[3]);
+                    float humidity = Float.parseFloat(result[3]);
 
                     measurementArrayList.add(new Measurement(hour, pressure, temperature, humidity));
             });

@@ -6,15 +6,21 @@ import java.nio.file.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.WeakHashMap;
 import java.util.stream.Stream;
 
 public class FileHandler {
 
-    private static final String pathExpand = "/Desktop";
+    private static final String pathExpand = "/Desktop/csvki";
     private Path currentPath = Paths.get(System.getProperty("user.home") + pathExpand); //path that program start in
+
     private ArrayList<ElementInFileSystem> files = new ArrayList<>(); //FileInfo objects from path
 
+    private WeakHashMap<Path, FileElement> filesWeakHashMap = new WeakHashMap<Path, FileElement>();
 
+    public WeakHashMap<Path, FileElement> getFilesWeakHashMap() {
+        return filesWeakHashMap;
+    }
 
     public ArrayList<ElementInFileSystem> getFiles() {
         return files;
