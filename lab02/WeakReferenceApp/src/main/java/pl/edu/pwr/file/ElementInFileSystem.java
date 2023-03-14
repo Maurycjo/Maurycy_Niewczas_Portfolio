@@ -8,8 +8,8 @@ abstract public class ElementInFileSystem {
     private Path filePath;
     private Path fileName;
 
-    public ElementInFileSystem(String path){
-        this.filePath = Paths.get(path);
+    public ElementInFileSystem(Path path){
+        this.filePath = path;
         this.fileName = this.filePath.getFileName();
     }
 

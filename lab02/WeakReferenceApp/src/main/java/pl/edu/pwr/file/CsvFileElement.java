@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.WeakHashMap;
 import java.util.stream.Stream;
 
 public class CsvFileElement extends FileElement{
@@ -32,7 +31,7 @@ public class CsvFileElement extends FileElement{
         return measurementArrayList;
     }
 
-    public CsvFileElement(String filePath){
+    public CsvFileElement(Path filePath){
         super(filePath);
     }
 

@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,26 +35,21 @@ public class MainWindow extends JFrame {
     JTextField loadFromTextField;
     JTextField md5TextField ;
 
-
-
     CsvFileElement csvFileElement = null;
-
-
 
     private void updateJfileList(){
         //updating JFileList with item from current path and .md5 path
-        fileHandler.fillFilesList();
+        fileHandler.fillFilesPathList();
         jFileList.removeAll();
         listModel.clear();
-        for(ElementInFileSystem element:fileHandler.getFiles()){
-            listModel.addElement(element.getFileNameWithInfo());
+        for(Path path:fileHandler.getFilesPath()){
+            listModel.addElement(path.getFileName());
         }
         jFileList.setModel(listModel);
 
         jFileList.repaint();
         measurementTable.repaint();
         pathField.setText(fileHandler.getCurrentPath().toString());
-
     }
 
     private void loadRowsToMeasurementTable(int n, CsvFileElement csvFileElement){
@@ -94,44 +92,50 @@ public class MainWindow extends JFrame {
             public void mouseClicked(MouseEvent evt){
                 JList jFileList = (JList)evt.getSource();
                 if(evt.getClickCount()==2){
+
+                    fileHandler.clearFiles();
+                    fileHandler.fillFilesList();
+
                     //after 2 clicking two times on item in jFile list change directory if possible
                     int index = jFileList.locationToIndex(evt.getPoint());
 
+
+                    ElementInFileSystem clickedElement;
                     //dir
-                    if(fileHandler.getFiles().get(index) instanceof DirElement){
-                        fileHandler.setCurrentPath(fileHandler.getFiles().get(index).getFilePath());
-                    } else{
+                    if(Files.isDirectory(fileHandler.getFilesPath().get(index))){
 
+                        clickedElement = new DirElement(fileHandler.getFilesPath().get(index));
+                        fileHandler.setCurrentPath(clickedElement.getFilePath());
 
-                        if(fileHandler.getFiles().get(index) instanceof CsvFileElement){
+                    } else if(fileHandler.getFilesPath().get(index).toString().endsWith(".csv")){
 
-                            CsvFileElement currentCsvFileElement;
+                        //csv file
+                        clickedElement = new CsvFileElement(fileHandler.getFilesPath().get(index));
 
-                            if(fileHandler.getFilesWeakHashMap().get(fileHandler.getFiles().get(index).getFilePath())==null){
-                                currentCsvFileElement= (CsvFileElement) fileHandler.getFiles().get(index);
-                                currentCsvFileElement.readFile();
-                                fileHandler.getFilesWeakHashMap().put(fileHandler.getFiles().get(index).getFilePath(), (FileElement) fileHandler.getFiles().get(index));
-                                loadFromTextField.setText("Załadowano z dysku");
-                            }
-                            else{
-                                currentCsvFileElement = (CsvFileElement) fileHandler.getFilesWeakHashMap().get(fileHandler.getFiles().get(index).getFilePath());
-                                loadFromTextField.setText("Załadowano z pamięci");
-                            }
+                        //check if csv is in memory
+                        if(fileHandler.getFilesWeakHashMap().get(clickedElement.getFilePath())==null){
 
-
-                            loadRowsToMeasurementTable(100, currentCsvFileElement);
-                            loadAdditionalInfo(currentCsvFileElement);
-                        } else if(fileHandler.getFiles().get(index) instanceof FileElement){
-                            loadAdditionalInfo((FileElement) fileHandler.getFiles().get(index));
+                            clickedElement.readFile();
+                            fileHandler.getFilesWeakHashMap().put(fileHandler.getFiles().get(index).getFilePath(), (CsvFileElement) clickedElement);
+                            loadFromTextField.setText("Załadowano z dysku");
+                        }
+                        else{
+                            clickedElement =fileHandler.getFilesWeakHashMap().get(clickedElement.getFilePath());
+                            loadFromTextField.setText("Załadowano z pamięci");
                         }
 
+                        loadRowsToMeasurementTable(100, (CsvFileElement) clickedElement);
+                        loadAdditionalInfo((CsvFileElement) clickedElement);
 
-
+                    } else {
+                        clickedElement = new FileElement(fileHandler.getFilesPath().get(index));
+                        loadAdditionalInfo((FileElement) clickedElement);
                     }
-                    updateJfileList();
                 }
-            }
+                updateJfileList();
+                }
         });
+
         sp = new JScrollPane(jFileList);
         contentSp = new JScrollPane(measurementTable);
 

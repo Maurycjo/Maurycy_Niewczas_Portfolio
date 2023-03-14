@@ -3,7 +3,6 @@ package pl.edu.pwr.file;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -12,7 +11,7 @@ public class FileElement extends ElementInFileSystem{
 
     private String md5CheckSum;
 
-    public FileElement(String filePath){
+    public FileElement(Path filePath){
         super(filePath);
         try {
             md5CheckSum=calculateMD5File();
