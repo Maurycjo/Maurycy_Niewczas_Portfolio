@@ -8,9 +8,9 @@ import java.util.stream.Stream;
 
 public class CsvFileElement extends FileElement{
 
-    private float avgPressure;
-    private float avgTemperature;
-    private float avgHumidity;
+    private float avgPressure=0.00f;
+    private float avgTemperature=0.00f;
+    private float avgHumidity=0.00f;
 
     private ArrayList<Measurement> measurementArrayList = new ArrayList<>();
 
@@ -73,8 +73,10 @@ public class CsvFileElement extends FileElement{
         }
 
         int listSize = measurementArrayList.size();
-        this.avgPressure = sumPressure/listSize;
-        this.avgTemperature = sumTemperature/listSize;
-        this.avgHumidity = sumHumidity/listSize;
+
+
+        this.avgPressure = (float) (Math.round(sumPressure/listSize * 100.0)/100.0);
+        this.avgTemperature = (float)(Math.round(sumTemperature/listSize * 100.0)/100.0);
+        this.avgHumidity = (float) (Math.round(sumHumidity/listSize * 100.0)/100.0);
     }
 }

@@ -24,7 +24,7 @@ public class MainWindow extends JFrame {
     JScrollPane contentSp;
     DefaultListModel listModel = new DefaultListModel();
     JTable measurementTable;
-    String[] columnNames ={"Ciśnienie", "Temperatura", "Wilgotność"}; //column names in content display
+    String[] columnNames ={"Ciśnienie [hPa]", "Temperatura [℃]", "Wilgotność [%]"}; //column names in content display
     DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
 
@@ -43,7 +43,17 @@ public class MainWindow extends JFrame {
         jFileList.removeAll();
         listModel.clear();
         for(Path path:fileHandler.getFilesPath()){
-            listModel.addElement(path.getFileName());
+
+            String text;
+            if(Files.isDirectory(path)){
+                text="Dir  |";
+            } else if(path.toString().endsWith(".csv")){
+                text="Csv |";
+            } else{
+                text="File |";
+            }
+
+            listModel.addElement(text+path.getFileName());
         }
         jFileList.setModel(listModel);
 
@@ -158,7 +168,7 @@ public class MainWindow extends JFrame {
         fileNameTextField = new JTextField("Nazwa pliku:                                   ");
         avgPressureTextField = new JTextField("Średnie ciśnienie:                                  ");
         avgTemperatureTextField = new JTextField("Średnia temperatura:                                  ");
-        avgHumidityTextField = new JTextField("Średnia wilgotność[%]:                                   ");
+        avgHumidityTextField = new JTextField("Średnia wilgotność:                                   ");
         loadFromTextField = new JTextField("Załadowano z                                  ");
         md5TextField = new JTextField("Hash MD5:                                  ");
 
@@ -215,9 +225,9 @@ public class MainWindow extends JFrame {
      private void loadAdditionalInfo(CsvFileElement csvFileElement){
 
          fileNameTextField.setText("Nazwa pliku: " + csvFileElement.getFileName());
-         avgPressureTextField.setText("Średnie ciśnienie: " + csvFileElement.getAvgPressure());
-         avgTemperatureTextField.setText("Średnia temperatura: " + csvFileElement.getAvgTemperature());
-         avgHumidityTextField.setText("Średnia wilgotność[%]:  "+ csvFileElement.getAvgHumidity());
+         avgPressureTextField.setText("Średnie ciśnienie: " + csvFileElement.getAvgPressure()+ "[hPa]");
+         avgTemperatureTextField.setText("Średnia temperatura: " + csvFileElement.getAvgTemperature()+"[℃]");
+         avgHumidityTextField.setText("Średnia wilgotność:  "+ csvFileElement.getAvgHumidity() + "[%]");
          md5TextField.setText("Hash MD5: " + csvFileElement.getMd5CheckSum());
 
      }
@@ -227,12 +237,10 @@ public class MainWindow extends JFrame {
         fileNameTextField.setText("Nazwa pliku: " + fileElement.getFileName());
         avgPressureTextField.setText("Średnie ciśnienie: Brak danych");
         avgTemperatureTextField.setText("Średnia temperatura: Brak danych");
-        avgHumidityTextField.setText("Średnia wilgotność[%]: Brak danych");
+        avgHumidityTextField.setText("Średnia wilgotność: Brak danych");
         loadFromTextField.setText("Załadowano z " + "dysku");
         md5TextField.setText("Hash MD5: " + fileElement.getMd5CheckSum());
 
     }
-
-
 
 }
