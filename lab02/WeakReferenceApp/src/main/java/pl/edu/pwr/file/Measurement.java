@@ -27,11 +27,7 @@ public class Measurement {
     }
 
     public void setPressure(float pressure) {
-//        if(pressure>=0 && pressure<=100){
-//            this.pressure = pressure;
-//        } else{
-//            throw new IllegalArgumentException("can't be smaller than 0 and greater than 100");
-//        }
+
         this.pressure=pressure;
 
     }
