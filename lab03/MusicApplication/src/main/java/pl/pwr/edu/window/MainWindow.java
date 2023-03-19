@@ -1,3 +1,4 @@
+package pl.pwr.edu.window;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,16 +13,30 @@ public class MainWindow extends JFrame {
 
     CardLayout cardLayout = new CardLayout();
     JPanel cards = new JPanel(cardLayout); //panel that contains cards
-    JPanel card1 = new JPanel();
-    JPanel card2 = new JPanel();
-    JPanel card3 = new JPanel();
+    JPanel card1 = new QuestionPanel();
+    JPanel card2 = new QuestionPanel();
+    JPanel card3 = new QuestionPanel();
 
+    JMenuBar menuBar;
+    JMenu menu, submenu;
+    JMenuItem menuItem1, menuItem2;
     public MainWindow()
     {
         //JPanel cardPanel = new JPanel();
         setTitle("Aplikacja Muzyczna");
         setSize(600, 400);
 
+        menuBar = new JMenuBar();
+        menu = new JMenu("Język/Language");
+        menuBar.add(menu);
+
+        menuItem1 = new JMenuItem("Polski|Polish");
+        menuItem2 = new JMenuItem("Angielski|English");
+
+        menu.add(menuItem1);
+        menu.add(menuItem2);
+
+        setJMenuBar(menuBar);
 
         cards.add(card1);
         cards.add(card2);
@@ -31,21 +46,20 @@ public class MainWindow extends JFrame {
         JTextField testTextField2 = new JTextField("2");
         JTextField testTextField3 = new JTextField("3");
 
-        card1.add(testTextField1);
-        card2.add(testTextField2);
-        card3.add(testTextField3);
-
-
 
         //Buttons
         JPanel buttonPanel = new JPanel();
         JButton previousButton = new JButton("Poprzednie");
         JButton nextButton = new JButton("Następne");
-        JButton acceptButton = new JButton("Sprawdz");
+        JButton newQuestionButton = new JButton("Nowe Pytania");
+
 
         buttonPanel.add(previousButton);
         buttonPanel.add(nextButton);
-        buttonPanel.add(acceptButton);
+        buttonPanel.add(newQuestionButton);
+
+
+
 
         // add ActionListeners
         previousButton.addActionListener(new ActionListener()
@@ -66,7 +80,7 @@ public class MainWindow extends JFrame {
             }
         });
 
-        acceptButton.addActionListener(new ActionListener()
+        newQuestionButton.addActionListener(new ActionListener()
         {
             //refresh, checking checksums, deletions, additions
             public void actionPerformed(ActionEvent arg0)
@@ -77,6 +91,7 @@ public class MainWindow extends JFrame {
 
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         getContentPane().add(cards, BorderLayout.CENTER);
+
     }
 
 }
