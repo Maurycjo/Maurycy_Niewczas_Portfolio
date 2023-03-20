@@ -48,16 +48,8 @@ import java.awt.event.*;
             }
             radioButtons[0].setSelected(true);
 
-            checkButton = new JButton("Sprawdź");
-
-            checkButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
             add(questionTextField, BorderLayout.NORTH); //dodajemy przycisk do panelu
             add(radioButtonPanel, BorderLayout.CENTER);
-            add(checkButton, BorderLayout.SOUTH);
 
         }
 

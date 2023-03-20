@@ -18,7 +18,7 @@ public class MainWindow extends JFrame {
     JPanel card3 = new QuestionPanel();
 
     JMenuBar menuBar;
-    JMenu menu, submenu;
+    JMenu menuPl, menuEng;
     JMenuItem menuItem1, menuItem2;
     public MainWindow()
     {
@@ -27,15 +27,10 @@ public class MainWindow extends JFrame {
         setSize(600, 400);
 
         menuBar = new JMenuBar();
-        menu = new JMenu("Język/Language");
-        menuBar.add(menu);
-
-        menuItem1 = new JMenuItem("Polski|Polish");
-        menuItem2 = new JMenuItem("Angielski|English");
-
-        menu.add(menuItem1);
-        menu.add(menuItem2);
-
+        menuPl = new JMenu("PL");
+        menuEng = new JMenu("ENG");
+        menuBar.add(menuPl);
+        menuBar.add(menuEng);
         setJMenuBar(menuBar);
 
         cards.add(card1);
@@ -49,29 +44,17 @@ public class MainWindow extends JFrame {
 
         //Buttons
         JPanel buttonPanel = new JPanel();
-        JButton previousButton = new JButton("Poprzednie");
-        JButton nextButton = new JButton("Następne");
-        JButton newQuestionButton = new JButton("Nowe Pytania");
 
+        JButton newQuizButton = new JButton("Od nowa");
+        JButton checkButton = new JButton("Sprawdz");
 
-        buttonPanel.add(previousButton);
-        buttonPanel.add(nextButton);
-        buttonPanel.add(newQuestionButton);
-
-
+        buttonPanel.add(newQuizButton);
+        buttonPanel.add(checkButton);
 
 
         // add ActionListeners
-        previousButton.addActionListener(new ActionListener()
-        {
-            //go 1 level up in directory
-            public void actionPerformed(ActionEvent arg0)
-            {
-                cardLayout.previous(cards);
-            }
-        });
 
-        nextButton.addActionListener(new ActionListener()
+        checkButton.addActionListener(new ActionListener()
         {
             //refresh, checking checksums, deletions, additions
             public void actionPerformed(ActionEvent arg0)
@@ -80,9 +63,8 @@ public class MainWindow extends JFrame {
             }
         });
 
-        newQuestionButton.addActionListener(new ActionListener()
+        newQuizButton.addActionListener(new ActionListener()
         {
-            //refresh, checking checksums, deletions, additions
             public void actionPerformed(ActionEvent arg0)
             {
 

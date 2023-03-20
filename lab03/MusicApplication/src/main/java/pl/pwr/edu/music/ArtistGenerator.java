@@ -24,18 +24,26 @@ public class ArtistGenerator {
 
     Gson gson;
 
+    String albumUri ="https://shazam.p.rapidapi.com/artists/get-summary?id="; //1055357556&l=en-US
 
     public ArtistGenerator() throws IOException, InterruptedException {
 
 
        uriList.add("https://shazam.p.rapidapi.com/search?term=Nocny%20Kochanek&locale=en-US&offset=0&limit=5");
+//       uriList.add("https://shazam.p.rapidapi.com/search?term=%C5%82zy&locale=en-US&offset=0&limit=5");
+//       uriList.add("https://shazam.p.rapidapi.com/search?term=wilki&locale=en-US&offset=0&limit=5");
+//       uriList.add("https://shazam.p.rapidapi.com/search?term=Elektryczne%20gitary&locale=en-US&offset=0&limit=5");
+
+
+
+
+
+        //"https://shazam.p.rapidapi.com/artists/get-summary?id=1055357556&l=en-US"
 
 
        for(int i=0;i<uriList.size();i++){
            generateArtist(uriList.get(i));
        }
-
-
 
     }
 
@@ -66,7 +74,16 @@ public class ArtistGenerator {
                 .get("subtitle")
                 .getAsString();
 
-        artistArrayList.add(new Artist(subtitle, titles));
+        String artistId = jsonObject.getAsJsonObject("artists")
+                .getAsJsonArray("hits")
+                .get(0)
+                .getAsJsonObject()
+                .getAsJsonObject("artist")
+                .get("adamid")
+                .getAsString();
+
+        artistArrayList.add(new Artist(artistId, subtitle, titles));
     }
+
 
 }
