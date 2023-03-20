@@ -1,8 +1,13 @@
 package pl.pwr.edu.window;
 
+import pl.pwr.edu.music.Artist;
+import pl.pwr.edu.music.ArtistGenerator;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.ResourceBundle;
 
 
     public class QuestionPanel extends JPanel {
@@ -10,21 +15,42 @@ import java.awt.event.*;
 
         JTextField questionTextField ;
         final int numOfAnswerRadioButtons = 4;
-        int correctAnswer;
+        int correctAnswer=2;
 
 
 
         private String answerA="a", answerB="b", answerC="c", answerD="d";
-        private String question="Question";
+        private String question;
 
 
         JRadioButton[] radioButtons;
 
-        public QuestionPanel() {
+        public QuestionPanel(ResourceBundle rb) {
 
             //question + album from api + ?
 
             setLayout(new BorderLayout());
+
+            ArtistGenerator artistGenerator;
+            try {
+                artistGenerator=new ArtistGenerator();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+
+            Artist currentArtist = artistGenerator.getArtistArrayList().get(0);
+            question = rb.getString("AuthorQuestion");
+            question=question.replace("...", currentArtist.getPieceOfMusic().get(0));
+
+
+            answerA = artistGenerator.getArtistArrayList().get(1).getName();
+            answerB = artistGenerator.getArtistArrayList().get(2).getName();
+            answerC = currentArtist.getName();
+            answerD = artistGenerator.getArtistArrayList().get(3).getName();
+
 
             questionTextField = new JTextField(question); //pytanie
             add(questionTextField);
@@ -50,6 +76,12 @@ import java.awt.event.*;
 
             add(questionTextField, BorderLayout.NORTH); //dodajemy przycisk do panelu
             add(radioButtonPanel, BorderLayout.CENTER);
+
+        }
+
+
+        public boolean checkIfCorrectSelect(){
+            return radioButtons[correctAnswer].isSelected();
 
         }
 

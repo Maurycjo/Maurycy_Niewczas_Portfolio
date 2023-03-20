@@ -14,15 +14,7 @@ public class MainWindow extends JFrame {
 
     CardLayout cardLayout = new CardLayout();
     JPanel cards = new JPanel(cardLayout); //panel that contains cards
-    JPanel card1 = new QuestionPanel();
-    JPanel card2 = new QuestionPanel();
-    JPanel card3 = new QuestionPanel();
 
-    JMenuBar menuBar;
-    JMenuItem menuPl, menuEng;
-
-    JButton newQuizButton = new JButton();
-    JButton checkButton = new JButton();
 
     public enum Language{
         POLISH,
@@ -31,6 +23,18 @@ public class MainWindow extends JFrame {
 
     Language language = Language.POLISH;
     private ResourceBundle rb = ResourceBundle.getBundle("MessageBundle_PL", new Locale("pl", "PL"));
+
+
+    QuestionPanel card1 = new QuestionPanel(rb);
+    QuestionPanel card2 = new QuestionPanel(rb);
+    QuestionPanel card3 = new QuestionPanel(rb);
+
+    JMenuBar menuBar;
+    JMenuItem menuPl, menuEng;
+
+    JButton newQuizButton = new JButton();
+    JButton checkButton = new JButton();
+
 
     public MainWindow()
     {
@@ -77,6 +81,8 @@ public class MainWindow extends JFrame {
         cards.add(card2);
         cards.add(card3);
 
+        QuestionPanel currentPanel = card1;
+
         JTextField testTextField1 = new JTextField("1");
         JTextField testTextField2 = new JTextField("2");
         JTextField testTextField3 = new JTextField("3");
@@ -97,7 +103,14 @@ public class MainWindow extends JFrame {
             //refresh, checking checksums, deletions, additions
             public void actionPerformed(ActionEvent arg0)
             {
-                cardLayout.next(cards);
+                if(currentPanel.checkIfCorrectSelect()){
+                    System.out.println("Dobra odpowiedz");
+                }
+                else {
+                    System.out.println("zla odpowiedz");
+                }
+
+                //cardLayout.next(cards);
             }
         });
 

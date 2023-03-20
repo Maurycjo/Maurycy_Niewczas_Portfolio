@@ -30,9 +30,9 @@ public class ArtistGenerator {
 
 
        uriList.add("https://shazam.p.rapidapi.com/search?term=Nocny%20Kochanek&locale=en-US&offset=0&limit=5");
-//       uriList.add("https://shazam.p.rapidapi.com/search?term=%C5%82zy&locale=en-US&offset=0&limit=5");
-//       uriList.add("https://shazam.p.rapidapi.com/search?term=wilki&locale=en-US&offset=0&limit=5");
-//       uriList.add("https://shazam.p.rapidapi.com/search?term=Elektryczne%20gitary&locale=en-US&offset=0&limit=5");
+       uriList.add("https://shazam.p.rapidapi.com/search?term=%C5%82zy&locale=en-US&offset=0&limit=5");
+       uriList.add("https://shazam.p.rapidapi.com/search?term=wilki&locale=en-US&offset=0&limit=5");
+       uriList.add("https://shazam.p.rapidapi.com/search?term=Elektryczne%20gitary&locale=en-US&offset=0&limit=5");
 
 
 

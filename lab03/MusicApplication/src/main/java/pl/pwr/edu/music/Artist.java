@@ -14,6 +14,10 @@ public class Artist {
         return artistId;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public ArrayList<String> getAlbumList() {
         return albumList;
     }
@@ -22,6 +26,9 @@ public class Artist {
         albumList.add(album);
     }
 
+    public ArrayList<String> getPieceOfMusic() {
+        return pieceOfMusic;
+    }
 
     public Artist(String artistId, String name, ArrayList<String> pieceOfMusic) {
         this.artistId=artistId;
