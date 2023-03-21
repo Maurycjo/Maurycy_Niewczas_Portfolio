@@ -19,8 +19,10 @@ public class ArtistFromApi extends ArtistFromFile{
     private String rapidApiHost ="shazam.p.rapidapi.com";
     private String artistId;
 
+    private int howManyAlbumsAndSinglies;
 
     private ArrayList<String> pieceOfMusic=new ArrayList<>();
+    private ArrayList<String> pieceOfMusicKeys=new ArrayList<>();
 
 
     public ArrayList<String> getPieceOfMusic() {
@@ -28,18 +30,20 @@ public class ArtistFromApi extends ArtistFromFile{
     }
 
 
-
+    public int getHowManyAlbumsAndSinglies() {
+        return howManyAlbumsAndSinglies;
+    }
 
     public ArtistFromApi(String artistName, String url) {
 
         super(artistName, url);
         getArtistInfoFromApi();
+        loadNumbersOfAlbums();
 
     }
 
 
     public void getArtistInfoFromApi(){
-
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(getUrl()))
@@ -63,7 +67,9 @@ public class ArtistFromApi extends ArtistFromFile{
 
         for (JsonElement hit : hits) {
             String title = hit.getAsJsonObject().getAsJsonObject("track").get("title").getAsString();
+            String key = hit.getAsJsonObject().getAsJsonObject("track").get("key").getAsString();
             pieceOfMusic.add(title);
+            pieceOfMusicKeys.add(key);
         }
 
 
@@ -76,6 +82,41 @@ public class ArtistFromApi extends ArtistFromFile{
                 .getAsString();
 
         this.artistId=artistId;
+
+    }
+
+
+    public void loadNumbersOfAlbums(){
+
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://shazam.p.rapidapi.com/artists/get-details?id="+artistId+"&1=en-US"))
+                .header("X-RapidAPI-Key", rapidApiKey)
+                .header("X-RapidAPI-Host", rapidApiHost)
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = null;
+        try {
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(response.body(), JsonObject.class);
+
+
+        JsonArray jsonArray = jsonObject.getAsJsonArray("data")
+                .get(0)
+                .getAsJsonObject()
+                .getAsJsonObject("relationships")
+                .getAsJsonObject("albums")
+                .getAsJsonArray("data");
+
+        howManyAlbumsAndSinglies=jsonArray.size();
+
 
     }
 

@@ -28,9 +28,8 @@ public class MainWindow extends JFrame {
 
     ArtistLoader artistLoaderFromFile = new ArtistLoader();
 
-    QuestionPanel card1 = new QuestionPanel(rb, artistLoaderFromFile);
-    QuestionPanel card2 = new QuestionPanel(rb, artistLoaderFromFile);
-    QuestionPanel card3 = new QuestionPanel(rb, artistLoaderFromFile);
+    AuthorQuestionPanel card1 = new AuthorQuestionPanel(rb, artistLoaderFromFile);
+    //AlbumQuestionPanel card1 = new AlbumQuestionPanel(rb, artistLoaderFromFile);
 
     JMenuBar menuBar;
     JMenuItem menuPl, menuEng;
@@ -81,10 +80,10 @@ public class MainWindow extends JFrame {
         setJMenuBar(menuBar);
 
         cards.add(card1);
-        cards.add(card2);
-        cards.add(card3);
+//        cards.add(card2);
+//        cards.add(card3);
 
-        QuestionPanel currentPanel = card1;
+        AuthorQuestionPanel currentPanel = card1;
 
         JTextField testTextField1 = new JTextField("1");
         JTextField testTextField2 = new JTextField("2");
