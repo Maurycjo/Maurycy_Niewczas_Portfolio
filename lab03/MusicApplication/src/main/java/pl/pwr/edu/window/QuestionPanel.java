@@ -14,9 +14,8 @@ import java.util.ResourceBundle;
 
         JTextField questionTextField ;
         final int numOfAnswerRadioButtons = 4;
-        int correctAnswer=2;
 
-
+        int randomCorrectNumber;
         private String[] answers = new String[numOfAnswerRadioButtons];
         private String question;
 
@@ -40,7 +39,7 @@ import java.util.ResourceBundle;
             question=question.replace("...", currentArtist.getRandomSong());
 
             Random random = new Random();
-            int randomCorrectNumber = random.nextInt(numOfAnswerRadioButtons);
+            randomCorrectNumber = random.nextInt(numOfAnswerRadioButtons);
 
             answers[randomCorrectNumber]=currentArtist.getArtistName();
 
@@ -83,7 +82,7 @@ import java.util.ResourceBundle;
 
 
         public boolean checkIfCorrectSelect(){
-            return radioButtons[correctAnswer].isSelected();
+            return radioButtons[randomCorrectNumber].isSelected();
         }
 
 
