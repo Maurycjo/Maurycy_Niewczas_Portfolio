@@ -21,8 +21,8 @@ public class MainWindow extends JFrame {
 
 
     ArtistLoader artistLoaderFromFile = new ArtistLoader();
-    AuthorQuestionPanel card1 = new AuthorQuestionPanel(bundle, artistLoaderFromFile);
-    //AlbumQuestionPanel card1 = new AlbumQuestionPanel(rb, artistLoaderFromFile);
+    //AuthorQuestionPanel card1 = new AuthorQuestionPanel(bundle, artistLoaderFromFile);
+    AlbumQuestionPanel card1 = new AlbumQuestionPanel(bundle, artistLoaderFromFile);
 
     JMenuBar menuBar;
     JMenuItem menuPl, menuEng;
