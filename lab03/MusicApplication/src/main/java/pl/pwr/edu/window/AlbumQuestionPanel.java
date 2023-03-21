@@ -57,6 +57,9 @@ public class AlbumQuestionPanel extends QuestionPanel {
 
     @Override
     public void setLanguage() {
+        question=this.bundle.getRb().getString("AlbumQuestion");
+        question=question.replace("...", currentArtist.getArtistName());
+        questionTextField.setText(question);
 
     }
 
