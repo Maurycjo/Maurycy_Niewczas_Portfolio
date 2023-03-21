@@ -17,18 +17,11 @@ public class MainWindow extends JFrame {
     CardLayout cardLayout = new CardLayout();
     JPanel cards = new JPanel(cardLayout); //panel that contains cards
 
+    Bundle bundle = new Bundle();
 
-    public enum Language{
-        POLISH,
-        ENGLISH
-    }
-
-    Language language = Language.POLISH;
-    private ResourceBundle rb = ResourceBundle.getBundle("MessageBundle_PL", new Locale("pl", "PL"));
 
     ArtistLoader artistLoaderFromFile = new ArtistLoader();
-
-    AuthorQuestionPanel card1 = new AuthorQuestionPanel(rb, artistLoaderFromFile);
+    AuthorQuestionPanel card1 = new AuthorQuestionPanel(bundle, artistLoaderFromFile);
     //AlbumQuestionPanel card1 = new AlbumQuestionPanel(rb, artistLoaderFromFile);
 
     JMenuBar menuBar;
@@ -44,62 +37,57 @@ public class MainWindow extends JFrame {
         setTextOnElements();
         setSize(600, 400);
 
+        QuestionPanel currentPanel = card1;
+
+
+        cards.add(card1);
+//        cards.add(card2);
+//        cards.add(card3);
+
+
         menuBar = new JMenuBar();
         menuPl = new JMenuItem(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(language==Language.ENGLISH){
-                    rb = ResourceBundle.getBundle("MessageBundle_PL", new Locale("pl", "PL"));
-                    language=Language.POLISH;
+                if(bundle.language== Bundle.Language.ENGLISH){
+                    bundle.changeLanguage();
                     setTextOnElements();
-
+                    currentPanel.setBundle(bundle);
+                    currentPanel.setLanguage();
                 }
+
 
             }
         });
+
 
         menuPl.setText("PL");
 
         menuEng = new JMenuItem(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(language==Language.POLISH){
-                    rb = ResourceBundle.getBundle("MessageBundle_EN", new Locale("en", "EN"));
-                    language=Language.ENGLISH;
+                if(bundle.language==Bundle.Language.POLISH){
+                    bundle.changeLanguage();
                     setTextOnElements();
+                    currentPanel.setBundle(bundle);
+                    currentPanel.setLanguage();
 
                 }
             }
         });
         menuEng.setText("ENG");
 
-
         menuBar.add(menuPl);
         menuBar.add(menuEng);
         setJMenuBar(menuBar);
 
-        cards.add(card1);
-//        cards.add(card2);
-//        cards.add(card3);
-
-        AuthorQuestionPanel currentPanel = card1;
-
-        JTextField testTextField1 = new JTextField("1");
-        JTextField testTextField2 = new JTextField("2");
-        JTextField testTextField3 = new JTextField("3");
-
-
         //Buttons
         JPanel buttonPanel = new JPanel();
-
-
         buttonPanel.add(newQuizButton);
         buttonPanel.add(checkButton);
 
-
         // add ActionListeners
-
         checkButton.addActionListener(new ActionListener()
         {
             //refresh, checking checksums, deletions, additions
@@ -130,9 +118,9 @@ public class MainWindow extends JFrame {
 
     private void setTextOnElements(){
 
-        newQuizButton.setText(rb.getString("Reset"));
-        checkButton.setText(rb.getString("Check"));
-        setTitle(rb.getString("Title"));
+        newQuizButton.setText(bundle.getRb().getString("Reset"));
+        checkButton.setText(bundle.getRb().getString("Check"));
+        setTitle(bundle.getRb().getString("Title"));
 
         newQuizButton.repaint();
         checkButton.repaint();

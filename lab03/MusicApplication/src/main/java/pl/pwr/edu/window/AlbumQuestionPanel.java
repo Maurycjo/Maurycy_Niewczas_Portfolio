@@ -6,17 +6,20 @@ import pl.pwr.edu.music.ArtistLoader;
 import javax.swing.*;
 import java.util.ResourceBundle;
 
-public class AlbumQuestionPanel extends AuthorQuestionPanel {
+public class AlbumQuestionPanel extends QuestionPanel {
 
-    public AlbumQuestionPanel(ResourceBundle rb, ArtistLoader artistLoader) {
-        super(rb, artistLoader);
+    public AlbumQuestionPanel(Bundle bundle, ArtistLoader artistLoader) {
+        super(bundle, artistLoader);
     }
 
+    @Override
+    public void loadQuestion() {
+        System.out.println("pytanie autora");
+    }
 
     @Override
-    public void loadQuestion(ArtistFromApi currentArtist){
+    public void setLanguage() {
 
-        System.out.println("pytanie autora");
     }
 
 
