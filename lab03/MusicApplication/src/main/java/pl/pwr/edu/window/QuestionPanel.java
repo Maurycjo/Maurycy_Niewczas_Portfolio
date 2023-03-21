@@ -1,12 +1,14 @@
 package pl.pwr.edu.window;
 
 import pl.pwr.edu.music.Artist;
-import pl.pwr.edu.music.ArtistGenerator;
+import pl.pwr.edu.music.ArtistLoaderFromFile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 
@@ -18,39 +20,43 @@ import java.util.ResourceBundle;
         int correctAnswer=2;
 
 
-
-        private String answerA="a", answerB="b", answerC="c", answerD="d";
+        private String[] answers = new String[numOfAnswerRadioButtons];
         private String question;
 
 
         JRadioButton[] radioButtons;
 
-        public QuestionPanel(ResourceBundle rb) {
+        public QuestionPanel(ResourceBundle rb, ArtistLoaderFromFile artistLoaderFromFile) {
 
             //question + album from api + ?
 
             setLayout(new BorderLayout());
 
-            ArtistGenerator artistGenerator;
-            try {
-                artistGenerator=new ArtistGenerator();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+
+            artistLoaderFromFile.shuffleArtistArrayList();
 
 
-            Artist currentArtist = artistGenerator.getArtistArrayList().get(0);
+            Artist currentArtist = artistLoaderFromFile.getArtistArrayList().get(0);
+            currentArtist.getArtistInfoFromApi();
+
+
             question = rb.getString("AuthorQuestion");
-            question=question.replace("...", currentArtist.getPieceOfMusic().get(0));
+            question=question.replace("...", currentArtist.getRandomSong());
 
+            Random random = new Random();
+            int randomCorrectNumber = random.nextInt(numOfAnswerRadioButtons);
 
-            answerA = artistGenerator.getArtistArrayList().get(1).getName();
-            answerB = artistGenerator.getArtistArrayList().get(2).getName();
-            answerC = currentArtist.getName();
-            answerD = artistGenerator.getArtistArrayList().get(3).getName();
+            answers[randomCorrectNumber]=currentArtist.getArtistName();
 
+            int j=1;
+            for(int i=0;i<numOfAnswerRadioButtons;i++){
+
+                if(i!=randomCorrectNumber){
+
+                    answers[i]=artistLoaderFromFile.getArtistArrayList().get(j).getArtistName();
+                }
+                j++;
+            }
 
             questionTextField = new JTextField(question); //pytanie
             add(questionTextField);
@@ -63,15 +69,15 @@ import java.util.ResourceBundle;
             final ButtonGroup group = new ButtonGroup();
             JButton checkButton = null;
 
-            radioButtons[0] = new JRadioButton(answerA);
-            radioButtons[1] = new JRadioButton(answerB);
-            radioButtons[2] = new JRadioButton(answerC);
-            radioButtons[3] = new JRadioButton(answerD);
 
-            for (int i = 0; i < numOfAnswerRadioButtons; i++) {
+            for(int i=0;i<numOfAnswerRadioButtons;i++){
+
+                radioButtons[i] = new JRadioButton(answers[i]);
                 group.add(radioButtons[i]);
                 radioButtonPanel.add(radioButtons[i]); //dodajemy radiobutton do panelu
             }
+
+
             radioButtons[0].setSelected(true);
 
             add(questionTextField, BorderLayout.NORTH); //dodajemy przycisk do panelu
@@ -82,7 +88,6 @@ import java.util.ResourceBundle;
 
         public boolean checkIfCorrectSelect(){
             return radioButtons[correctAnswer].isSelected();
-
         }
 
 

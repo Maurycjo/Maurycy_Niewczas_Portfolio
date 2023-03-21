@@ -1,5 +1,7 @@
 package pl.pwr.edu.window;
 
+import pl.pwr.edu.music.ArtistLoaderFromFile;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,10 +26,11 @@ public class MainWindow extends JFrame {
     Language language = Language.POLISH;
     private ResourceBundle rb = ResourceBundle.getBundle("MessageBundle_PL", new Locale("pl", "PL"));
 
+    ArtistLoaderFromFile artistLoaderFromFile = new ArtistLoaderFromFile();
 
-    QuestionPanel card1 = new QuestionPanel(rb);
-    QuestionPanel card2 = new QuestionPanel(rb);
-    QuestionPanel card3 = new QuestionPanel(rb);
+    QuestionPanel card1 = new QuestionPanel(rb, artistLoaderFromFile);
+    QuestionPanel card2 = new QuestionPanel(rb, artistLoaderFromFile);
+    QuestionPanel card3 = new QuestionPanel(rb, artistLoaderFromFile);
 
     JMenuBar menuBar;
     JMenuItem menuPl, menuEng;

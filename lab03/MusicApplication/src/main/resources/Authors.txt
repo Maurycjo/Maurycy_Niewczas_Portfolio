@@ -1,0 +1,5 @@
+Nocny Kochanek,https://shazam.p.rapidapi.com/search?term=Nocny%20Kochanek&locale=en-US&offset=0&limit=5
+Wilki,https://shazam.p.rapidapi.com/search?term=wilki&locale=en-US&offset=0&limit=5
+Elektryczne Gitary,https://shazam.p.rapidapi.com/search?term=Elektryczne%20gitary&locale=en-US&offset=0&limit=5
+Ich Troje,https://shazam.p.rapidapi.com/search?term=Ich%20troje&locale=en-US&offset=0&limit=5
+Krzysztof Krawczyk,https://shazam.p.rapidapi.com/search?term=Krzysztof%20Krawczyk&locale=en-US&offset=0&limit=5
