@@ -7,6 +7,7 @@ public class AuthorQuestionPanel extends QuestionPanel {
 
         private String question;
         private String[] answers = new String[numOfAnswerRadioButtons];
+        private String randomSong;
 
 
         public AuthorQuestionPanel(Bundle bundle, ArtistLoader artistLoader) {
@@ -19,10 +20,10 @@ public class AuthorQuestionPanel extends QuestionPanel {
         @Override
         public void loadQuestion() {
 
-            question = bundle.getRb().getString("AuthorQuestion");
-            question=question.replace("...", currentArtist.getRandomSong());
+            randomSong= currentArtist.getRandomSong();
+
             question = this.bundle.getRb().getString("AuthorQuestion");
-            question=question.replace("...", currentArtist.getRandomSong());
+            question=question.replace("...", randomSong);
 
             answers[randomCorrectNumber]=currentArtist.getArtistName();
 
@@ -40,10 +41,9 @@ public class AuthorQuestionPanel extends QuestionPanel {
 
         @Override
         public void setLanguage(){
-            question = bundle.getRb().getString("AuthorQuestion");
-            question=question.replace("...", currentArtist.getRandomSong());
+
             question = this.bundle.getRb().getString("AuthorQuestion");
-            question=question.replace("...", currentArtist.getRandomSong());
+            question=question.replace("...", randomSong);
             questionTextField.setText(question);
         }
 
