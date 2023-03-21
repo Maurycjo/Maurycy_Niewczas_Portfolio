@@ -1,13 +1,10 @@
 package pl.pwr.edu.window;
 
-import pl.pwr.edu.music.Artist;
-import pl.pwr.edu.music.ArtistLoaderFromFile;
+import pl.pwr.edu.music.ArtistFromApi;
+import pl.pwr.edu.music.ArtistLoader;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -26,7 +23,7 @@ import java.util.ResourceBundle;
 
         JRadioButton[] radioButtons;
 
-        public QuestionPanel(ResourceBundle rb, ArtistLoaderFromFile artistLoaderFromFile) {
+        public QuestionPanel(ResourceBundle rb, ArtistLoader artistLoaderFromFile) {
 
             //question + album from api + ?
 
@@ -35,10 +32,9 @@ import java.util.ResourceBundle;
 
             artistLoaderFromFile.shuffleArtistArrayList();
 
-
-            Artist currentArtist = artistLoaderFromFile.getArtistArrayList().get(0);
-            currentArtist.getArtistInfoFromApi();
-
+            String artistName = artistLoaderFromFile.getArtistArrayList().get(0).getArtistName();
+            String url = artistLoaderFromFile.getArtistArrayList().get(0).getUrl();
+            ArtistFromApi currentArtist = new ArtistFromApi(artistName, url);
 
             question = rb.getString("AuthorQuestion");
             question=question.replace("...", currentArtist.getRandomSong());

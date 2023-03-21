@@ -6,18 +6,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class ArtistLoaderFromFile {
+public class ArtistLoader {
 
 
 
 
-    private ArrayList<Artist> artistArrayList = new ArrayList<>(); //key=name, val=url
+    private ArrayList<ArtistFromFile> artistArrayList = new ArrayList<>(); //key=name, val=url
 
-    public ArrayList<Artist> getArtistArrayList() {
+    public ArrayList<ArtistFromFile> getArtistArrayList() {
         return artistArrayList;
     }
 
-    public ArtistLoaderFromFile()  {
+    public ArtistLoader()  {
 
         InputStream is = getClass().getClassLoader().getResourceAsStream("Authors.txt");
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -34,7 +34,7 @@ public class ArtistLoaderFromFile {
             String name =result[0];
             String url =result[1].replace("/n", "");
 
-            artistArrayList.add(new Artist(name, url));
+            artistArrayList.add(new ArtistFromFile(name, url));
         }
     }
 

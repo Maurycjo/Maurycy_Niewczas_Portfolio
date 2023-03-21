@@ -1,10 +1,5 @@
 package pl.pwr.edu.window;
 
-import pl.pwr.edu.music.Artist;
-import pl.pwr.edu.music.ArtistLoaderFromFile;
-
-import java.io.IOException;
-
 public class Main {
     public static void main(String[] args) {
 

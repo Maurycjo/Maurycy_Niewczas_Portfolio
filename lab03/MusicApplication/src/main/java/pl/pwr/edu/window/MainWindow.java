@@ -1,6 +1,6 @@
 package pl.pwr.edu.window;
 
-import pl.pwr.edu.music.ArtistLoaderFromFile;
+import pl.pwr.edu.music.ArtistLoader;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,7 +26,7 @@ public class MainWindow extends JFrame {
     Language language = Language.POLISH;
     private ResourceBundle rb = ResourceBundle.getBundle("MessageBundle_PL", new Locale("pl", "PL"));
 
-    ArtistLoaderFromFile artistLoaderFromFile = new ArtistLoaderFromFile();
+    ArtistLoader artistLoaderFromFile = new ArtistLoader();
 
     QuestionPanel card1 = new QuestionPanel(rb, artistLoaderFromFile);
     QuestionPanel card2 = new QuestionPanel(rb, artistLoaderFromFile);

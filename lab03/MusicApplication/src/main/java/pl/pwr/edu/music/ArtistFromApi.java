@@ -13,37 +13,36 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Artist {
+public class ArtistFromApi extends ArtistFromFile{
 
     private String rapidApiKey = "332cc35608msh79f3d6bc5480ec1p1b7f2ejsncfd8b8ad9598";
     private String rapidApiHost ="shazam.p.rapidapi.com";
     private String artistId;
-    private String artistName;
+
 
     private ArrayList<String> pieceOfMusic=new ArrayList<>();
-    private String url;
+
 
     public ArrayList<String> getPieceOfMusic() {
         return pieceOfMusic;
     }
 
-    public String getArtistName() {
-        return artistName;
-    }
 
 
-    public Artist(String artistName, String url) {
 
-        this.artistName=artistName;
-        this.url=url;
+    public ArtistFromApi(String artistName, String url) {
 
+        super(artistName, url);
+        getArtistInfoFromApi();
 
     }
+
+
     public void getArtistInfoFromApi(){
 
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
+                .uri(URI.create(getUrl()))
                 .header("X-RapidAPI-Key", rapidApiKey)
                 .header("X-RapidAPI-Host", rapidApiHost)
                 .method("GET", HttpRequest.BodyPublishers.noBody())
@@ -90,7 +89,7 @@ public class Artist {
 
     public void displayInfo(){
         System.out.println(artistId);
-        System.out.println(artistName);
+        System.out.println(getArtistName());
         System.out.println(pieceOfMusic);
         System.out.println();
     }
