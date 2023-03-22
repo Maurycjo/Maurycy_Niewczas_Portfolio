@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import pl.pwr.edu.window.QuestionPanel;
 
 import java.io.IOException;
 import java.net.URI;
@@ -15,10 +16,9 @@ import java.util.Random;
 
 public class ArtistFromApi extends ArtistFromFile{
 
-    private String rapidApiKey = "332cc35608msh79f3d6bc5480ec1p1b7f2ejsncfd8b8ad9598";
-    private String rapidApiHost ="shazam.p.rapidapi.com";
     private String artistId;
 
+    RapidApi rapidApi=new RapidApi();
     private int howManyAlbumsAndSinglies;
 
     private ArrayList<String> pieceOfMusic=new ArrayList<>();
@@ -47,8 +47,8 @@ public class ArtistFromApi extends ArtistFromFile{
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(getUrl()))
-                .header("X-RapidAPI-Key", rapidApiKey)
-                .header("X-RapidAPI-Host", rapidApiHost)
+                .header("X-RapidAPI-Key", rapidApi.getRapidApiKey())
+                .header("X-RapidAPI-Host", rapidApi.getRapidApiHost())
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
         HttpResponse<String> response = null;
@@ -89,10 +89,11 @@ public class ArtistFromApi extends ArtistFromFile{
     public void loadNumbersOfAlbums(){
 
 
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://shazam.p.rapidapi.com/artists/get-details?id="+artistId+"&1=en-US"))
-                .header("X-RapidAPI-Key", rapidApiKey)
-                .header("X-RapidAPI-Host", rapidApiHost)
+                .header("X-RapidAPI-Key", rapidApi.getRapidApiKey())
+                .header("X-RapidAPI-Host", rapidApi.getRapidApiHost())
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
         HttpResponse<String> response = null;

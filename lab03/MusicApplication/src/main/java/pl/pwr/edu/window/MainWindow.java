@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -21,7 +22,7 @@ public class MainWindow extends JFrame {
 
 
     ArtistLoader artistLoaderFromFile = new ArtistLoader();
-    AuthorQuestionPanel card1 = new AuthorQuestionPanel(bundle, artistLoaderFromFile);
+    //AuthorQuestionPanel card1 = new AuthorQuestionPanel(bundle, artistLoaderFromFile);
     //AlbumQuestionPanel card1 = new AlbumQuestionPanel(bundle, artistLoaderFromFile);
 
     JMenuBar menuBar;
@@ -30,6 +31,11 @@ public class MainWindow extends JFrame {
     JButton newQuizButton = new JButton();
     JButton checkButton = new JButton();
 
+    final int numberOfQuestion = 4;
+    private int currentPanelIndex=0;
+    ArrayList<QuestionPanel> questionPanels = new ArrayList<>();
+
+    QuestionPanel currentPanel;
 
     public MainWindow()
     {
@@ -37,12 +43,18 @@ public class MainWindow extends JFrame {
         setTextOnElements();
         setSize(600, 400);
 
-        QuestionPanel currentPanel = card1;
 
 
-        cards.add(card1);
-//        cards.add(card2);
-//        cards.add(card3);
+        questionPanels.add(new AuthorQuestionPanel(bundle, artistLoaderFromFile));
+        questionPanels.add(new AlbumQuestionPanel(bundle, artistLoaderFromFile));
+        questionPanels.add(new AuthorQuestionPanel(bundle, artistLoaderFromFile));
+        questionPanels.add(new AlbumQuestionPanel(bundle, artistLoaderFromFile));
+
+        currentPanel= questionPanels.get(currentPanelIndex);
+
+        for(int i=0;i<numberOfQuestion;i++){
+            cards.add(questionPanels.get(i));
+        }
 
 
         menuBar = new JMenuBar();
@@ -107,7 +119,10 @@ public class MainWindow extends JFrame {
                     System.out.println("zla odpowiedz");
                 }
 
-                //cardLayout.next(cards);
+                currentPanelIndex+=1;
+                currentPanel=questionPanels.get(currentPanelIndex);
+                cardLayout.next(cards);
+
             }
         });
 
