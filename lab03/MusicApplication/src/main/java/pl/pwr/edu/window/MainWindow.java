@@ -20,6 +20,7 @@ public class MainWindow extends JFrame {
 
     Bundle bundle = new Bundle();
 
+    JPanel resultPanel = new JPanel();
 
     ArtistLoader artistLoaderFromFile = new ArtistLoader();
     //AuthorQuestionPanel card1 = new AuthorQuestionPanel(bundle, artistLoaderFromFile);
@@ -32,10 +33,12 @@ public class MainWindow extends JFrame {
     JButton checkButton = new JButton();
 
     final int numberOfQuestion = 4;
+    private int numberOfGoodAnswers=0;
     private int currentPanelIndex=0;
     ArrayList<QuestionPanel> questionPanels = new ArrayList<>();
 
     QuestionPanel currentPanel;
+
 
     public MainWindow()
     {
@@ -45,16 +48,8 @@ public class MainWindow extends JFrame {
 
 
 
-        questionPanels.add(new AuthorQuestionPanel(bundle, artistLoaderFromFile));
-        questionPanels.add(new AlbumQuestionPanel(bundle, artistLoaderFromFile));
-        questionPanels.add(new AuthorQuestionPanel(bundle, artistLoaderFromFile));
-        questionPanels.add(new AlbumQuestionPanel(bundle, artistLoaderFromFile));
-
+        createPanels();
         currentPanel= questionPanels.get(currentPanelIndex);
-
-        for(int i=0;i<numberOfQuestion;i++){
-            cards.add(questionPanels.get(i));
-        }
 
 
         menuBar = new JMenuBar();
@@ -109,18 +104,22 @@ public class MainWindow extends JFrame {
                     String message = currentPanel.getAcceptedMessage();
                     JOptionPane.showMessageDialog(getContentPane(), message,
                             "", JOptionPane.INFORMATION_MESSAGE);
-                    System.out.println("Dobra odpowiedz");
                 }
                 else {
                     String message = currentPanel.getRejectedMessage();
                     JOptionPane.showMessageDialog(getContentPane(), message,
                             "", JOptionPane.INFORMATION_MESSAGE);
 
-                    System.out.println("zla odpowiedz");
                 }
 
                 currentPanelIndex+=1;
-                currentPanel=questionPanels.get(currentPanelIndex);
+                if(currentPanelIndex==numberOfQuestion){
+                    checkButton.setVisible(false);
+                }
+                else{
+                    currentPanel=questionPanels.get(currentPanelIndex);
+                }
+
                 cardLayout.next(cards);
 
             }
@@ -130,7 +129,8 @@ public class MainWindow extends JFrame {
         {
             public void actionPerformed(ActionEvent arg0)
             {
-
+                createPanels();
+                checkButton.setVisible(true);
             }
         });
 
@@ -147,6 +147,28 @@ public class MainWindow extends JFrame {
         newQuizButton.repaint();
         checkButton.repaint();
     }
+
+    private void createPanels(){
+
+        numberOfGoodAnswers=0;
+        currentPanelIndex=0;
+        questionPanels.clear();
+        cards.removeAll();
+
+        questionPanels.add(new AuthorQuestionPanel(bundle, artistLoaderFromFile));
+        questionPanels.add(new AlbumQuestionPanel(bundle, artistLoaderFromFile));
+        questionPanels.add(new AuthorQuestionPanel(bundle, artistLoaderFromFile));
+        questionPanels.add(new AlbumQuestionPanel(bundle, artistLoaderFromFile));
+
+        for(int i=0;i<numberOfQuestion;i++){
+            cards.add(questionPanels.get(i));
+        }
+
+        cards.add(resultPanel);
+
+
+    }
+
 
 
 }
