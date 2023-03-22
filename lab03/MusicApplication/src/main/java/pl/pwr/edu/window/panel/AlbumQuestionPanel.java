@@ -1,9 +1,8 @@
-package pl.pwr.edu.window;
+package pl.pwr.edu.window.panel;
 
-import pl.pwr.edu.music.ArtistFromApi;
 import pl.pwr.edu.music.ArtistLoader;
+import pl.pwr.edu.window.Bundle;
 
-import javax.swing.*;
 import java.util.*;
 
 public class AlbumQuestionPanel extends QuestionPanel {
@@ -53,17 +52,65 @@ public class AlbumQuestionPanel extends QuestionPanel {
         }
     }
 
+    @Override
     public String getAcceptedMessage(){
 
         String message = bundle.getRb().getString("AcceptedAlbumAnswer");
         message=message.replace("...", currentArtist.getArtistName());
-        message=message.replace(",,,", Integer.toString(currentArtist.getHowManyAlbumsAndSinglies()));
+        message+=message + Integer.toString(currentArtist.getHowManyAlbumsAndSinglies());
+
+        if(bundle.getLanguage()== Bundle.Language.ENGLISH){
+
+            if(currentArtist.getHowManyAlbumsAndSinglies()==1){
+                message+="album.";
+            } else{
+                message+="albums.";
+            }
+        }
+        else {
+
+
+            if (currentArtist.getHowManyAlbumsAndSinglies() == 1) {
+                message += "album.";
+            } else if (currentArtist.getHowManyAlbumsAndSinglies() < 5) {
+                message += "albumy.";
+            } else {
+                message += "album\u00F3w.";
+            }
+        }
 
         return message;
     }
 
+    @Override
     public String getRejectedMessage(){
-        return bundle.getRb().getString("RejectedAlbumAnswer");
+
+        String message = bundle.getRb().getString("RejectedAlbumAnswer");
+        message=message.replace("...", currentArtist.getArtistName());
+        message=message + Integer.toString(currentArtist.getHowManyAlbumsAndSinglies());
+
+        if(bundle.getLanguage()== Bundle.Language.ENGLISH){
+
+            if(currentArtist.getHowManyAlbumsAndSinglies()==1){
+                message+=" album.";
+            } else{
+                message+=" albums.";
+            }
+        }
+        else {
+
+
+            if (currentArtist.getHowManyAlbumsAndSinglies() == 1) {
+                message += " album.";
+            } else if (currentArtist.getHowManyAlbumsAndSinglies() < 5) {
+                message += " albumy.";
+            } else {
+                message += " album\u00F3w.";
+            }
+        }
+
+
+        return message;
     }
 
     @Override

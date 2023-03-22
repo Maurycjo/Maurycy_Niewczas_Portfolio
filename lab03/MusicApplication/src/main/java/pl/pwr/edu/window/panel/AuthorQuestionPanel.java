@@ -1,6 +1,7 @@
-package pl.pwr.edu.window;
+package pl.pwr.edu.window.panel;
 
 import pl.pwr.edu.music.ArtistLoader;
+import pl.pwr.edu.window.Bundle;
 
 
 public class AuthorQuestionPanel extends QuestionPanel {
@@ -9,12 +10,10 @@ public class AuthorQuestionPanel extends QuestionPanel {
         private String[] answers = new String[numOfAnswerRadioButtons];
         private String randomSong;
 
-
         public AuthorQuestionPanel(Bundle bundle, ArtistLoader artistLoader) {
 
            super(bundle, artistLoader);
             loadQuestion();
-
         }
 
         @Override
@@ -39,7 +38,7 @@ public class AuthorQuestionPanel extends QuestionPanel {
             }
         }
 
-
+    @Override
     public String getAcceptedMessage(){
 
         String message = bundle.getRb().getString("AcceptedAuthorAnswer");
@@ -49,6 +48,7 @@ public class AuthorQuestionPanel extends QuestionPanel {
         return message;
     }
 
+    @Override
     public String getRejectedMessage(){
 
         String message= bundle.getRb().getString("RejectedAuthorAnswer");

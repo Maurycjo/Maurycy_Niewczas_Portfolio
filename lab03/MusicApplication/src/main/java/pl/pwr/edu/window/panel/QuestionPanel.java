@@ -1,7 +1,8 @@
-package pl.pwr.edu.window;
+package pl.pwr.edu.window.panel;
 
 import pl.pwr.edu.music.ArtistFromApi;
 import pl.pwr.edu.music.ArtistLoader;
+import pl.pwr.edu.window.Bundle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +13,7 @@ public abstract class QuestionPanel extends JPanel {
 
     JTextField questionTextField=new JTextField();
     final int numOfAnswerRadioButtons = 4;
-
     int randomCorrectNumber;
-
-
-
-
     ArtistLoader artistLoader;
     Bundle bundle;
     JRadioButton[] radioButtons;
@@ -37,8 +33,6 @@ public abstract class QuestionPanel extends JPanel {
         loadArtist();
         randomizeAnswer();
         addComponentsToPanel();
-
-
     }
 
     private void loadArtist(){
@@ -85,7 +79,6 @@ public abstract class QuestionPanel extends JPanel {
         return radioButtons[randomCorrectNumber].isSelected();
     }
 
-
     public abstract void loadQuestion();
 
     public abstract void setLanguage();
@@ -93,5 +86,4 @@ public abstract class QuestionPanel extends JPanel {
     public abstract String getAcceptedMessage();
 
     public abstract String getRejectedMessage();
-
 }

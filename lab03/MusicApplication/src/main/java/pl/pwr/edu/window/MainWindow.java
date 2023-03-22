@@ -1,16 +1,15 @@
 package pl.pwr.edu.window;
 
 import pl.pwr.edu.music.ArtistLoader;
+import pl.pwr.edu.window.panel.AlbumQuestionPanel;
+import pl.pwr.edu.window.panel.AuthorQuestionPanel;
+import pl.pwr.edu.window.panel.QuestionPanel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-
 
 
 public class MainWindow extends JFrame {
