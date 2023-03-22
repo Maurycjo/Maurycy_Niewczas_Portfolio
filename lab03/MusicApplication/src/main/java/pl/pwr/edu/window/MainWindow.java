@@ -58,7 +58,6 @@ public class MainWindow extends JFrame {
                     if(currentPanelIndex==numberOfQuestion){
                         setTextOnResultPanel();
                     }
-
                 }
             }
         });
@@ -107,9 +106,7 @@ public class MainWindow extends JFrame {
                     String message = currentPanel.getRejectedMessage();
                     JOptionPane.showMessageDialog(getContentPane(), message,
                             "", JOptionPane.INFORMATION_MESSAGE);
-
                 }
-
                 currentPanelIndex+=1;
                 if(currentPanelIndex==numberOfQuestion){
                     checkButton.setVisible(false);
@@ -120,9 +117,7 @@ public class MainWindow extends JFrame {
                     currentPanel.setBundle(bundle);
                     currentPanel.setLanguage();
                 }
-
                 cardLayout.next(cards);
-
             }
         });
 
