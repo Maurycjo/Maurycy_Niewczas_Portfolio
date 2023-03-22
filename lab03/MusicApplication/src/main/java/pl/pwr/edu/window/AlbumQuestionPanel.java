@@ -50,9 +50,20 @@ public class AlbumQuestionPanel extends QuestionPanel {
                 radioButtons[i].setText(array[j].toString());
                 j++;
             }
-
-
         }
+    }
+
+    public String getAcceptedMessage(){
+
+        String message = bundle.getRb().getString("AcceptedAlbumAnswer");
+        message=message.replace("...", currentArtist.getArtistName());
+        message=message.replace(",,,", Integer.toString(currentArtist.getHowManyAlbumsAndSinglies()));
+
+        return message;
+    }
+
+    public String getRejectedMessage(){
+        return bundle.getRb().getString("RejectedAlbumAnswer");
     }
 
     @Override

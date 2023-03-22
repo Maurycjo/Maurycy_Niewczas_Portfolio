@@ -21,8 +21,8 @@ public class MainWindow extends JFrame {
 
 
     ArtistLoader artistLoaderFromFile = new ArtistLoader();
-    //AuthorQuestionPanel card1 = new AuthorQuestionPanel(bundle, artistLoaderFromFile);
-    AlbumQuestionPanel card1 = new AlbumQuestionPanel(bundle, artistLoaderFromFile);
+    AuthorQuestionPanel card1 = new AuthorQuestionPanel(bundle, artistLoaderFromFile);
+    //AlbumQuestionPanel card1 = new AlbumQuestionPanel(bundle, artistLoaderFromFile);
 
     JMenuBar menuBar;
     JMenuItem menuPl, menuEng;
@@ -94,9 +94,16 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent arg0)
             {
                 if(currentPanel.checkIfCorrectSelect()){
+                    String message = currentPanel.getAcceptedMessage();
+                    JOptionPane.showMessageDialog(getContentPane(), message,
+                            "", JOptionPane.INFORMATION_MESSAGE);
                     System.out.println("Dobra odpowiedz");
                 }
                 else {
+                    String message = currentPanel.getRejectedMessage();
+                    JOptionPane.showMessageDialog(getContentPane(), message,
+                            "", JOptionPane.INFORMATION_MESSAGE);
+
                     System.out.println("zla odpowiedz");
                 }
 

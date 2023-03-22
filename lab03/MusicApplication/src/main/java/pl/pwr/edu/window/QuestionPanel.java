@@ -90,4 +90,8 @@ public abstract class QuestionPanel extends JPanel {
 
     public abstract void setLanguage();
 
+    public abstract String getAcceptedMessage();
+
+    public abstract String getRejectedMessage();
+
 }

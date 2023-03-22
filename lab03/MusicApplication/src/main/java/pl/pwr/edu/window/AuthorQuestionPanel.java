@@ -39,6 +39,24 @@ public class AuthorQuestionPanel extends QuestionPanel {
             }
         }
 
+
+    public String getAcceptedMessage(){
+
+        String message = bundle.getRb().getString("AcceptedAuthorAnswer");
+        message=message.replace("...", randomSong);
+        message=message.replace(",,,", currentArtist.getArtistName());
+
+        return message;
+    }
+
+    public String getRejectedMessage(){
+
+        String message= bundle.getRb().getString("RejectedAuthorAnswer");
+        message=message.replace("...", randomSong);
+        message=message.replace(",,,", currentArtist.getArtistName());
+        return message;
+    }
+
         @Override
         public void setLanguage(){
 
