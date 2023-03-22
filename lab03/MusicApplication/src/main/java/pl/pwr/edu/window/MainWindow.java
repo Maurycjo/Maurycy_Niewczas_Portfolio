@@ -16,21 +16,14 @@ public class MainWindow extends JFrame {
 
     CardLayout cardLayout = new CardLayout();
     JPanel cards = new JPanel(cardLayout); //panel that contains cards
-
     Bundle bundle = new Bundle();
-
     JPanel resultPanel = new JPanel();
-
+    JTextField resultTextField = new JTextField();
     ArtistLoader artistLoaderFromFile = new ArtistLoader();
-    //AuthorQuestionPanel card1 = new AuthorQuestionPanel(bundle, artistLoaderFromFile);
-    //AlbumQuestionPanel card1 = new AlbumQuestionPanel(bundle, artistLoaderFromFile);
-
     JMenuBar menuBar;
     JMenuItem menuPl, menuEng;
-
     JButton newQuizButton = new JButton();
     JButton checkButton = new JButton();
-
     final int numberOfQuestion = 4;
     private int numberOfGoodAnswers=0;
     private int currentPanelIndex=0;
@@ -44,12 +37,12 @@ public class MainWindow extends JFrame {
 
         setTextOnElements();
         setSize(600, 400);
-
-
+        resultTextField.setEditable(false);
+        resultTextField.setFont(new Font("Arial", 10, 20 ));
+        resultPanel.add(resultTextField, BorderLayout.CENTER);
 
         createPanels();
         currentPanel= questionPanels.get(currentPanelIndex);
-
 
         menuBar = new JMenuBar();
         menuPl = new JMenuItem(new AbstractAction() {
@@ -61,12 +54,14 @@ public class MainWindow extends JFrame {
                     setTextOnElements();
                     currentPanel.setBundle(bundle);
                     currentPanel.setLanguage();
+
+                    if(currentPanelIndex==numberOfQuestion){
+                        setTextOnResultPanel();
+                    }
+
                 }
-
-
             }
         });
-
 
         menuPl.setText("PL");
 
@@ -79,6 +74,9 @@ public class MainWindow extends JFrame {
                     currentPanel.setBundle(bundle);
                     currentPanel.setLanguage();
 
+                    if(currentPanelIndex==numberOfQuestion){
+                        setTextOnResultPanel();
+                    }
                 }
             }
         });
@@ -103,6 +101,7 @@ public class MainWindow extends JFrame {
                     String message = currentPanel.getAcceptedMessage();
                     JOptionPane.showMessageDialog(getContentPane(), message,
                             "", JOptionPane.INFORMATION_MESSAGE);
+                    numberOfGoodAnswers+=1;
                 }
                 else {
                     String message = currentPanel.getRejectedMessage();
@@ -114,9 +113,12 @@ public class MainWindow extends JFrame {
                 currentPanelIndex+=1;
                 if(currentPanelIndex==numberOfQuestion){
                     checkButton.setVisible(false);
+                    setTextOnResultPanel();
                 }
                 else{
                     currentPanel=questionPanels.get(currentPanelIndex);
+                    currentPanel.setBundle(bundle);
+                    currentPanel.setLanguage();
                 }
 
                 cardLayout.next(cards);
@@ -162,12 +164,28 @@ public class MainWindow extends JFrame {
         for(int i=0;i<numberOfQuestion;i++){
             cards.add(questionPanels.get(i));
         }
-
         cards.add(resultPanel);
-
-
     }
 
+    private void setTextOnResultPanel(){
 
+        String resultMessage;
+        if(numberOfGoodAnswers==0){
+            resultMessage = bundle.getRb().getString("Result.zero");
+        }
+        else if(numberOfGoodAnswers==1){
+            resultMessage = bundle.getRb().getString("Result.one");
+        }
+        else if(numberOfGoodAnswers<5){
+            resultMessage = bundle.getRb().getString("Result.m");
+        }
+        else{
+            resultMessage = bundle.getRb().getString("Result.g");
+        }
+
+        resultMessage=resultMessage.replace("...", Integer.toString(numberOfGoodAnswers));
+        resultTextField.setText(resultMessage);
+
+    }
 
 }

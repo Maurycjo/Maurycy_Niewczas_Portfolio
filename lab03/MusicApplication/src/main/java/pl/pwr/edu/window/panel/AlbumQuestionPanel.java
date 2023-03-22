@@ -57,25 +57,25 @@ public class AlbumQuestionPanel extends QuestionPanel {
 
         String message = bundle.getRb().getString("AcceptedAlbumAnswer");
         message=message.replace("...", currentArtist.getArtistName());
-        message+=message + Integer.toString(currentArtist.getHowManyAlbumsAndSinglies());
+        message=message + Integer.toString(currentArtist.getHowManyAlbumsAndSinglies());
 
         if(bundle.getLanguage()== Bundle.Language.ENGLISH){
 
             if(currentArtist.getHowManyAlbumsAndSinglies()==1){
-                message+="album.";
+                message+=" album.";
             } else{
-                message+="albums.";
+                message+=" albums.";
             }
         }
         else {
 
 
             if (currentArtist.getHowManyAlbumsAndSinglies() == 1) {
-                message += "album.";
+                message += " album.";
             } else if (currentArtist.getHowManyAlbumsAndSinglies() < 5) {
-                message += "albumy.";
+                message += " albumy.";
             } else {
-                message += "album\u00F3w.";
+                message += " album\u00F3w.";
             }
         }
 
