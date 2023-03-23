@@ -12,4 +12,5 @@ target/
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 .idea
-
+# key
+rapidApiKey.txt
