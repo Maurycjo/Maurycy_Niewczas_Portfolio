@@ -33,6 +33,7 @@ public abstract class QuestionPanel extends JPanel {
         loadArtist();
         randomizeAnswer();
         addComponentsToPanel();
+
     }
 
     private void loadArtist(){
