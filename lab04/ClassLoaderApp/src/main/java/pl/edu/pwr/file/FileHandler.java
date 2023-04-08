@@ -11,17 +11,12 @@ import java.util.stream.Stream;
 
 public class FileHandler {
 
-    private static final String pathExpand = "/Desktop/csvki";
+    private static final String pathExpand = "/Desktop/java_classes";
     private Path currentPath = Paths.get(System.getProperty("user.home") + pathExpand); //path that program start in
 
     private ArrayList<ElementInFileSystem> files = new ArrayList<>(); //FileInfo objects from path
     private ArrayList<Path> filesPath = new ArrayList<>();
 
-    private WeakHashMap<Path, FileElement> filesWeakHashMap = new WeakHashMap<Path, FileElement>();
-
-    public WeakHashMap<Path, FileElement> getFilesWeakHashMap() {
-        return filesWeakHashMap;
-    }
 
     public ArrayList<ElementInFileSystem> getFiles() {
         return files;
@@ -58,8 +53,8 @@ public class FileHandler {
 
         try (Stream<Path> paths = Files.list(currentPath)) {
             paths.peek(path -> {
-                        if (path.toString().endsWith(".csv")) {
-                            files.add(new CsvFileElement(path.toAbsolutePath()));
+                        if (path.toString().endsWith(".class")) {
+                            files.add(new JavaClassFile(path.toAbsolutePath()));
                         } else if (Files.isDirectory(path)) {
                             files.add(new DirElement(path.toAbsolutePath()));
                         } else {
