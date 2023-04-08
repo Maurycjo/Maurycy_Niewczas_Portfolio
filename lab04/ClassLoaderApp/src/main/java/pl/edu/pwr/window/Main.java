@@ -1,4 +1,5 @@
-package pl.pwr.edu.window;
+package pl.edu.pwr.window;
+
 
 public class Main {
     public static void main(String[] args) {
