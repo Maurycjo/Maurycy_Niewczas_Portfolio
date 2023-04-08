@@ -9,95 +9,93 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class MainWindow extends JFrame {
 
     FileHandler fileHandler = new FileHandler();
     JList<Object> jFileList = new JList<>();
+    JList<Object> jMethodList = new JList<>();
     JTextField pathField = new JTextField();
     private final JTextArea contentJtextArea;
     private final JTextArea infoJtextArea;
     JScrollPane sp ;
     JScrollPane contentSp;
-    DefaultListModel listModel = new DefaultListModel();
-    JTable measurementTable;
-    String[] columnNames ={"Ciśnienie [hPa]", "Temperatura [℃]", "Wilgotność [%]"}; //column names in content display
-    DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+    DefaultListModel fileListModel = new DefaultListModel();
+    DefaultListModel methodListModel = new DefaultListModel();
 
 
-    JTextField fileNameTextField;
-    JTextField avgPressureTextField;
-    JTextField avgTemperatureTextField;
-    JTextField avgHumidityTextField;
-    JTextField loadFromTextField;
-    JTextField md5TextField ;
 
-    CsvFileElement csvFileElement = null;
+    JTextField classNameTextField;
+    JTextField classMethodNameTextField;
+    JTextField methodInfoTextField;
+    JTextField methodInputTextField;
+    JTextField resultOutputTextField;
+
+
+
 
     private void updateJfileList(){
         //updating JFileList with item from current path and .md5 path
         fileHandler.fillFilesPathList();
         jFileList.removeAll();
-        listModel.clear();
+        fileListModel.clear();
         for(Path path:fileHandler.getFilesPath()){
 
             String text;
             if(Files.isDirectory(path)){
-                text="Dir  |";
-            } else if(path.toString().endsWith(".csv")){
-                text="Csv |";
+                text="Dir     |";
+            } else if(path.toString().endsWith(".class")){
+                text="Class |";
             } else{
-                text="File |";
+                text="File    |";
             }
 
-            listModel.addElement(text+path.getFileName());
+            fileListModel.addElement(text+path.getFileName());
         }
-        jFileList.setModel(listModel);
+        jFileList.setModel(fileListModel);
 
         jFileList.repaint();
-        measurementTable.repaint();
         pathField.setText(fileHandler.getCurrentPath().toString());
     }
 
-    private void loadRowsToMeasurementTable(int n, CsvFileElement csvFileElement){
+    private void updateJmethodList(JavaClassFile javaClassFile){
 
-        tableModel = (DefaultTableModel) measurementTable.getModel();
-        tableModel.setRowCount(0);
+        jMethodList.removeAll();
+        methodListModel.clear();
 
-        for(int i=0;i<n;i++){
-            if(i==csvFileElement.getMeasurementArrayList().size()){
-                break;
-            }else {
+        methodListModel.addElement("Klasa: "+javaClassFile.getClassName());
 
-                float pressure = csvFileElement.getMeasurementArrayList().get(i).getPressure();
-                float temperature = csvFileElement.getMeasurementArrayList().get(i).getTemperature();
-                float humidity = csvFileElement.getMeasurementArrayList().get(i).getHumidity();
+        for(String methodName:javaClassFile.getMethodArrayList()){
 
-                Object[] objs = {String.valueOf(pressure), String.valueOf(temperature), String.valueOf(humidity)};
-                tableModel.addRow(objs);
-            }
+            methodListModel.addElement(methodName);
         }
-        jFileList.repaint();
-        measurementTable.repaint();
+        jMethodList.setModel(methodListModel);
+        jMethodList.repaint();
+    }
+
+    private void clearJmethodList(){
+        jMethodList.removeAll();
+        methodListModel.clear();
+        methodListModel.addElement("Klasa: Brak");
+        jMethodList.setModel(methodListModel);
+        jMethodList.repaint();
+
+
     }
 
     public MainWindow()
     {
         //JPanel cardPanel = new JPanel();
-        setTitle("Aplikacja WeakReferences");
+        setTitle("Aplikacja Ładowacza Klas");
         setSize(1000, 400);
 
         pathField.setText(fileHandler.getCurrentPath().toString());
         pathField.setEditable(false);
 
         JPanel jp = new JPanel();
-
-        measurementTable = new JTable(tableModel);
-
         updateJfileList();
+        clearJmethodList();
         jFileList.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt){
                 JList jFileList = (JList)evt.getSource();
@@ -117,29 +115,22 @@ public class MainWindow extends JFrame {
                         clickedElement = new DirElement(fileHandler.getFilesPath().get(index));
                         fileHandler.setCurrentPath(clickedElement.getFilePath());
 
-                    } else if(fileHandler.getFilesPath().get(index).toString().endsWith(".csv")){
+                    } else if(fileHandler.getFilesPath().get(index).toString().endsWith(".class")){
+
 
                         //csv file
-                        clickedElement = new CsvFileElement(fileHandler.getFilesPath().get(index));
+                        clickedElement = new JavaClassFile(fileHandler.getFilesPath().get(index));
+                        JavaClassFile javaClassFile = (JavaClassFile)clickedElement;
 
                         //check if csv is in memory
-                        if(fileHandler.getFilesWeakHashMap().get(clickedElement.getFilePath())==null){
 
-                            clickedElement.readFile();
-                            fileHandler.getFilesWeakHashMap().put(fileHandler.getFiles().get(index).getFilePath(), (CsvFileElement) clickedElement);
-                            loadFromTextField.setText("Załadowano z dysku");
-                        }
-                        else{
-                            clickedElement =fileHandler.getFilesWeakHashMap().get(clickedElement.getFilePath());
-                            loadFromTextField.setText("Załadowano z pamięci");
-                        }
 
-                        loadRowsToMeasurementTable(100, (CsvFileElement) clickedElement);
-                        loadAdditionalInfo((CsvFileElement) clickedElement);
+                        //metoda wywołująca metody załadowanej klasy
+                        updateJmethodList(javaClassFile);
 
                     } else {
                         clickedElement = new FileElement(fileHandler.getFilesPath().get(index));
-                        loadAdditionalInfo((FileElement) clickedElement);
+
                     }
                 }
                 updateJfileList();
@@ -147,7 +138,7 @@ public class MainWindow extends JFrame {
         });
 
         sp = new JScrollPane(jFileList);
-        contentSp = new JScrollPane(measurementTable);
+        contentSp = new JScrollPane(jMethodList);
 
         //jtextArea for file content
         contentJtextArea = new JTextArea();
@@ -165,27 +156,25 @@ public class MainWindow extends JFrame {
         additionalInfoPanel.setLayout(new BoxLayout(additionalInfoPanel, BoxLayout.Y_AXIS));
 
 
-        fileNameTextField = new JTextField("Nazwa pliku:                                   ");
-        avgPressureTextField = new JTextField("Średnie ciśnienie:                                  ");
-        avgTemperatureTextField = new JTextField("Średnia temperatura:                                  ");
-        avgHumidityTextField = new JTextField("Średnia wilgotność:                                   ");
-        loadFromTextField = new JTextField("Załadowano z                                  ");
-        md5TextField = new JTextField("Hash MD5:                                  ");
+        classNameTextField = new JTextField("Nazwa Klasy: " );
+        classMethodNameTextField = new JTextField("Nazwa Metody: ");
+        methodInfoTextField = new JTextField("Operacja: ");
+        methodInputTextField = new JTextField();
+        resultOutputTextField = new JTextField("Wynik: ");
+
+        additionalInfoPanel.add(classNameTextField);
+        additionalInfoPanel.add(classMethodNameTextField);
+        additionalInfoPanel.add(methodInfoTextField);
+        additionalInfoPanel.add(methodInputTextField);
+        additionalInfoPanel.add(resultOutputTextField);
 
 
-        additionalInfoPanel.add(fileNameTextField);
-        additionalInfoPanel.add(avgPressureTextField);
-        additionalInfoPanel.add(avgTemperatureTextField);
-        additionalInfoPanel.add(avgHumidityTextField);
-        additionalInfoPanel.add(loadFromTextField);
-        additionalInfoPanel.add(md5TextField);
+        classNameTextField.setEditable(false);
+        classMethodNameTextField.setEditable(false);
+        methodInfoTextField.setEditable(false);
+        methodInputTextField.setEditable(true);
+        resultOutputTextField.setEditable(false);
 
-        fileNameTextField.setEditable(false);
-        avgPressureTextField.setEditable(false);
-        avgTemperatureTextField.setEditable(false);
-        avgHumidityTextField.setEditable(false);
-        loadFromTextField.setEditable(false);
-        md5TextField.setEditable(false);
 
         //Buttons
         JPanel buttonPanel = new JPanel();
@@ -222,25 +211,16 @@ public class MainWindow extends JFrame {
         getContentPane().add(additionalInfoPanel, BorderLayout.EAST);
     }
 
-     private void loadAdditionalInfo(CsvFileElement csvFileElement){
+     private void loadAdditionalInfo(JavaClassFile javaClassFile){
 
-         fileNameTextField.setText("Nazwa pliku: " + csvFileElement.getFileName());
-         avgPressureTextField.setText("Średnie ciśnienie: " + csvFileElement.getAvgPressure()+ "[hPa]");
-         avgTemperatureTextField.setText("Średnia temperatura: " + csvFileElement.getAvgTemperature()+"[℃]");
-         avgHumidityTextField.setText("Średnia wilgotność:  "+ csvFileElement.getAvgHumidity() + "[%]");
-         md5TextField.setText("Hash MD5: " + csvFileElement.getMd5CheckSum());
+         classNameTextField.setText("Nazwa Klasy: ");
+         classMethodNameTextField.setText("Nazwa metody: ");
+         methodInfoTextField.setText("Operacja: ");
+         resultOutputTextField.setText("Wynik: ");
+
 
      }
 
-    private void loadAdditionalInfo(FileElement fileElement){
 
-        fileNameTextField.setText("Nazwa pliku: " + fileElement.getFileName());
-        avgPressureTextField.setText("Średnie ciśnienie: Brak danych");
-        avgTemperatureTextField.setText("Średnia temperatura: Brak danych");
-        avgHumidityTextField.setText("Średnia wilgotność: Brak danych");
-        loadFromTextField.setText("Załadowano z " + "dysku");
-        md5TextField.setText("Hash MD5: " + fileElement.getMd5CheckSum());
-
-    }
 
 }
