@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -25,7 +26,7 @@ public class MainWindow extends JFrame {
 
 
     String[] fileColumnNames = {"Typ", "Nazwa pliku"};
-    String[] classColumnNames ={"Nazwa klasy", "Status klasy", "Opcja", "Nazwa metody(Podaj)", "Przycisk Wykonaj", "Status Metody"};
+    String[] classColumnNames ={"Nazwa klasy", "Status klasy", "Nazwa metody(Podaj)", "Wynik", "Status Metody"};
 
     JTable fileTable;
     JTable classTable;
@@ -43,7 +44,7 @@ public class MainWindow extends JFrame {
     DefaultTableModel classTableModel = new DefaultTableModel(classColumnNames, 0);
 
 
-
+    ArrayList<JavaClassFile> javaClassFileArrayList = new ArrayList<>();
 
 
     private void updateFileTable(){
@@ -74,6 +75,31 @@ public class MainWindow extends JFrame {
     }
 
     private void updateClassTable(){
+
+        for(Path path:fileHandler.getFilesPath()){
+
+
+            if(path.toString().endsWith(".class")){
+
+                JavaClassFile javaClassFile = new JavaClassFile(path);
+
+
+                String className = String.valueOf(path.getFileName());
+                String classState;
+
+                if (javaClassFile.isLoaded()){
+                    classState = "Załadowana";
+                } else{
+                    classState="Niezaładowana";
+                }
+
+                Object[] objs ={className, classState, "", "", "status"};
+                classTableModel.addRow(objs);
+            }
+
+        }
+        classTable.repaint();
+
 
 
     }
@@ -154,13 +180,35 @@ public class MainWindow extends JFrame {
         infoJtextArea.setVisible(true);
 
 
+        JPanel leftButtonPanel = new JPanel();
+        JPanel rightButtonPanel = new JPanel();
+        JPanel centerButtonPanel = new JPanel();
+
         //Buttons
         JPanel buttonPanel = new JPanel();
         JButton backButton = new JButton("Powrót");
         JButton refreshButton = new JButton("Odśwież");
+        JButton loadClassButton = new JButton("Załaduj");
+        JButton unloadClassButton = new JButton("Wyładuj");
+        JButton executeOperationButton = new JButton("Wykonaj metode");
 
-        buttonPanel.add(backButton);
-        buttonPanel.add(refreshButton);
+//        buttonPanel.add(backButton);
+//        buttonPanel.add(refreshButton);
+//        buttonPanel.add(loadClassButton);
+//        buttonPanel.add(unloadClassButton);
+//        buttonPanel.add(executeOperationButton);
+
+        leftButtonPanel.add(backButton);
+        leftButtonPanel.add(refreshButton);
+        rightButtonPanel.add(loadClassButton);
+        rightButtonPanel.add(unloadClassButton);
+        rightButtonPanel.add(executeOperationButton);
+
+        buttonPanel.add(leftButtonPanel, FlowLayout.LEFT);
+        buttonPanel.add(rightButtonPanel, FlowLayout.CENTER);
+
+
+
 
         // add ActionListeners
         backButton.addActionListener(new ActionListener()
@@ -179,6 +227,31 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent arg0)
             {
                 updateFileTable();
+            }
+        });
+
+        loadClassButton.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent arg0)
+            {
+
+            }
+        });
+
+        unloadClassButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
+
+            }
+        });
+
+        executeOperationButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
+
             }
         });
 
