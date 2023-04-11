@@ -25,6 +25,15 @@ abstract public class ElementInFileSystem {
         return fileName.toString();
     }
 
+    public String getFileNameWithoutExtension(){
+
+        String name = fileName.toString();
+        int pos = name.lastIndexOf(".");
+        if(pos == -1) return name;
+
+        return name.substring(0, pos);
+    }
+
     abstract public String getFileNameWithInfo();
 
     public void readFile() {

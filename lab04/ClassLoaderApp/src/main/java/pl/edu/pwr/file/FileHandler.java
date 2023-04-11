@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 public class FileHandler {
 
 
-    private Path currentPath = Paths.get("../classToLoad/out/production/classToLoad/implementation");
+    private Path currentPath = Paths.get("../classToLoad/out/production/classToLoad");
     private ArrayList<ElementInFileSystem> files = new ArrayList<>(); //FileInfo objects from path
     private ArrayList<Path> filesPath = new ArrayList<>();
     private ArrayList<Path> classPath = new ArrayList<>();
@@ -19,6 +19,7 @@ public class FileHandler {
     public ArrayList<Path> getFilesPath() {
         return filesPath;
     }
+    public ArrayList<Path> getClassPath() { return classPath; }
 
     public void clearFiles() {
         files.clear();

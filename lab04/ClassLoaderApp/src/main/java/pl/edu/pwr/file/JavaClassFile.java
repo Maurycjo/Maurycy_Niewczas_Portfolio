@@ -14,13 +14,14 @@ public class JavaClassFile extends FileElement{
     private final String unloadedStr = "Niezaładowana";
     private final String loadedStr = "Załadowana";
     MyStatusListener st;
+    private String lastTask ="";
 
     public JavaClassFile(Path filePath) {
         super(filePath);
         st = new MyStatusListener(this);
     }
 
-    MyClassLoader  classLoader = new MyClassLoader(getFilePath());
+    MyClassLoader  classLoader = new MyClassLoader(getFilePath().getParent());
     Class <?> loadedClass;
     Object object;
 
@@ -37,6 +38,18 @@ public class JavaClassFile extends FileElement{
 
     }
 
+    public String getLastTask() {
+        return lastTask;
+    }
+
+    public String getMethodState() {
+        return methodState;
+    }
+
+    public String getClassState(){
+        return classState;
+    }
+
     public void loadClass(){
 
        if(loadedClass!=null){
@@ -44,7 +57,7 @@ public class JavaClassFile extends FileElement{
        }
 
         try {
-            loadedClass = classLoader.loadClass(getFileName());
+            loadedClass = classLoader.loadClass(getFileNameWithoutExtension());
             object = loadedClass.getDeclaredConstructor().newInstance();
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException |
                  NoSuchMethodException e) {
@@ -87,6 +100,7 @@ public class JavaClassFile extends FileElement{
     }
 
     public void submitTask(String task){
+        lastTask = task;
         Method submitTaskMethod = null;
         try {
             submitTaskMethod = loadedClass.getMethod("submitTask", String.class, StatusListener.class);
