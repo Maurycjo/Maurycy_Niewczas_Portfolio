@@ -11,9 +11,10 @@ import java.util.stream.Stream;
 
 public class FileHandler {
 
-    private static final String pathExpand = "/Desktop/java_classes";
-    private Path currentPath = Paths.get(System.getProperty("user.home") + pathExpand); //path that program start in
+    //private static final String pathExpand = "/Desktop/java_classes";
+    //private Path currentPath = Paths.get(System.getProperty("user.home") + pathExpand); //path that program start in
 
+    private Path currentPath = Paths.get("../classToLoad/out/production/classToLoad/implementation");
     private ArrayList<ElementInFileSystem> files = new ArrayList<>(); //FileInfo objects from path
     private ArrayList<Path> filesPath = new ArrayList<>();
 
