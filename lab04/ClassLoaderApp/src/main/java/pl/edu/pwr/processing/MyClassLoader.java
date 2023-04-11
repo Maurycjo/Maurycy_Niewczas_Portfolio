@@ -11,8 +11,11 @@ public class MyClassLoader extends ClassLoader {
         this.classPath = classPath;
     }
 
+
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
+
+
         try {
             byte[] data = getClassData(name);
             return defineClass(name, data, 0, data.length);
