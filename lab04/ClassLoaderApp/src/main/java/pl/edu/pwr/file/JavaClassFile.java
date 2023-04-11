@@ -16,7 +16,7 @@ public class JavaClassFile extends FileElement{
 
     private String lastTask ="";
 
-    public StatusListener mst = new MyStatusListener();
+    private MyStatusListener mst;
 
     public JavaClassFile(Path filePath) {
         super(filePath);
@@ -27,6 +27,9 @@ public class JavaClassFile extends FileElement{
     Object object;
 
 
+    public void setMst(MyStatusListener mst){
+        this.mst=mst;
+    }
     private String classState = unloadedStr; //Niezaładowana lub Załadowana
     private String methodState; //Nie znaleziono, 1-99, wykonano
 

@@ -1,6 +1,8 @@
 package pl.edu.pwr.window;
 
 import pl.edu.pwr.file.*;
+import pl.edu.pwr.processing.MyStatusListener;
+import pl.edu.pwr.processing.StatusListener;
 
 
 import java.awt.*;
@@ -25,8 +27,10 @@ public class MainWindow extends JFrame {
     private final JTextArea infoJtextArea;
     JScrollPane sp ;
     JScrollPane contentSp;
+    MyStatusListener mst;
 
-    final int CLASS_NAME_IDX = 0, CLASS_STATE_IDX = 1, CLASS_ARG_IDX = 2, CLASS_RESULT_IDX=3, PROGRESS_IDX = 4, METHOD_INFO_IDX=5;
+    final int CLASS_NAME_IDX = 0, CLASS_STATE_IDX = 1, CLASS_ARG_IDX = 2, CLASS_RESULT_IDX=3, PROGRESS_IDX=4,  METHOD_INFO_IDX=5;
+
 
     HashMap<Path, JavaClassFile> loadedClassHashMap = new HashMap<>();
 
@@ -34,7 +38,7 @@ public class MainWindow extends JFrame {
     String[] classColumnNames ={"Nazwa klasy", "Status klasy", "Argumenty metody", "Wynik", "Progress", "o Metodzie"};
 
     JTable fileTable;
-    JTable classTable;
+    public JTable classTable;
 
     DefaultTableModel fileTableModel = new DefaultTableModel(fileColumnNames, 0){
 
@@ -274,6 +278,7 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent arg0)
             {
                 int selectedRow = classTable.getSelectedRow();
+                mst = new MyStatusListener(classTable, selectedRow, PROGRESS_IDX);
                 Path selectedPath = fileHandler.getClassPath().get(selectedRow).toAbsolutePath();
                 if(loadedClassHashMap.get(selectedPath)==null){
                     classTable.setValueAt("Załaduj klasę",selectedRow, METHOD_INFO_IDX);
@@ -281,8 +286,9 @@ public class MainWindow extends JFrame {
                 }else{
 
                     JavaClassFile javaClassFile = loadedClassHashMap.get(selectedPath);
+                    javaClassFile.setMst(mst);
                     javaClassFile.submitTask((String) classTable.getValueAt(selectedRow, CLASS_ARG_IDX));
-                    classTable.setValueAt(javaClassFile.getMethodState(), selectedRow, PROGRESS_IDX);
+                    //classTable.setValueAt(javaClassFile.getMethodState(), selectedRow, PROGRESS_IDX);
                     classTable.setValueAt(javaClassFile.getResultMethod(), selectedRow, CLASS_RESULT_IDX);
                 }
 
