@@ -1,5 +1,4 @@
-package pl.edu.pwr.processing.implementation;
-
+package pl.edu.pwr.example;
 
 import pl.edu.pwr.processing.Status;
 import pl.edu.pwr.processing.StatusListener;

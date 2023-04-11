@@ -1,4 +1,4 @@
-package pl.edu.pwr.processing.implementation;
+package pl.edu.pwr.example;
 
 import pl.edu.pwr.processing.Processor;
 import pl.edu.pwr.processing.Status;
@@ -9,7 +9,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-
 
 
 

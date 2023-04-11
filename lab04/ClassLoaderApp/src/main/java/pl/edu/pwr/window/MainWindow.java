@@ -2,6 +2,7 @@ package pl.edu.pwr.window;
 
 import pl.edu.pwr.file.*;
 
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,9 +13,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 public class MainWindow extends JFrame {
+
 
     FileHandler fileHandler = new FileHandler();
 
@@ -24,6 +25,7 @@ public class MainWindow extends JFrame {
     JScrollPane sp ;
     JScrollPane contentSp;
 
+    public int currentStatusProgress = 0;
 
     String[] fileColumnNames = {"Typ", "Nazwa pliku"};
     String[] classColumnNames ={"Nazwa klasy", "Status klasy", "Nazwa metody(Podaj)", "Wynik", "Status Metody"};
@@ -99,9 +101,6 @@ public class MainWindow extends JFrame {
 
         }
         classTable.repaint();
-
-
-
     }
 
 
@@ -111,10 +110,6 @@ public class MainWindow extends JFrame {
         //JPanel cardPanel = new JPanel();
         setTitle("Aplikacja Ładowacza Klas");
         setSize(1000, 400);
-
-
-
-
 
         fileTable = new JTable(fileTableModel);
         classTable = new JTable(classTableModel);
@@ -192,11 +187,7 @@ public class MainWindow extends JFrame {
         JButton unloadClassButton = new JButton("Wyładuj");
         JButton executeOperationButton = new JButton("Wykonaj metode");
 
-//        buttonPanel.add(backButton);
-//        buttonPanel.add(refreshButton);
-//        buttonPanel.add(loadClassButton);
-//        buttonPanel.add(unloadClassButton);
-//        buttonPanel.add(executeOperationButton);
+
 
         leftButtonPanel.add(backButton);
         leftButtonPanel.add(refreshButton);
@@ -236,6 +227,7 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent arg0)
             {
 
+
             }
         });
 
@@ -262,8 +254,22 @@ public class MainWindow extends JFrame {
 
     }
 
+    public void changeMethodStatus(String value){
 
+        int index = 0;
+        classTable.setValueAt(value ,index, 4);
+        classTable.repaint();
+    }
+    public void changeClassInfoStatus(String value){
 
+//        int index = 0;
+//        classTable.setValueAt(value, index,  );
+    }
+    public String getMethodName(){
+
+        int index = 0;
+        return classTable.getValueAt(index, 2).toString();
+    }
 
 
 }
