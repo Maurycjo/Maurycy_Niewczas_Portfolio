@@ -14,7 +14,7 @@ public class Main {
 
         Path currentPath = Paths.get("../classToLoad/out/production/classToLoad/");
         MyClassLoader classLoader = new MyClassLoader(currentPath);
-        Class<?> loadedClass = classLoader.loadClass("implementation.TestClassToLoad");
+        Class<?> loadedClass = classLoader.loadClass("implementation.Adder");
         Object object = loadedClass.getDeclaredConstructor().newInstance();
         //Method submitTaskMethod = loadedClass.getMethod("submitTask", String.class, StatusListener.class);
         Method getInfoMethod = loadedClass.getMethod("getInfo");

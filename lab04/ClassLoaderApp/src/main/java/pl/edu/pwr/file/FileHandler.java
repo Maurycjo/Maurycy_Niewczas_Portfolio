@@ -1,23 +1,16 @@
 package pl.edu.pwr.file;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.file.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.WeakHashMap;
 import java.util.stream.Stream;
 
 public class FileHandler {
 
-    //private static final String pathExpand = "/Desktop/java_classes";
-    //private Path currentPath = Paths.get(System.getProperty("user.home") + pathExpand); //path that program start in
 
     private Path currentPath = Paths.get("../classToLoad/out/production/classToLoad/implementation");
     private ArrayList<ElementInFileSystem> files = new ArrayList<>(); //FileInfo objects from path
     private ArrayList<Path> filesPath = new ArrayList<>();
-
+    private ArrayList<Path> classPath = new ArrayList<>();
 
     public ArrayList<ElementInFileSystem> getFiles() {
         return files;
@@ -48,26 +41,6 @@ public class FileHandler {
         }
     }
 
-    public void fillFilesList() {
-        //get all files to FileInfo Array from current path
-        files.clear();      //clear before filling
-
-        try (Stream<Path> paths = Files.list(currentPath)) {
-            paths.peek(path -> {
-                        if (path.toString().endsWith(".class")) {
-                            files.add(new JavaClassFile(path.toAbsolutePath()));
-                        } else if (Files.isDirectory(path)) {
-                            files.add(new DirElement(path.toAbsolutePath()));
-                        } else {
-                            files.add(new FileElement(path.toAbsolutePath()));
-                        }
-                    })
-                    .count(); // kończy strumień, ale nie wykonuje żadnych operacji
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void fillFilesPathList() {
         filesPath.clear();
 
@@ -80,6 +53,23 @@ public class FileHandler {
             e.printStackTrace();
         }
     }
+
+    public void fillClassPathList() {
+        classPath.clear();
+
+        try (Stream<Path> paths = Files.list(currentPath)) {
+            paths.peek(path -> {
+                if(path.toString().endsWith(".class"))
+                        classPath.add(path);
+                    })
+                    .count(); // kończy strumień, ale nie wykonuje żadnych operacji
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 }
 

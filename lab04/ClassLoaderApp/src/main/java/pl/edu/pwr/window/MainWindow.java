@@ -28,7 +28,7 @@ public class MainWindow extends JFrame {
     public int currentStatusProgress = 0;
 
     String[] fileColumnNames = {"Typ", "Nazwa pliku"};
-    String[] classColumnNames ={"Nazwa klasy", "Status klasy", "Nazwa metody(Podaj)", "Wynik", "Status Metody"};
+    String[] classColumnNames ={"Nazwa klasy", "Status klasy", "Nazwa metody(Podaj)", "Wynik", "Status Metody", "o Metodzie"};
 
     JTable fileTable;
     JTable classTable;
@@ -78,6 +78,10 @@ public class MainWindow extends JFrame {
 
     private void updateClassTable(){
 
+        fileHandler.fillClassPathList();
+        classTableModel = (DefaultTableModel) classTable.getModel();
+        classTableModel.setRowCount(0);
+
         for(Path path:fileHandler.getFilesPath()){
 
 
@@ -89,13 +93,13 @@ public class MainWindow extends JFrame {
                 String className = String.valueOf(path.getFileName());
                 String classState;
 
-                if (javaClassFile.isLoaded()){
-                    classState = "Załadowana";
-                } else{
-                    classState="Niezaładowana";
-                }
+//                if (javaClassFile.isLoaded()){
+//                    classState = "Załadowana";
+//                } else{
+//                    classState="Niezaładowana";
+//                }
 
-                Object[] objs ={className, classState, "", "", "status"};
+                Object[] objs ={className, "classState", "", "", "status", "o"};
                 classTableModel.addRow(objs);
             }
 
@@ -131,7 +135,7 @@ public class MainWindow extends JFrame {
                 if(evt.getClickCount()==2){
 
                     fileHandler.clearFiles();
-                    fileHandler.fillFilesList();
+                   // fileHandler.fillFilesList();
 
                     //after 2 clicking two times on item in jFile list change directory if possible
                     int index = jtable.rowAtPoint(evt.getPoint());
@@ -146,8 +150,6 @@ public class MainWindow extends JFrame {
 
                     } else if(fileHandler.getFilesPath().get(index).toString().endsWith(".class")){
 
-
-                        //csv file
                         clickedElement = new JavaClassFile(fileHandler.getFilesPath().get(index));
                         JavaClassFile javaClassFile = (JavaClassFile)clickedElement;
 
@@ -158,6 +160,7 @@ public class MainWindow extends JFrame {
                     }
                 }
                 updateFileTable();
+                updateClassTable();
                 }
         });
 
@@ -209,6 +212,7 @@ public class MainWindow extends JFrame {
             {
               fileHandler.parentPath();
               updateFileTable();
+              updateClassTable();
             }
         });
 
@@ -218,6 +222,7 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent arg0)
             {
                 updateFileTable();
+                updateClassTable();
             }
         });
 

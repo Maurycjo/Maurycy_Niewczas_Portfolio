@@ -1,25 +1,106 @@
 package pl.edu.pwr.file;
 
+import pl.edu.pwr.processing.MyClassLoader;
+import pl.edu.pwr.processing.MyStatusListener;
+import pl.edu.pwr.processing.StatusListener;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class JavaClassFile extends FileElement{
 
-
+    private final String unloadedStr = "Niezaładowana";
+    private final String loadedStr = "Załadowana";
+    MyStatusListener st;
 
     public JavaClassFile(Path filePath) {
         super(filePath);
+        st = new MyStatusListener(this);
+    }
+
+    MyClassLoader  classLoader = new MyClassLoader(getFilePath());
+    Class <?> loadedClass;
+    Object object;
+
+
+    private String classState = unloadedStr; //Niezaładowana lub Załadowana
+    private String methodState; //Nie znaleziono, 1-99, wykonano
+
+    public void changeMethodState(int progress){
+        if(progress==100){
+            methodState="Wykonano";
+        }else {
+            methodState = String.valueOf(progress);
+        }
+
+    }
+
+    public void loadClass(){
+
+       if(loadedClass!=null){
+           return;
+       }
+
+        try {
+            loadedClass = classLoader.loadClass(getFileName());
+            object = loadedClass.getDeclaredConstructor().newInstance();
+        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException |
+                 NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+
+        classState = loadedStr;
+    }
+
+    public String getInfoMethod(){
+
+        Method method = null;
+        try {
+            method = loadedClass.getMethod("getInfo");
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            return (String) method.invoke(object);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public String getResultMethod(){
+
+        Method method = null;
+        try {
+            method = loadedClass.getMethod("getResult");
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            return (String) method.invoke(object);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void submitTask(String task){
+        Method submitTaskMethod = null;
+        try {
+            submitTaskMethod = loadedClass.getMethod("submitTask", String.class, StatusListener.class);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            submitTaskMethod.invoke(task, st);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
 
-    private boolean loaded = false;
-
-    public boolean isLoaded() {
-        return loaded;
-    }
-
-    public void setLoaded(boolean loaded) {
-        this.loaded = loaded;
-    }
 }
