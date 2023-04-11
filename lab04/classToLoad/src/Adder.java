@@ -1,6 +1,6 @@
-import processing.Processor;
-import processing.Status;
-import processing.StatusListener;
+import pl.edu.pwr.processing.Processor;
+import pl.edu.pwr.processing.Status;
+import pl.edu.pwr.processing.StatusListener;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

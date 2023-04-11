@@ -1,5 +1,5 @@
-import processing.Processor;
-import processing.StatusListener;
+import pl.edu.pwr.processing.Processor;
+import pl.edu.pwr.processing.StatusListener;
 
 public class TestClassToLoad implements Processor {
     @Override
