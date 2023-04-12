@@ -113,7 +113,7 @@ public class MainWindow extends JFrame {
                     JavaClassFile currentClassFile = loadedClassHashMap.get(path);
 
                     Object[] objs ={currentClassFile.getFileName(), currentClassFile.getClassState(),
-                                    currentClassFile.getLastTask(), currentClassFile.getResultMethod(),
+                                    currentClassFile.getLastTask(), "",
                                     currentClassFile.getMethodState(), currentClassFile.getInfoMethod()};
                 }
             }
@@ -191,14 +191,14 @@ public class MainWindow extends JFrame {
         JButton loadClassButton = new JButton("Załaduj");
         JButton unloadClassButton = new JButton("Wyładuj");
         JButton executeOperationButton = new JButton("Wykonaj metode");
-
-
+        JButton showResultButton = new JButton("Pokaz wynik");
 
         leftButtonPanel.add(backButton);
         leftButtonPanel.add(refreshButton);
         rightButtonPanel.add(loadClassButton);
         rightButtonPanel.add(unloadClassButton);
         rightButtonPanel.add(executeOperationButton);
+        rightButtonPanel.add(showResultButton);
 
         buttonPanel.add(leftButtonPanel, FlowLayout.LEFT);
         buttonPanel.add(rightButtonPanel, FlowLayout.CENTER);
@@ -230,7 +230,6 @@ public class MainWindow extends JFrame {
 
         loadClassButton.addActionListener(new ActionListener()
         {
-
             public void actionPerformed(ActionEvent arg0)
             {
                 int selectedRow = classTable.getSelectedRow();
@@ -245,13 +244,10 @@ public class MainWindow extends JFrame {
                 }
                 else{
                     return;
-
                 }
-
                 javaClassFile.loadClass();
                 classTable.setValueAt(javaClassFile.getClassState(), selectedRow, CLASS_STATE_IDX);
                 classTable.setValueAt(javaClassFile.getInfoMethod(), selectedRow, METHOD_INFO_IDX);
-
             }
         });
 
@@ -270,7 +266,24 @@ public class MainWindow extends JFrame {
                 }
                 classTable.setValueAt("Wyładowana", selectedRow, CLASS_STATE_IDX);
             }
+        });
 
+        showResultButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int selectedRow = classTable.getSelectedRow();
+                Path selectedPath = fileHandler.getClassPath().get(selectedRow).toAbsolutePath();
+
+                if(loadedClassHashMap.get(selectedPath)==null){
+                    return;
+                }
+                else{
+                    JavaClassFile javaClassFile = loadedClassHashMap.get(selectedPath);
+                    //System.out.println("result:" + javaClassFile.getResult());
+                    classTable.setValueAt(javaClassFile.getResultMethod(), selectedRow, CLASS_RESULT_IDX);
+                }
+            }
         });
 
         executeOperationButton.addActionListener(new ActionListener()
@@ -278,23 +291,26 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent arg0)
             {
                 int selectedRow = classTable.getSelectedRow();
-                mst = new MyStatusListener(classTable, selectedRow, PROGRESS_IDX);
                 Path selectedPath = fileHandler.getClassPath().get(selectedRow).toAbsolutePath();
+
                 if(loadedClassHashMap.get(selectedPath)==null){
                     classTable.setValueAt("Załaduj klasę",selectedRow, METHOD_INFO_IDX);
+                    classTable.setValueAt("", selectedRow, CLASS_RESULT_IDX);
 
                 }else{
 
+                    mst = new MyStatusListener(classTable, selectedRow, PROGRESS_IDX);
                     JavaClassFile javaClassFile = loadedClassHashMap.get(selectedPath);
                     javaClassFile.setMst(mst);
                     javaClassFile.submitTask((String) classTable.getValueAt(selectedRow, CLASS_ARG_IDX));
-                    //classTable.setValueAt(javaClassFile.getMethodState(), selectedRow, PROGRESS_IDX);
-                    classTable.setValueAt(javaClassFile.getResultMethod(), selectedRow, CLASS_RESULT_IDX);
+
                 }
-
-
             }
         });
+
+
+
+
 
         getContentPane().add(pathField, BorderLayout.NORTH);
         getContentPane().add(sp, BorderLayout.WEST);
@@ -302,6 +318,9 @@ public class MainWindow extends JFrame {
         getContentPane().add(contentSp, BorderLayout.CENTER);
 
     }
+
+
+
 
 
 }
