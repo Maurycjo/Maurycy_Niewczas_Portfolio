@@ -30,6 +30,7 @@ public class MainWindow extends JFrame {
     MyStatusListener mst;
 
     final int CLASS_NAME_IDX = 0, CLASS_STATE_IDX = 1, CLASS_ARG_IDX = 2, CLASS_RESULT_IDX=3, PROGRESS_IDX=4,  METHOD_INFO_IDX=5;
+    final int FILE_COLUMN_1_WIDTH = 80, FILE_COLUMN_2_WIDTH=200;
 
 
     HashMap<Path, JavaClassFile> loadedClassHashMap = new HashMap<>();
@@ -97,24 +98,22 @@ public class MainWindow extends JFrame {
 
         for(Path path:fileHandler.getFilesPath()){
 
-
             if(path.toString().endsWith(".class")){
-
-
 
                 if(loadedClassHashMap.get(path)==null){
 
                     String className = String.valueOf(path.getFileName());
 
-                    Object[] objs = {className, "Niezaładowana", "", "Niewykonana", "Brak"};
+                    Object[] objs = {className, "Niezaładowana", "", "", "Brak"};
                     classTableModel.addRow(objs);
                 } else{
 
                     JavaClassFile currentClassFile = loadedClassHashMap.get(path);
 
                     Object[] objs ={currentClassFile.getFileName(), currentClassFile.getClassState(),
-                                    currentClassFile.getLastTask(), "",
+                                    currentClassFile.getLastTask(), currentClassFile.getLastResult(),
                                     currentClassFile.getMethodState(), currentClassFile.getInfoMethod()};
+                    classTableModel.addRow(objs);
                 }
             }
         }
@@ -125,13 +124,17 @@ public class MainWindow extends JFrame {
     {
         //JPanel cardPanel = new JPanel();
         setTitle("Aplikacja Ładowacza Klas");
-        setSize(1000, 400);
+        setSize(1300, 500);
 
         fileTable = new JTable(fileTableModel);
         classTable = new JTable(classTableModel);
 
-        fileTable.getColumnModel().getColumn(0).setMaxWidth(40);
+        fileTable.setFont(new Font("Arial", Font.PLAIN, 14));
+        classTable.setFont(new Font("Arial", Font.PLAIN, 14));
 
+        fileTable.getColumnModel().getColumn(0).setMaxWidth(FILE_COLUMN_1_WIDTH);
+        fileTable.getColumnModel().getColumn(1).setMaxWidth(FILE_COLUMN_2_WIDTH);
+        classTable.getColumnModel().getColumn(5).setMinWidth(170);
 
         pathField.setText(fileHandler.getCurrentPath().toString());
         pathField.setEditable(false);
@@ -151,14 +154,12 @@ public class MainWindow extends JFrame {
                     //after 2 clicking two times on item in jFile list change directory if possible
                     int index = jtable.rowAtPoint(evt.getPoint());
 
-
                     ElementInFileSystem clickedElement;
                     //dir
                     if(Files.isDirectory(fileHandler.getFilesPath().get(index))){
 
                         clickedElement = new DirElement(fileHandler.getFilesPath().get(index));
                         fileHandler.setCurrentPath(clickedElement.getFilePath());
-
                     }
                 }
                 updateFileTable();
@@ -167,7 +168,9 @@ public class MainWindow extends JFrame {
         });
 
         sp = new JScrollPane(fileTable);
+        sp.setPreferredSize(new Dimension(FILE_COLUMN_1_WIDTH+FILE_COLUMN_2_WIDTH, 100));
         contentSp = new JScrollPane(classTable);
+
 
         //jtextArea for file content
         contentJtextArea = new JTextArea();
@@ -202,9 +205,6 @@ public class MainWindow extends JFrame {
 
         buttonPanel.add(leftButtonPanel, FlowLayout.LEFT);
         buttonPanel.add(rightButtonPanel, FlowLayout.CENTER);
-
-
-
 
         // add ActionListeners
         backButton.addActionListener(new ActionListener()
@@ -308,19 +308,9 @@ public class MainWindow extends JFrame {
             }
         });
 
-
-
-
-
         getContentPane().add(pathField, BorderLayout.NORTH);
         getContentPane().add(sp, BorderLayout.WEST);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         getContentPane().add(contentSp, BorderLayout.CENTER);
-
     }
-
-
-
-
-
 }

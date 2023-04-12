@@ -13,9 +13,6 @@ public class JavaClassFile extends FileElement{
 
     private final String unloadedStr = "Niezaładowana";
     private final String loadedStr = "Załadowana";
-
-    private String lastTask ="";
-
     private MyStatusListener mst;
 
     public JavaClassFile(Path filePath) {
@@ -29,6 +26,19 @@ public class JavaClassFile extends FileElement{
     Method getResultMethod=null;
     Method submitTaskMethod=null;
 
+    private String lastTask, lastResult, lastProgress, lastMethodInfo;
+
+    public String getLastResult() {
+        return lastResult;
+    }
+
+    public String getLastProgress() {
+        return lastProgress;
+    }
+
+    public String getLastMethodInfo() {
+        return lastMethodInfo;
+    }
 
     public void setMst(MyStatusListener mst){
         this.mst=mst;
@@ -74,7 +84,8 @@ public class JavaClassFile extends FileElement{
         }
 
         try {
-            return (String) method.invoke(object);
+            lastMethodInfo = (String) method.invoke(object);
+            return lastMethodInfo;
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
@@ -83,14 +94,14 @@ public class JavaClassFile extends FileElement{
 
     public String getResultMethod(){
 
-
         try {
             getResultMethod = loadedClass.getMethod("getResult");
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
         try {
-            return (String) getResultMethod.invoke(object);
+            lastResult = (String) getResultMethod.invoke(object);
+            return lastResult;
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
