@@ -2,8 +2,6 @@ package pl.edu.pwr.window;
 
 import pl.edu.pwr.file.*;
 import pl.edu.pwr.processing.MyStatusListener;
-import pl.edu.pwr.processing.StatusListener;
-
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -58,10 +55,6 @@ public class MainWindow extends JFrame {
             return column == CLASS_ARG_IDX;
         }
     };
-
-
-    ArrayList<JavaClassFile> javaClassFileArrayList = new ArrayList<>();
-
 
     private void updateFileTable(){
         //updating JFileList with item from current path and .md5 path
@@ -220,11 +213,15 @@ public class MainWindow extends JFrame {
 
         refreshButton.addActionListener(new ActionListener()
         {
-            //refresh, checking checksums, deletions, additions
+
             public void actionPerformed(ActionEvent arg0)
             {
+
                 updateFileTable();
-                updateClassTable();
+                //updateClassTable();
+
+                System.out.println(loadedClassHashMap.size());
+
             }
         });
 
@@ -236,18 +233,15 @@ public class MainWindow extends JFrame {
 
                 Path selectedPath = fileHandler.getClassPath().get(selectedRow).toAbsolutePath();
 
-                JavaClassFile javaClassFile;
-                if(loadedClassHashMap.get(selectedPath)==null){
-                    javaClassFile = new JavaClassFile(selectedPath);
-                    loadedClassHashMap.put(selectedPath, javaClassFile);
 
+                if(loadedClassHashMap.get(selectedPath)==null){
+                    JavaClassFile javaClassFile = new JavaClassFile(selectedPath);
+                    javaClassFile.loadClass();
+                    loadedClassHashMap.put(selectedPath, javaClassFile);
+                    classTable.setValueAt(javaClassFile.getClassState(), selectedRow, CLASS_STATE_IDX);
+                    classTable.setValueAt(javaClassFile.getInfoMethod(), selectedRow, METHOD_INFO_IDX);
                 }
-                else{
-                    return;
-                }
-                javaClassFile.loadClass();
-                classTable.setValueAt(javaClassFile.getClassState(), selectedRow, CLASS_STATE_IDX);
-                classTable.setValueAt(javaClassFile.getInfoMethod(), selectedRow, METHOD_INFO_IDX);
+
             }
         });
 
@@ -264,7 +258,7 @@ public class MainWindow extends JFrame {
                 else{
                     loadedClassHashMap.remove(selectedPath);
                 }
-                classTable.setValueAt("Wyładowana", selectedRow, CLASS_STATE_IDX);
+                classTable.setValueAt("Niezaładowana", selectedRow, CLASS_STATE_IDX);
             }
         });
 
@@ -280,7 +274,6 @@ public class MainWindow extends JFrame {
                 }
                 else{
                     JavaClassFile javaClassFile = loadedClassHashMap.get(selectedPath);
-                    //System.out.println("result:" + javaClassFile.getResult());
                     classTable.setValueAt(javaClassFile.getResultMethod(), selectedRow, CLASS_RESULT_IDX);
                 }
             }

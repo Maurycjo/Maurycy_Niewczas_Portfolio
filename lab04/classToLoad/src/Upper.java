@@ -15,11 +15,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  */
 
-public class Adder implements Processor {
+public class Upper implements Processor {
 
     private static int taskId=0;
     private String result = null;
 
+    public void setResult(String result){
+
+        this.result=result;
+    }
     @Override
     public boolean submitTask(String task, StatusListener sl) {
         taskId++;
@@ -30,7 +34,6 @@ public class Adder implements Processor {
 
         executorService.scheduleAtFixedRate(
                 ()->{
-                    System.out.println("running"); // do debbugowania
                     ai.incrementAndGet();
                     sl.statusChanged(new Status(taskId,ai.get()));
                 },
@@ -51,11 +54,12 @@ public class Adder implements Processor {
 
                     //zmiana literek na duze
                     result = task.toUpperCase();
-                    System.out.println("finished");
+                    setResult(result);
                     //scheduleFuture.cancel(true);
                     executorService.shutdown();
                     executor.shutdown();
                     return true;
+
                 }
             }
         });

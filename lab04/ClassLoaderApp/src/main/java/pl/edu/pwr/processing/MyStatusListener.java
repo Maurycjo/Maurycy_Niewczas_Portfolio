@@ -25,7 +25,7 @@ public class MyStatusListener implements StatusListener{
 
         int value = s.getProgress();
 
-        if(value==100){
+        if(value>=100){
          classTable.setValueAt("Ukończone", selectedRow, column);
         } else {
             classTable.setValueAt(value, selectedRow, column);
