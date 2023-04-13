@@ -14,6 +14,8 @@ import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+
+
 public class MainWindow extends JFrame {
 
 
@@ -257,6 +259,7 @@ public class MainWindow extends JFrame {
                 }
                 else{
                     loadedClassHashMap.remove(selectedPath);
+                    System.gc();
                 }
                 classTable.setValueAt("Niezaładowana", selectedRow, CLASS_STATE_IDX);
             }
