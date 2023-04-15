@@ -23,20 +23,31 @@ public class MainWindow extends JFrame {
     DefaultTableModel classTableModel= new DefaultTableModel(classColumnNames, 0);
 
 
+    JComboBox selectCsvFileComboBox;
+    JLabel selectCsvLabel = new JLabel("Wybierz plik: ");
 
-    private void updateFileTable(){
+    JComboBox selectAlgorithmComboBox;
+    JLabel selectAlgorithmLabel = new JLabel("Wybierz współczynnik przetwarzania: ");
+    private void loadCsvFileSelectionToComboBox(){
+
+        String csvFileNames[] ={"csv1", "csv2", "csv3"};
+
+        selectCsvFileComboBox = new JComboBox<>(csvFileNames);
     }
 
-    private void updateClassTable(){
+    private void loadAlgorithmsToComboBox(){
 
+        String algorithmNames[] = {"kappa", "alg2", "alg3"};
+        selectAlgorithmComboBox = new JComboBox(algorithmNames);
 
     }
+
 
     public MainWindow()
     {
 
         // JPanel cardPanel = new JPanel();
-        setTitle("Aplikacja Ładowacza Klas");
+        setTitle("Aplikacja Macierzy Niezgodności");
         setSize(800, 500);
 
         // csv JTable components initialization
@@ -47,13 +58,25 @@ public class MainWindow extends JFrame {
 
         // classes JTable components initialization
         classTable = new JTable(classTableModel);
-        rowHeadersData[0] = "Klasy";
-        System.arraycopy(classColumnNames, 0, rowHeadersData, 1, classColumnNames.length);
         classScrollPane = new JScrollPane(classTable);
 
 
+        loadAlgorithmsToComboBox();
+        loadCsvFileSelectionToComboBox();
 
+        // selection csv and algorithm panels
+        JPanel selectionPanel = new JPanel();
+        JPanel selectCsvPanel = new JPanel();
+        JPanel selectAlgorithmPanel = new JPanel();
+        selectCsvPanel.add(selectCsvLabel);
+        selectCsvPanel.add(selectCsvFileComboBox);
+        selectAlgorithmPanel.add(selectAlgorithmLabel);
+        selectAlgorithmPanel.add(selectAlgorithmComboBox);
+        selectionPanel.add(selectCsvPanel, BorderLayout.WEST);
+        selectionPanel.add(selectAlgorithmPanel, BorderLayout.EAST);
 
+        // add components to main window
+        getContentPane().add(selectionPanel, BorderLayout.NORTH);
         getContentPane().add(csvScrollPane, BorderLayout.WEST);
         getContentPane().add(classScrollPane, BorderLayout.CENTER);
     }
