@@ -1,36 +1,25 @@
 package pl.edu.pwr.window;
 
-import pl.edu.pwr.file.*;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.nio.file.Path;
-
-
 
 
 public class MainWindow extends JFrame {
 
+    final int CSV_COLUMN_1_WIDTH = 80, CSV_COLUMN_2_WIDTH =80;
 
-    FileHandler fileHandler = new FileHandler();
+    JScrollPane csvScrollPane ;
+    JScrollPane classScrollPane;
+    String[] csvColumnNames = {"Klasa", "Grupa"};
+    String[] classColumnNames ={"Klasy", "a", "b", "c", "d", "e", "f"};
 
-    private final JTextArea contentJtextArea;
-    private final JTextArea infoJtextArea;
-    JScrollPane sp ;
-    JScrollPane contentSp;
-    final int FILE_COLUMN_1_WIDTH = 80, FILE_COLUMN_2_WIDTH=200;
+    JTable csvTable;
+    JTable classTable;
 
+    String[] rowHeadersData = new String[classColumnNames.length + 1];
 
-    String[] fileColumnNames = {"kappa", "wspolczynni1"};
-    String[] classColumnNames ={"1", "2", "3", "4", "5", "6"};
-
-    JTable fileTable;
-    public JTable classTable;
-
-    DefaultTableModel fileTableModel = new DefaultTableModel(fileColumnNames, 0);
+    DefaultTableModel csvTableModel = new DefaultTableModel(csvColumnNames, 0);
     DefaultTableModel classTableModel= new DefaultTableModel(classColumnNames, 0);
 
 
@@ -40,98 +29,32 @@ public class MainWindow extends JFrame {
 
     private void updateClassTable(){
 
-        fileHandler.fillClassPathList();
-        //classTableModel = (DefaultTableModel) classTable.getModel();
-        //classTableModel.setRowCount(0);
 
-        for(Path path:fileHandler.getFilesPath()){
-
-
-        }
-        classTable.repaint();
     }
 
     public MainWindow()
     {
-        //JPanel cardPanel = new JPanel();
+
+        // JPanel cardPanel = new JPanel();
         setTitle("Aplikacja Ładowacza Klas");
-        setSize(1300, 500);
+        setSize(800, 500);
 
-        fileTable = new JTable(fileTableModel);
+        // csv JTable components initialization
+        csvTable = new JTable(csvTableModel);
+        csvScrollPane = new JScrollPane(csvTable);
+        csvScrollPane.setPreferredSize(new Dimension(CSV_COLUMN_1_WIDTH + CSV_COLUMN_2_WIDTH, 100));
+
+
+        // classes JTable components initialization
         classTable = new JTable(classTableModel);
+        rowHeadersData[0] = "Klasy";
+        System.arraycopy(classColumnNames, 0, rowHeadersData, 1, classColumnNames.length);
+        classScrollPane = new JScrollPane(classTable);
 
 
-        JPanel jp = new JPanel();
-        updateFileTable();
-        updateClassTable();
 
 
-
-        sp = new JScrollPane(fileTable);
-        sp.setPreferredSize(new Dimension(FILE_COLUMN_1_WIDTH+FILE_COLUMN_2_WIDTH, 100));
-        contentSp = new JScrollPane(classTable);
-
-
-        //jtextArea for file content
-        contentJtextArea = new JTextArea();
-        contentJtextArea.setVisible(true);
-
-        contentJtextArea.setPreferredSize(new Dimension(100, 100));
-
-        //jtextArea for hash, from memory or disc
-        infoJtextArea = new JTextArea();
-        infoJtextArea.setVisible(true);
-
-        //Buttons
-        JPanel buttonPanel = new JPanel();
-        JButton backButton = new JButton("Powrót");
-        JButton refreshButton = new JButton("Odśwież");
-        JButton loadClassButton = new JButton("Załaduj");
-        JButton unloadClassButton = new JButton("Wyładuj");
-
-        buttonPanel.add(backButton);
-        buttonPanel.add(refreshButton);
-        buttonPanel.add(loadClassButton);
-        buttonPanel.add(unloadClassButton);
-
-
-        // add ActionListeners
-        backButton.addActionListener(new ActionListener()
-        {
-            //go 1 level up in directory
-            public void actionPerformed(ActionEvent arg0)
-            {
-
-            }
-        });
-
-        refreshButton.addActionListener(new ActionListener()
-        {
-
-            public void actionPerformed(ActionEvent arg0)
-            {
-
-            }
-        });
-
-        loadClassButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent arg0)
-            {
-
-            }
-        });
-
-        unloadClassButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent arg0)
-            {
-
-            }
-        });
-
-        getContentPane().add(sp, BorderLayout.WEST);
-        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-        getContentPane().add(contentSp, BorderLayout.CENTER);
+        getContentPane().add(csvScrollPane, BorderLayout.WEST);
+        getContentPane().add(classScrollPane, BorderLayout.CENTER);
     }
 }
