@@ -1,13 +1,25 @@
 package pl.edu.pwr.window;
 
+import pl.edu.pwr.file.CsvFile;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 
 public class MainWindow extends JFrame {
 
     final int CSV_COLUMN_1_WIDTH = 80, CSV_COLUMN_2_WIDTH =80;
+    final String CSV_DIR_PATH = "../csv/";
+
 
     JScrollPane csvScrollPane ;
     JScrollPane classScrollPane;
@@ -30,10 +42,47 @@ public class MainWindow extends JFrame {
     JLabel selectAlgorithmLabel = new JLabel("Wybierz współczynnik przetwarzania: ");
     private void loadCsvFileSelectionToComboBox(){
 
-        String csvFileNames[] ={"csv1", "csv2", "csv3"};
+        ArrayList <String> csvFileNames = new ArrayList<>();
 
-        selectCsvFileComboBox = new JComboBox<>(csvFileNames);
+        try (Stream<Path> paths = Files.list(Paths.get(CSV_DIR_PATH))) {
+            paths.peek(path -> {
+                        if (path.toString().endsWith(".csv")) {
+                            //selectCsvFileComboBox.add((Component) path.getFileName());
+                            csvFileNames.add(String.valueOf(path.getFileName()));
+                        }
+                    })
+                    .count(); // kończy strumień, ale nie wykonuje żadnych operacji
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        selectCsvFileComboBox = new JComboBox<>(csvFileNames.toArray());
+
+        loadCsvFileToTable();
     }
+
+    private void loadCsvFileToTable(){
+
+        csvTableModel = (DefaultTableModel) csvTable.getModel();
+        csvTableModel.setRowCount(0);
+
+        CsvFile csvFile = new CsvFile(Path.of(CSV_DIR_PATH + selectCsvFileComboBox.getSelectedItem().toString()));
+        csvFile.readFile();
+
+        for(var classWithAssigment: csvFile.getClassWithAssigmentArrayList()){
+
+            String className = classWithAssigment.getClassName();
+            int id = classWithAssigment.getGroupID();
+
+            Object[] objs = {className, String.valueOf(id)};
+            csvTableModel.addRow(objs);
+
+        }
+
+        csvTable.repaint();
+
+    }
+
 
     private void loadAlgorithmsToComboBox(){
 
@@ -74,6 +123,22 @@ public class MainWindow extends JFrame {
         selectAlgorithmPanel.add(selectAlgorithmComboBox);
         selectionPanel.add(selectCsvPanel, BorderLayout.WEST);
         selectionPanel.add(selectAlgorithmPanel, BorderLayout.EAST);
+
+
+        selectCsvFileComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadCsvFileToTable();
+            }
+        });
+
+
+
+
+
+
+
+
 
         // add components to main window
         getContentPane().add(selectionPanel, BorderLayout.NORTH);
