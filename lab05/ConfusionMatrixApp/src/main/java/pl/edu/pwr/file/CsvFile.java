@@ -1,9 +1,13 @@
 package pl.edu.pwr.file;
 
+import pl.edu.pwr.ex.api.DataSet;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class CsvFile {
@@ -11,10 +15,10 @@ public class CsvFile {
 
 
     private Path filePath;
-    private ArrayList<ClassWithAssigment> classWithAssigmentArrayList = new ArrayList<>();
+    private DataSet dataSet = new DataSet();
 
-    public ArrayList<ClassWithAssigment> getClassWithAssigmentArrayList() {
-        return classWithAssigmentArrayList;
+    public DataSet getDataSet() {
+        return dataSet;
     }
 
     public CsvFile(Path filePath) {
@@ -23,22 +27,24 @@ public class CsvFile {
 
     public void readFile(){
 
-        try(Stream<String> lines = Files.lines(filePath)){
+        try {
+            List<String> linesList = Files.readAllLines(filePath);
+            long rowCount = linesList.size();
 
-            lines.forEach(line-> {
+            String[][] data = new String[(int)rowCount][];
 
-                String[] result = line.split(",");
+            for (int i = 0; i < rowCount; i++) {
+                String[] values = linesList.get(i).split(",");
 
-                String className = result[0];
-                int classID = Integer.parseInt(result[1]);
+                data[i] = values;
+            }
 
-                classWithAssigmentArrayList.add(new ClassWithAssigment(className, classID));
-            });
+            dataSet.setHeader(data[0]);
+            dataSet.setData(Arrays.copyOfRange(data, 1, data.length));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 }

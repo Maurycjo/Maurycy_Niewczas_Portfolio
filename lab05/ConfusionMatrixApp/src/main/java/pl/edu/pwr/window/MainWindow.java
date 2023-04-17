@@ -17,22 +17,23 @@ import java.util.stream.Stream;
 
 public class MainWindow extends JFrame {
 
-    final int CSV_COLUMN_1_WIDTH = 80, CSV_COLUMN_2_WIDTH =80;
+
     final String CSV_DIR_PATH = "../csv/";
 
 
     JScrollPane csvScrollPane ;
-    JScrollPane classScrollPane;
-    String[] csvColumnNames = {"Klasa", "Grupa"};
-    String[] classColumnNames ={"Klasy", "a", "b", "c", "d", "e", "f"};
 
-    JTable csvTable;
-    JTable classTable;
 
-    String[] rowHeadersData = new String[classColumnNames.length + 1];
+    //String[] classColumnNames ={"Klasy", "a", "b", "c", "d", "e", "f"};
 
-    DefaultTableModel csvTableModel = new DefaultTableModel(csvColumnNames, 0);
-    DefaultTableModel classTableModel= new DefaultTableModel(classColumnNames, 0);
+    DefaultTableModel csvTableModel= new DefaultTableModel();
+    JTable csvTable = new JTable(csvTableModel);
+
+
+
+
+    //DefaultTableModel csvTableModel = new DefaultTableModel(csvColumnNames, 0);
+
 
 
     JComboBox selectCsvFileComboBox;
@@ -69,15 +70,22 @@ public class MainWindow extends JFrame {
         CsvFile csvFile = new CsvFile(Path.of(CSV_DIR_PATH + selectCsvFileComboBox.getSelectedItem().toString()));
         csvFile.readFile();
 
-        for(var classWithAssigment: csvFile.getClassWithAssigmentArrayList()){
 
-            String className = classWithAssigment.getClassName();
-            int id = classWithAssigment.getGroupID();
 
-            Object[] objs = {className, String.valueOf(id)};
-            csvTableModel.addRow(objs);
+        String header[] = csvFile.getDataSet().getHeader();
 
-        }
+        String[] columnNames =  new String[header.length + 1];
+
+
+
+
+        csvTableModel.setDataVector(csvFile.getDataSet().getData(), csvFile.getDataSet().getHeader());
+        csvTableModel.addColumn("Klasy", header);
+        csvTable.moveColumn(csvTable.getColumnCount()-1, 0);
+
+
+
+
 
         csvTable.repaint();
 
@@ -88,9 +96,7 @@ public class MainWindow extends JFrame {
 
         String algorithmNames[] = {"kappa", "alg2", "alg3"};
         selectAlgorithmComboBox = new JComboBox(algorithmNames);
-
     }
-
 
     public MainWindow()
     {
@@ -100,18 +106,17 @@ public class MainWindow extends JFrame {
         setSize(800, 500);
 
         // csv JTable components initialization
-        csvTable = new JTable(csvTableModel);
-        csvScrollPane = new JScrollPane(csvTable);
-        csvScrollPane.setPreferredSize(new Dimension(CSV_COLUMN_1_WIDTH + CSV_COLUMN_2_WIDTH, 100));
+        //csvTable = new JTable(csvTableModel);
 
 
         // classes JTable components initialization
-        classTable = new JTable(classTableModel);
-        classScrollPane = new JScrollPane(classTable);
+
 
 
         loadAlgorithmsToComboBox();
         loadCsvFileSelectionToComboBox();
+
+        csvScrollPane = new JScrollPane(csvTable);
 
         // selection csv and algorithm panels
         JPanel selectionPanel = new JPanel();
@@ -135,14 +140,9 @@ public class MainWindow extends JFrame {
 
 
 
-
-
-
-
-
         // add components to main window
         getContentPane().add(selectionPanel, BorderLayout.NORTH);
-        getContentPane().add(csvScrollPane, BorderLayout.WEST);
-        getContentPane().add(classScrollPane, BorderLayout.CENTER);
+        getContentPane().add(csvScrollPane, BorderLayout.CENTER);
+
     }
 }
