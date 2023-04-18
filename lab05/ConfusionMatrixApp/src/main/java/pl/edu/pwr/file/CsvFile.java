@@ -47,4 +47,10 @@ public class CsvFile {
         }
     }
 
+    public void saveFile(String data[][]){
+    dataSet.setData(data);
+
+
+    }
+
 }

@@ -1,5 +1,7 @@
 package pl.edu.pwr.window;
 
+import pl.edu.pwr.ex.api.AnalysisException;
+import pl.edu.pwr.ex.api.AnalysisService;
 import pl.edu.pwr.file.CsvFile;
 
 import javax.swing.*;
@@ -12,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ServiceLoader;
 import java.util.stream.Stream;
 
 
@@ -20,27 +23,24 @@ public class MainWindow extends JFrame {
 
     final String CSV_DIR_PATH = "../csv/";
 
-
     JScrollPane csvScrollPane ;
-
-
-    //String[] classColumnNames ={"Klasy", "a", "b", "c", "d", "e", "f"};
 
     DefaultTableModel csvTableModel= new DefaultTableModel();
     JTable csvTable = new JTable(csvTableModel);
-
-
-
-
-    //DefaultTableModel csvTableModel = new DefaultTableModel(csvColumnNames, 0);
-
-
 
     JComboBox selectCsvFileComboBox;
     JLabel selectCsvLabel = new JLabel("Wybierz plik: ");
 
     JComboBox selectAlgorithmComboBox;
     JLabel selectAlgorithmLabel = new JLabel("Wybierz współczynnik przetwarzania: ");
+
+    JLabel resultInfoLabel = new JLabel("Wynik");
+    JLabel resultLabel = new JLabel();
+
+    JPanel resultPanel = new JPanel();
+    CsvFile csvFile;
+    ServiceLoader<AnalysisService> loader = ServiceLoader.load(AnalysisService.class);
+
     private void loadCsvFileSelectionToComboBox(){
 
         ArrayList <String> csvFileNames = new ArrayList<>();
@@ -67,7 +67,7 @@ public class MainWindow extends JFrame {
         csvTableModel = (DefaultTableModel) csvTable.getModel();
         csvTableModel.setRowCount(0);
 
-        CsvFile csvFile = new CsvFile(Path.of(CSV_DIR_PATH + selectCsvFileComboBox.getSelectedItem().toString()));
+        csvFile = new CsvFile(Path.of(CSV_DIR_PATH + selectCsvFileComboBox.getSelectedItem().toString()));
         csvFile.readFile();
 
 
@@ -77,44 +77,74 @@ public class MainWindow extends JFrame {
         String[] columnNames =  new String[header.length + 1];
 
 
-
-
         csvTableModel.setDataVector(csvFile.getDataSet().getData(), csvFile.getDataSet().getHeader());
         csvTableModel.addColumn("Klasy", header);
         csvTable.moveColumn(csvTable.getColumnCount()-1, 0);
 
-
-
-
-
+        csvTable.setRowHeight(csvTable.getColumnCount()*8);
         csvTable.repaint();
 
+    }
+
+    private void loadResult(){
+
+
+        for(AnalysisService service : loader){
+
+            if(service.getName()==selectAlgorithmComboBox.getSelectedItem()){
+                try {
+                    service.submit(csvFile.getDataSet());
+                } catch (AnalysisException e) {
+                    throw new RuntimeException(e);
+                }
+                resultLabel.setText(String.valueOf(service.getResult()));
+            }
+        }
     }
 
 
     private void loadAlgorithmsToComboBox(){
 
-        String algorithmNames[] = {"kappa", "alg2", "alg3"};
-        selectAlgorithmComboBox = new JComboBox(algorithmNames);
+        //ServiceLoader<AnalysisService> loader = ServiceLoader.load(AnalysisService.class);
+
+        ArrayList<String> algorithmNamesArrayList = new ArrayList<>();
+
+        for(var service:loader){
+            algorithmNamesArrayList.add(service.getName());
+        }
+
+        selectAlgorithmComboBox = new JComboBox(algorithmNamesArrayList.toArray());
+
+        loadResult();
+
+    }
+
+
+    private void saveData(){
+        int rowCount = csvTable.getRowCount();
+        int columnCount = csvTable.getColumnCount();
+
+        String[][] data = new String[rowCount][columnCount-1];
+
+        for (int row = 0; row < rowCount; row++) {
+            for (int column = 1; column < columnCount; column++) {
+                data[row][column-1] = (String) csvTable.getValueAt(row, column);
+            }
+        }
+
+        csvFile.saveFile(data);
     }
 
     public MainWindow()
     {
 
-        // JPanel cardPanel = new JPanel();
         setTitle("Aplikacja Macierzy Niezgodności");
         setSize(800, 500);
 
-        // csv JTable components initialization
-        //csvTable = new JTable(csvTableModel);
-
-
-        // classes JTable components initialization
-
-
-
-        loadAlgorithmsToComboBox();
+        resultPanel.add(resultInfoLabel, BorderLayout.WEST);
+        resultPanel.add(resultLabel, BorderLayout.EAST);
         loadCsvFileSelectionToComboBox();
+        loadAlgorithmsToComboBox();
 
         csvScrollPane = new JScrollPane(csvTable);
 
@@ -127,22 +157,58 @@ public class MainWindow extends JFrame {
         selectAlgorithmPanel.add(selectAlgorithmLabel);
         selectAlgorithmPanel.add(selectAlgorithmComboBox);
         selectionPanel.add(selectCsvPanel, BorderLayout.WEST);
-        selectionPanel.add(selectAlgorithmPanel, BorderLayout.EAST);
+        selectionPanel.add(selectAlgorithmPanel, BorderLayout.CENTER);
+        selectionPanel.add(resultPanel, BorderLayout.EAST);
+
+        JButton calculateButton = new JButton("Oblicz");
+        JButton saveButton = new JButton("Zapisz");
+        JButton restoreButton = new JButton("Anuluj");
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.add(calculateButton);
+        buttonsPanel.add(saveButton);
+        buttonsPanel.add(restoreButton);
 
 
-        selectCsvFileComboBox.addActionListener(new ActionListener() {
+        calculateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadResult();
+            }
+        });
+
+        restoreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadCsvFileToTable();
             }
         });
 
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveData();
+            }
+        });
 
+        selectCsvFileComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadCsvFileToTable();
+                loadResult();
+            }
+        });
 
+        selectAlgorithmComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadResult();
+            }
+        });
 
         // add components to main window
         getContentPane().add(selectionPanel, BorderLayout.NORTH);
         getContentPane().add(csvScrollPane, BorderLayout.CENTER);
+        getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
 
     }
 }
