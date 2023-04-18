@@ -139,7 +139,7 @@ public class MainWindow extends JFrame {
     {
 
         setTitle("Aplikacja Macierzy Niezgodności");
-        setSize(800, 500);
+        setSize(1000, 400);
 
         resultPanel.add(resultInfoLabel, BorderLayout.WEST);
         resultPanel.add(resultLabel, BorderLayout.EAST);

@@ -33,10 +33,7 @@ public class AccuracyService implements AnalysisService {
                 }
             }
         }
-
         result = correct / total;
-
-
     }
 
     @Override

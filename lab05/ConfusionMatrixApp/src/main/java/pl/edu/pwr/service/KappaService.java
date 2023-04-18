@@ -15,7 +15,7 @@ public class KappaService implements AnalysisService {
 
     @Override
     public String getName() {
-        return "kappa";
+        return "Kappa";
     }
 
     @Override
