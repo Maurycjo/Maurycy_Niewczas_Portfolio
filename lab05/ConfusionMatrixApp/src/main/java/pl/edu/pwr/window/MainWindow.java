@@ -1,7 +1,8 @@
 package pl.edu.pwr.window;
 
-import pl.edu.pwr.ex.api.AnalysisException;
-import pl.edu.pwr.ex.api.AnalysisService;
+
+import ex.api.AnalysisException;
+import ex.api.AnalysisService;
 import pl.edu.pwr.file.CsvFile;
 
 import javax.swing.*;
