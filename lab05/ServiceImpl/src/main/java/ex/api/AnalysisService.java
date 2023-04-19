@@ -1,4 +1,4 @@
-package pl.edu.pwr.ex.api;
+package ex.api;
 
 /**
  * Interfejs serwisu pozwalającego przeprowadzić analizę statystyczną.

@@ -1,4 +1,5 @@
-package pl.edu.pwr.ex.api;
+package ex.api;
+
 /**
  * Klasa reprezentująca zbiór danych w postaci tabelarycznej.
  * Przechowuje nagłówek (jednowymiarowa tablica z nazwami kolumn)

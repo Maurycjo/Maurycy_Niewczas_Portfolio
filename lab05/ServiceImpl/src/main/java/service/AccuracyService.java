@@ -1,8 +1,9 @@
-package pl.edu.pwr.service;
+package service;
 
-import pl.edu.pwr.ex.api.AnalysisException;
-import pl.edu.pwr.ex.api.AnalysisService;
-import pl.edu.pwr.ex.api.DataSet;
+
+import ex.api.AnalysisException;
+import ex.api.AnalysisService;
+import ex.api.DataSet;
 
 public class AccuracyService implements AnalysisService {
 
