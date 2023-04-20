@@ -1,5 +1,3 @@
-package file;
-
 import ex.api.DataSet;
 
 import java.io.IOException;

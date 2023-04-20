@@ -9,8 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>ex.api</groupId>
-    <artifactId>Api</artifactId>
+    <artifactId>FileHandle</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
