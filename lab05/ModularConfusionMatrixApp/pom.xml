@@ -9,9 +9,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>Api</module>
-        <module>App</module>
-        <module>Implementation</module>
+        <module>Window</module>
+        <module>FileHandle</module>
     </modules>
 
     <properties>
@@ -19,5 +18,17 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>ServiceImpl</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+
+
+
 
 </project>
