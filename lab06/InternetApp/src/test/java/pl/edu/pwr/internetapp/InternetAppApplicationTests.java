@@ -1,4 +1,4 @@
-package pl.pwr.edu.IntetnetApp;
+package pl.edu.pwr.internetapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
