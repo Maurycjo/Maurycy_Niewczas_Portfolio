@@ -1,4 +1,4 @@
-package pl.edu.pwr.internetapp.service;
+package pl.edu.pwr.internetapp.service.interfaces;
 
 import pl.edu.pwr.internetapp.entity.Client;
 
