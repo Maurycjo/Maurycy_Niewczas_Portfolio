@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pl.edu.pwr.internetapp.entity.ServiceType;
 
 @Repository
-public interface PriceListRepository extends JpaRepository<ServiceType, Long> {
+public interface ServiceTypeRepository extends JpaRepository<ServiceType, Long> {
 }

@@ -20,8 +20,6 @@ public class Client {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "client_number")
-    private String clientNumber;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Installation> installations = new HashSet<>();
@@ -29,18 +27,16 @@ public class Client {
     public Client() {
     }
 
-    public Client(Long id, String firstName, String lastName, String clientNumber, Set<Installation> installations) {
+    public Client(Long id, String firstName, String lastName,Set<Installation> installations) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.clientNumber = clientNumber;
         this.installations = installations;
     }
 
-    public Client(String firstName, String lastName, String clientNumber, Set<Installation> installations) {
+    public Client(String firstName, String lastName, Set<Installation> installations) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.clientNumber = clientNumber;
         this.installations = installations;
     }
 
@@ -66,14 +62,6 @@ public class Client {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getClientNumber() {
-        return clientNumber;
-    }
-
-    public void setClientNumber(String clientNumber) {
-        this.clientNumber = clientNumber;
     }
 
     public Set<Installation> getInstallations() {

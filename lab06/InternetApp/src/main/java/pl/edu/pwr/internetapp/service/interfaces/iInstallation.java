@@ -7,4 +7,8 @@ import java.util.Optional;
 
 public interface iInstallation {
 
+    Installation addInstallation(String address, String routerNumber, String serviceType, Long clientId);
+    List<Installation> getAllInstallationsByClientId(Long clientId);
+    Installation getInstallationById(Long id);
+    void deleteInstallation(Long id);
 }
