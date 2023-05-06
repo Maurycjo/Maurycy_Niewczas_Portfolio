@@ -2,33 +2,46 @@ package pl.edu.pwr.internetapp.entity;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name="Clients")
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(name="clients")
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(
-            name = "Client_Id"
-    )
+    @Column(name = "client_id")
     private Long id;
-    @Column(
-            name = "Name"
-    )
-    private String name;
-    @Column(
-            name = "Lastname"
-    )
-    private String lastname;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "client_number")
+    private String clientNumber;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Installation> installations = new HashSet<>();
 
     public Client() {
     }
 
-    public Client(Long id, String name, String lastname) {
+    public Client(Long id, String firstName, String lastName, String clientNumber, Set<Installation> installations) {
         this.id = id;
-        this.name = name;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.clientNumber = clientNumber;
+        this.installations = installations;
+    }
+
+    public Client(String firstName, String lastName, String clientNumber, Set<Installation> installations) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.clientNumber = clientNumber;
+        this.installations = installations;
     }
 
     public Long getId() {
@@ -39,28 +52,35 @@ public class Client {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "Id=" + id +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
+    public String getClientNumber() {
+        return clientNumber;
+    }
+
+    public void setClientNumber(String clientNumber) {
+        this.clientNumber = clientNumber;
+    }
+
+    public Set<Installation> getInstallations() {
+        return installations;
+    }
+
+    public void setInstallations(Set<Installation> installations) {
+        this.installations = installations;
     }
 }

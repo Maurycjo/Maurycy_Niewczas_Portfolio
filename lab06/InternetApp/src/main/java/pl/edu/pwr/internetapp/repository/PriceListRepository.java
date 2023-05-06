@@ -1,7 +1,9 @@
 package pl.edu.pwr.internetapp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.edu.pwr.internetapp.entity.PriceList;
+import org.springframework.stereotype.Repository;
+import pl.edu.pwr.internetapp.entity.ServiceType;
 
-public interface PriceListRepository extends JpaRepository<PriceList, Long> {
+@Repository
+public interface PriceListRepository extends JpaRepository<ServiceType, Long> {
 }

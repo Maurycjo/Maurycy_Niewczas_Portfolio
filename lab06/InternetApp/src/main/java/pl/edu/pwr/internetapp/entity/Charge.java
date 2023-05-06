@@ -2,42 +2,42 @@ package pl.edu.pwr.internetapp.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(
-        name = "Charges"
-)
+@Table(name="charges")
 public class Charge {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(
-            name = "Charge_ID"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "charge_id")
     private Long id;
-    @Column(
-            name = "Payment_Deadline"
-    )
+
+    @Column(name = "payment_deadline")
     private LocalDate paymentDeadline;
-    @Column(
-            name = "Amount_To_Pay"
-    )
-    private Float amountToPay;
-    @Column(
-            name = "Is_Paid"
-    )
-    private Boolean isPaid;
+
+    @Column(name = "amount_to_pay")
+    private float amountToPay;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "installation_id")
+    private Installation installation;
 
     public Charge() {
     }
 
-    public Charge(Long id, LocalDate paymentDeadline, Float amountToPay, Boolean isPaid, Installation installationId) {
+    public Charge(LocalDate paymentDeadline, float amountToPay, Installation installation) {
+        this.paymentDeadline = paymentDeadline;
+        this.amountToPay = amountToPay;
+        this.installation = installation;
+    }
+
+    public Charge(Long id, LocalDate paymentDeadline, float amountToPay, Installation installation) {
         this.id = id;
         this.paymentDeadline = paymentDeadline;
         this.amountToPay = amountToPay;
-        this.isPaid = isPaid;
-        this.installationId = installationId;
+        this.installation = installation;
     }
 
     public Long getId() {
@@ -56,35 +56,20 @@ public class Charge {
         this.paymentDeadline = paymentDeadline;
     }
 
-    public Float getAmountToPay() {
+    public float getAmountToPay() {
         return amountToPay;
     }
 
-    public void setAmountToPay(Float amountToPay) {
+    public void setAmountToPay(float amountToPay) {
         this.amountToPay = amountToPay;
     }
 
-    public Boolean getPaid() {
-        return isPaid;
+    public Installation getInstallation() {
+        return installation;
     }
 
-    public void setPaid(Boolean paid) {
-        isPaid = paid;
+    public void setInstallation(Installation installation) {
+        this.installation = installation;
     }
-
-    public Installation getInstallationId() {
-        return installationId;
-    }
-
-    public void setInstallationId(Installation installationId) {
-        this.installationId = installationId;
-    }
-
-    @ManyToOne
-    @JoinColumn(
-            name = "Installation_Id",
-            nullable = false
-    )
-    private Installation installationId;
-
 }
+

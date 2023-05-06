@@ -2,41 +2,58 @@ package pl.edu.pwr.internetapp.entity;
 
 import jakarta.persistence.*;
 
-@Entity(name = "Installation")
-@Table(
-        name = "Installation"
-)
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name="installations")
 public class Installation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(
-            name = "Installation_Id"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "installation_id")
     private Long id;
 
-    @Column(
-            name = "address"
-    )
+    @Column(name = "address")
     private String address;
-    @Column(
-            name = "Router_Number"
-    )
-    private int routerNumber;
 
-    @Column(
-            name = "Service_Type"
-    )
-    private String serviceType;
+    @Column(name = "router_number")
+    private String routerNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_type_id")
+    private ServiceType serviceType;
+
+    @OneToMany(mappedBy = "installation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Charge> charges = new HashSet<>();
+
+    @OneToMany(mappedBy = "installation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Payment> payments = new HashSet<>();
 
     public Installation() {
     }
 
-    public Installation(Long id, String address, int routerNumber, String serviceType) {
+    public Installation(String address, String routerNumber, Client client, ServiceType serviceType, Set<Charge> charges, Set<Payment> payments) {
+        this.address = address;
+        this.routerNumber = routerNumber;
+        this.client = client;
+        this.serviceType = serviceType;
+        this.charges = charges;
+        this.payments = payments;
+    }
+
+    public Installation(Long id, String address, String routerNumber, Client client, ServiceType serviceType, Set<Charge> charges, Set<Payment> payments) {
         this.id = id;
         this.address = address;
         this.routerNumber = routerNumber;
+        this.client = client;
         this.serviceType = serviceType;
+        this.charges = charges;
+        this.payments = payments;
     }
 
     public Long getId() {
@@ -55,44 +72,44 @@ public class Installation {
         this.address = address;
     }
 
-    public int getRouterNumber() {
+    public String getRouterNumber() {
         return routerNumber;
     }
 
-    public void setRouterNumber(int routerNumber) {
+    public void setRouterNumber(String routerNumber) {
         this.routerNumber = routerNumber;
     }
 
-    public String getServiceType() {
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public ServiceType getServiceType() {
         return serviceType;
     }
 
-    public void setServiceType(String serviceType) {
+    public void setServiceType(ServiceType serviceType) {
         this.serviceType = serviceType;
     }
 
-    @Override
-    public String toString() {
-        return "Installation{" +
-                "id=" + id +
-                ", address='" + address + '\'' +
-                ", routerNumber=" + routerNumber +
-                ", serviceType=" + serviceType +
-                '}';
+    public Set<Charge> getCharges() {
+        return charges;
     }
 
-    @ManyToOne
-    @JoinColumn(
-            name = "PriceList_Id",
-            nullable = false
-    )
-    private PriceList priceListId;
+    public void setCharges(Set<Charge> charges) {
+        this.charges = charges;
+    }
 
-    @ManyToOne
-    @JoinColumn(
-            name = "Client_Id",
-            nullable = false
-    )
-    private Client clientId;
+    public Set<Payment> getPayments() {
+        return payments;
+    }
 
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
+    }
 }
+
