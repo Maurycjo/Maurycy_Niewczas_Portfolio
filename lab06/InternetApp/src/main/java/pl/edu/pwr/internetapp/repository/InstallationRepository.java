@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface InstallationRepository extends JpaRepository<Installation, Long> {
 
+    List<Installation> findByClientId(Long clientId);
 }

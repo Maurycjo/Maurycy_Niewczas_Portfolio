@@ -21,23 +21,18 @@ public class Client {
     private String lastName;
 
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Installation> installations = new HashSet<>();
-
     public Client() {
     }
 
-    public Client(Long id, String firstName, String lastName,Set<Installation> installations) {
+    public Client(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.installations = installations;
     }
 
-    public Client(String firstName, String lastName, Set<Installation> installations) {
+    public Client(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.installations = installations;
     }
 
     public Long getId() {
@@ -64,11 +59,4 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public Set<Installation> getInstallations() {
-        return installations;
-    }
-
-    public void setInstallations(Set<Installation> installations) {
-        this.installations = installations;
-    }
 }

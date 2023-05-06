@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface iPaymentService {
 
-    Payment addPayment(Date paymentDate, float amount, Long chargeId);
-    List<Payment> getAllPaymentsByChargeId(Long chargeId);
+    Payment addPayment(LocalDate paymentDate, float amount, Long installationId);
+
     Payment getPaymentById(Long id);
     void deletePayment(Long id);
 }

@@ -20,23 +20,19 @@ public class ServiceType {
     @Column(name = "price")
     private float price;
 
-    @OneToMany(mappedBy = "serviceType", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Installation> installations = new HashSet<>();
 
     public ServiceType() {
     }
 
-    public ServiceType(Long id, String serviceName, float price, Set<Installation> installations) {
+    public ServiceType(Long id, String serviceName, float price) {
         this.id = id;
         this.serviceName = serviceName;
         this.price = price;
-        this.installations = installations;
     }
 
-    public ServiceType(String serviceName, float price, Set<Installation> installations) {
+    public ServiceType(String serviceName, float price) {
         this.serviceName = serviceName;
         this.price = price;
-        this.installations = installations;
     }
 
     public Long getId() {
@@ -63,11 +59,4 @@ public class ServiceType {
         this.price = price;
     }
 
-    public Set<Installation> getInstallations() {
-        return installations;
-    }
-
-    public void setInstallations(Set<Installation> installations) {
-        this.installations = installations;
-    }
 }

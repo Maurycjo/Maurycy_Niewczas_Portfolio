@@ -5,10 +5,13 @@ import pl.edu.pwr.internetapp.entity.Installation;
 import java.util.List;
 import java.util.Optional;
 
-public interface iInstallation {
+public interface iInstallationService {
 
     Installation addInstallation(String address, String routerNumber, String serviceType, Long clientId);
     List<Installation> getAllInstallationsByClientId(Long clientId);
-    Installation getInstallationById(Long id);
+    List<Installation> getAllInstallation();
+    Optional<Installation> getInstallationById(Long id);
     void deleteInstallation(Long id);
+
+    List<Installation> getInstallationByServiceId(Long serviceId);
 }

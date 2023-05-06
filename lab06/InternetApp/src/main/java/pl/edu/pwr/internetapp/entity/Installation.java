@@ -28,32 +28,22 @@ public class Installation {
     @JoinColumn(name = "service_type_id")
     private ServiceType serviceType;
 
-    @OneToMany(mappedBy = "installation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Charge> charges = new HashSet<>();
-
-    @OneToMany(mappedBy = "installation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Payment> payments = new HashSet<>();
-
     public Installation() {
     }
 
-    public Installation(String address, String routerNumber, Client client, ServiceType serviceType, Set<Charge> charges, Set<Payment> payments) {
-        this.address = address;
-        this.routerNumber = routerNumber;
-        this.client = client;
-        this.serviceType = serviceType;
-        this.charges = charges;
-        this.payments = payments;
-    }
-
-    public Installation(Long id, String address, String routerNumber, Client client, ServiceType serviceType, Set<Charge> charges, Set<Payment> payments) {
+    public Installation(Long id, String address, String routerNumber,ServiceType serviceType, Client client) {
         this.id = id;
         this.address = address;
         this.routerNumber = routerNumber;
-        this.client = client;
         this.serviceType = serviceType;
-        this.charges = charges;
-        this.payments = payments;
+        this.client = client;
+    }
+
+    public Installation(String address, String routerNumber,ServiceType serviceType, Client client) {
+        this.address = address;
+        this.routerNumber = routerNumber;
+        this.serviceType = serviceType;
+        this.client = client;
     }
 
     public Long getId() {
@@ -92,24 +82,9 @@ public class Installation {
         return serviceType;
     }
 
-    public void setServiceType(ServiceType serviceType) {
-        this.serviceType = serviceType;
+    public void setServiceType(){
+
     }
 
-    public Set<Charge> getCharges() {
-        return charges;
-    }
-
-    public void setCharges(Set<Charge> charges) {
-        this.charges = charges;
-    }
-
-    public Set<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(Set<Payment> payments) {
-        this.payments = payments;
-    }
 }
 

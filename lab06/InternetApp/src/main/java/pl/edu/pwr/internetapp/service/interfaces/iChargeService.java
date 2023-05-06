@@ -4,13 +4,15 @@ import pl.edu.pwr.internetapp.entity.Charge;
 import pl.edu.pwr.internetapp.entity.Installation;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface iChargeService {
 
-    Charge addCharge(Date paymentDeadline, float amountToPay, Long installationId);
+    Charge addCharge(LocalDate paymentDeadline, float amountToPay, Long installationId);
     List<Charge> getAllChargesByInstallationId(Long installationId);
-    Charge getChargeById(Long id);
+    Optional<Charge> getChargeById(Long id);
     void deleteCharge(Long id);
+
+    void updateCharge(Long id, LocalDate paymentDeadline, float amountToPay, Installation installation);
 }
