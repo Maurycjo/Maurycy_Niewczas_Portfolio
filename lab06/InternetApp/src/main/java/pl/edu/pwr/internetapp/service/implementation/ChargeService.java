@@ -26,8 +26,7 @@ public class ChargeService implements iChargeService{
     public Charge addCharge(LocalDate paymentDeadline, float amountToPay, Long installationId) {
 
         Optional<Installation> installationOptional = installationRepository.findById(installationId);
-        Installation installation = installationOptional.orElseThrow(()-> new RuntimeException("Installation not found with id: " + installationId));
-
+        Installation installation = installationOptional.orElseThrow(()->new RuntimeException("Installation not found with id: " + installationId));
         Charge charge = new Charge(paymentDeadline, amountToPay, installation);
         return chargeRepository.save(charge);
     }
@@ -38,19 +37,32 @@ public class ChargeService implements iChargeService{
     }
 
     @Override
-    public Optional<Charge> getChargeById(Long id) {
-        return chargeRepository.findById(id);
+    public List<Charge> getAllCharges() {
+        return chargeRepository.findAll();
     }
 
+    @Override
+    public Charge getChargeById(Long id) {
+        Optional<Charge> chargeOptional = chargeRepository.findById(id);
+        return chargeOptional.orElseThrow(()-> new RuntimeException("Charge not found with id: " + id));
+    }
 
     @Override
     public void deleteCharge(Long id) {
-
         chargeRepository.deleteById(id);
     }
 
     @Override
-    public void updateCharge(Long id, LocalDate paymentDeadline, float amountToPay, Installation installation) {
+    public void updateCharge(Long id, LocalDate paymentDeadline, float amountToPay, Long installationId) {
+
+        Optional<Charge> chargeOptional = chargeRepository.findById(id);
+        Charge charge = chargeOptional.orElseThrow(()-> new RuntimeException("Charge not found with id: " + id));
+        charge.setPaymentDeadline(paymentDeadline);
+        charge.setAmountToPay(amountToPay);
+
+        Optional<Installation> installationOptional = installationRepository.findById(installationId);
+        Installation installation = installationOptional.orElseThrow(()->new RuntimeException("Installation not found wit id: "+installationId));
+        charge.setInstallation(installation);
 
     }
 }

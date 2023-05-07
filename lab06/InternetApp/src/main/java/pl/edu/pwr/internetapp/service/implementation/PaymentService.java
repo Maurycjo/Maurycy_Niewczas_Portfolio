@@ -14,19 +14,18 @@ import java.util.Optional;
 @Service
 public class PaymentService implements iPaymentService{
 
-    private final InstallationRepository installationRepository;
     private final PaymentRepository paymentRepository;
+    private final InstallationService installationService;
 
-    public PaymentService(InstallationRepository installationRepository, PaymentRepository paymentRepository) {
-        this.installationRepository = installationRepository;
+    public PaymentService(InstallationService installationService, PaymentRepository paymentRepository) {
+        this.installationService = installationService;
         this.paymentRepository = paymentRepository;
     }
 
     @Override
     public Payment addPayment(LocalDate paymentDate, float amount, Long installationId) {
-        Optional<Installation> installationOptional = installationRepository.findById(installationId);
-        Installation installation = installationOptional.orElseThrow(()-> new RuntimeException("Installation not found with id: " + installationId));
 
+        Installation installation = installationService.getInstallationById(installationId);
         Payment payment = new Payment(paymentDate, amount, installation);
         return paymentRepository.save(payment);
     }
@@ -35,12 +34,16 @@ public class PaymentService implements iPaymentService{
     @Override
     public Payment getPaymentById(Long id) {
         Optional<Payment> paymentOptional = paymentRepository.findById(id);
-        Payment payment = paymentOptional.orElseThrow(()-> new RuntimeException("Payment not found with id: " + id));
-        return payment;
+        return paymentOptional.orElseThrow(()-> new RuntimeException("Payment not found with id: " + id));
+    }
+
+    @Override
+    public List<Payment> getPaymentByInstallationId(Long installationId) {
+        return paymentRepository.findByInstallationId(installationId);
     }
 
     @Override
     public void deletePayment(Long id) {
-
+    paymentRepository.deleteById(id);
     }
 }

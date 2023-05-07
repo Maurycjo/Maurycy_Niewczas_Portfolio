@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface iClientService {
     Client addClient(String firstName, String lastName);
-    Client modifyClient(String firstName, String lastName);
+    Client modifyClient(Long clientId, String firstName, String lastName);
     List<Client> getAllClients();
-    Optional<Client> getClientById(Long id);
+    Client getClientById(Long id);
     void deleteClient(Long id);
 
 }

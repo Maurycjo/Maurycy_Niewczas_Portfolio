@@ -10,7 +10,7 @@ public interface iInstallationService {
     Installation addInstallation(String address, String routerNumber, String serviceType, Long clientId);
     List<Installation> getAllInstallationsByClientId(Long clientId);
     List<Installation> getAllInstallation();
-    Optional<Installation> getInstallationById(Long id);
+    Installation getInstallationById(Long id);
     void deleteInstallation(Long id);
 
     List<Installation> getInstallationByServiceId(Long serviceId);

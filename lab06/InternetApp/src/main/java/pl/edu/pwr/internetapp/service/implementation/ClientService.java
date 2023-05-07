@@ -7,6 +7,7 @@ import pl.edu.pwr.internetapp.repository.ClientRepository;
 import pl.edu.pwr.internetapp.repository.InstallationRepository;
 import pl.edu.pwr.internetapp.service.interfaces.iClientService;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +17,12 @@ public class ClientService implements iClientService{
 
     private final ClientRepository clientRepository;
     private final InstallationRepository installationRepository;
+    private final InstallationService installationService;
 
-    public ClientService(ClientRepository clientRepository, InstallationRepository installationRepository) {
+    public ClientService(ClientRepository clientRepository, InstallationRepository installationRepository, InstallationService installationService) {
         this.clientRepository = clientRepository;
         this.installationRepository = installationRepository;
+        this.installationService = installationService;
     }
 
     @Override
@@ -34,24 +37,43 @@ public class ClientService implements iClientService{
     }
 
     @Override
-    public Optional<Client> getClientById(Long id) {
-        return clientRepository.findById(id);
+    public Client getClientById(Long id) {
+        Optional<Client> clientOptional = clientRepository.findById(id);
+        return clientOptional.orElseThrow(()-> new RuntimeException("Client not found with id: " + id));
     }
 
     @Override
     public void deleteClient(Long id) {
+
+    Optional<Client> clientOptional = clientRepository.findById(id);
+    if(clientOptional == null) return;
+
+    Client client = clientOptional.orElseThrow(()-> new RuntimeException("Client not found wit id: " + id));
+
+    List<Installation> installationList = installationService.getAllInstallationsByClientId(client.getId());
+    if(installationList.isEmpty() || installationList==null){
         clientRepository.deleteById(id);
+        return;
+    }
+
+    for(var installation : installationList){
+        installationRepository.deleteById(installation.getId());
+    }
+    clientRepository.deleteById(id);
 
     }
 
     @Override
-    public Client modifyClient(String firstName, String lastName) {
-        Client client = clientRepository.findByFirstNameAndLastName(firstName, lastName);
-        if(client == null){
-            return null;
-        }
+    public Client modifyClient(Long clientId, String firstName, String lastName) {
+        Optional<Client> clientOptional = clientRepository.findById(clientId);
+
+        if(clientOptional == null) return null;
+        Client client = clientOptional.orElseThrow(()-> new RuntimeException("Client not found with id: " + clientId));
+
         client.setFirstName(firstName);
         client.setLastName(lastName);
         return  clientRepository.save(client);
     }
+
+
 }

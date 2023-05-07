@@ -11,8 +11,8 @@ public interface iChargeService {
 
     Charge addCharge(LocalDate paymentDeadline, float amountToPay, Long installationId);
     List<Charge> getAllChargesByInstallationId(Long installationId);
-    Optional<Charge> getChargeById(Long id);
+    List<Charge> getAllCharges();
+    Charge getChargeById(Long id);
     void deleteCharge(Long id);
-
-    void updateCharge(Long id, LocalDate paymentDeadline, float amountToPay, Installation installation);
+    void updateCharge(Long id, LocalDate paymentDeadline, float amountToPay, Long installationId);
 }

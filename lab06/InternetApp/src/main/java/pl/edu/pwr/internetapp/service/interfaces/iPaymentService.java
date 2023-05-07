@@ -12,4 +12,6 @@ public interface iPaymentService {
 
     Payment getPaymentById(Long id);
     void deletePayment(Long id);
+
+    List<Payment> getPaymentByInstallationId(Long installationId);
 }

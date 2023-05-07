@@ -9,56 +9,59 @@ import pl.edu.pwr.internetapp.entity.Client;
 import pl.edu.pwr.internetapp.entity.Installation;
 import pl.edu.pwr.internetapp.entity.ServiceType;
 import pl.edu.pwr.internetapp.repository.*;
+import pl.edu.pwr.internetapp.service.implementation.*;
+
+import java.util.Optional;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
 
     @Autowired
-    private  ClientRepository clientRepository;
+    private ClientService clientService;
 
     @Autowired
-    private InstallationRepository installationRepository;
+    private InstallationService installationService;
 
     @Autowired
-    private ServiceTypeRepository serviceTypeRepository;
+    private ServiceTypeService serviceTypeService;
 
     @Autowired
-    private PaymentRepository paymentRepository;
+    private PaymentService paymentService;
 
-    private ChargeRepository chargeRepository;
+    private ChargeService chargeService;
 
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
+////
+////        Client client1 = new Client("Maurycy", "Niewczas");
+////        Client client2 = new Client("Bartosz", "Niewczas");
+////        Client client3 = new Client("Mirek", "Niewczas");
+//
+//        ServiceType serviceType1 = new ServiceType("Full", 1000);
+//        ServiceType serviceType2 = new ServiceType("Demo", 10);
+//        ServiceType serviceType3 = new ServiceType("Part", 500);
+//        ServiceType serviceType4 = new ServiceType("Premium", 2000);
+//
+//        Installation installation1 = new Installation("Perlowa 12", "123A", serviceType4, client1);
+//        Installation installation2 = new Installation("Perlowa 11", "124A", serviceType1, client1);
+//        Installation installation3 = new Installation("Kwiatowa", "33AC", serviceType2, client2);
+//
 
-        Client client1 = new Client("Maurycy", "Niewczas");
-        Client client2 = new Client("Bartosz", "Niewczas");
-        Client client3 = new Client("Mirek", "Niewczas");
+        clientService.addClient("Maurycy", "Niewczas");
+        clientService.addClient("Bartosz", "Niewczas");
 
-        ServiceType serviceType1 = new ServiceType("Full", 1000);
-        ServiceType serviceType2 = new ServiceType("Demo", 10);
-        ServiceType serviceType3 = new ServiceType("Part", 500);
-        ServiceType serviceType4 = new ServiceType("Premium", 2000);
+        serviceTypeService.addServiceType("Full", 1000);
+        serviceTypeService.addServiceType("Demo", 500);
 
-        Installation installation1 = new Installation("Perlowa 12", "123A", serviceType4, client1);
-        Installation installation2 = new Installation("Perlowa 11", "124A", serviceType1, client1);
-        Installation installation3 = new Installation("Kwiatowa", "33AC", serviceType2, client2);
+        ServiceType serviceType = serviceTypeService.getServiceTypeById(1L);
+        Client client = clientService.getClientById(1L);
+        long clientId = client.getId();
 
+        installationService.addInstallation("perlowa", "123C", serviceType.getServiceName(), clientId);
 
-        clientRepository.save(client1);
-        clientRepository.save(client2);
-        clientRepository.save(client3);
-
-        serviceTypeRepository.save(serviceType1);
-        serviceTypeRepository.save(serviceType2);
-        serviceTypeRepository.save(serviceType3);
-        serviceTypeRepository.save(serviceType4);
-
-        installationRepository.save(installation1);
-        installationRepository.save(installation2);
-        installationRepository.save(installation3);
-
-
+        clientService.deleteClient(1L);
+        clientService.deleteClient(2L);
     }
 }
