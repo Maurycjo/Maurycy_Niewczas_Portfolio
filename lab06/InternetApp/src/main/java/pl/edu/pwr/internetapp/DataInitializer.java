@@ -11,57 +11,62 @@ import pl.edu.pwr.internetapp.entity.ServiceType;
 import pl.edu.pwr.internetapp.repository.*;
 import pl.edu.pwr.internetapp.service.implementation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    @Autowired
-    private ClientService clientService;
 
-    @Autowired
-    private InstallationService installationService;
+    private final ClientService clientService;
 
-    @Autowired
-    private ServiceTypeService serviceTypeService;
+    private final InstallationService installationService;
 
-    @Autowired
-    private PaymentService paymentService;
+    private final ServiceTypeService serviceTypeService;
 
-    private ChargeService chargeService;
+    private final PaymentService paymentService;
 
+    private final ChargeService chargeService;
+
+    public DataInitializer(ClientService clientService, InstallationService installationService, ServiceTypeService serviceTypeService, PaymentService paymentService, ChargeService chargeService) {
+        this.clientService = clientService;
+        this.installationService = installationService;
+        this.serviceTypeService = serviceTypeService;
+        this.paymentService = paymentService;
+        this.chargeService = chargeService;
+    }
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-////
-////        Client client1 = new Client("Maurycy", "Niewczas");
-////        Client client2 = new Client("Bartosz", "Niewczas");
-////        Client client3 = new Client("Mirek", "Niewczas");
-//
-//        ServiceType serviceType1 = new ServiceType("Full", 1000);
-//        ServiceType serviceType2 = new ServiceType("Demo", 10);
-//        ServiceType serviceType3 = new ServiceType("Part", 500);
-//        ServiceType serviceType4 = new ServiceType("Premium", 2000);
-//
-//        Installation installation1 = new Installation("Perlowa 12", "123A", serviceType4, client1);
-//        Installation installation2 = new Installation("Perlowa 11", "124A", serviceType1, client1);
-//        Installation installation3 = new Installation("Kwiatowa", "33AC", serviceType2, client2);
-//
 
         clientService.addClient("Maurycy", "Niewczas");
         clientService.addClient("Bartosz", "Niewczas");
+        clientService.addClient("Ziemowit", "Wosna");
+        clientService.addClient("Jaroslaw", "Jaroslaw");
+        clientService.addClient("Filip", "Suseł");
 
         serviceTypeService.addServiceType("Full", 1000);
         serviceTypeService.addServiceType("Demo", 500);
+        serviceTypeService.addServiceType("Premium", 3000);
 
-        ServiceType serviceType = serviceTypeService.getServiceTypeById(1L);
-        Client client = clientService.getClientById(1L);
-        long clientId = client.getId();
+        installationService.addInstallation("perlowa", "123C", serviceTypeService.getServiceTypeById(1L).getServiceName(), 1L);
+        installationService.addInstallation("zimowa", "321A", serviceTypeService.getServiceTypeById(1L).getServiceName(), 1L);
+        installationService.addInstallation("perlowa", "E432", serviceTypeService.getServiceTypeById(2L).getServiceName(), 1L);
+        installationService.addInstallation("Szafirowa", "CJHA", serviceTypeService.getServiceTypeById(3L).getServiceName(), 2L);
 
-        installationService.addInstallation("perlowa", "123C", serviceType.getServiceName(), clientId);
+        paymentService.addPayment(LocalDate.parse("2021-01-07"), 123, 1L);
+        paymentService.addPayment(LocalDate.parse("2021-02-07"), 123, 1L);
+        paymentService.addPayment(LocalDate.parse("2021-03-07"), 123, 2L);
 
-        clientService.deleteClient(1L);
-        clientService.deleteClient(2L);
+        chargeService.addCharge(LocalDate.parse("2021-01-07"), 123, 1L);
+        chargeService.addCharge(LocalDate.parse("2021-02-07"), 123, 1L);
+        chargeService.addCharge(LocalDate.parse("2021-02-07"), 500, 4L);
+
+        clientService.setInstallationServiceRef(installationService);
+
+        installationService.deleteInstallation(1L);
+        installationService.deleteInstallation(3L);
+
     }
 }

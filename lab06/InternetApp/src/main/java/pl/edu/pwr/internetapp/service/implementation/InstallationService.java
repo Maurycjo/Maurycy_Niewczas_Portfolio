@@ -1,7 +1,9 @@
 package pl.edu.pwr.internetapp.service.implementation;
 import org.springframework.stereotype.Service;
 import pl.edu.pwr.internetapp.entity.*;
+import pl.edu.pwr.internetapp.repository.ChargeRepository;
 import pl.edu.pwr.internetapp.repository.InstallationRepository;
+import pl.edu.pwr.internetapp.repository.PaymentRepository;
 import pl.edu.pwr.internetapp.service.interfaces.iInstallationService;
 
 import java.util.List;
@@ -12,15 +14,15 @@ public class InstallationService implements iInstallationService {
     private final InstallationRepository installationRepository;
     private final ClientService clientService;
     private final ServiceTypeService serviceTypeService;
-    private final ChargeService chargeService;
-    private final PaymentService paymentService;
+    private final ChargeRepository chargeRepository;
+    private final PaymentRepository paymentRepository;
 
-    public InstallationService(InstallationRepository installationRepository, ClientService clientService, ServiceTypeService serviceTypeService, ChargeService chargeService, PaymentService paymentService) {
+    public InstallationService(InstallationRepository installationRepository, ClientService clientService, ServiceTypeService serviceTypeService, ChargeRepository chargeRepository, PaymentRepository paymentRepository) {
         this.installationRepository = installationRepository;
         this.clientService = clientService;
         this.serviceTypeService = serviceTypeService;
-        this.chargeService = chargeService;
-        this.paymentService = paymentService;
+        this.chargeRepository = chargeRepository;
+        this.paymentRepository = paymentRepository;
     }
 
     @Override
@@ -47,16 +49,17 @@ public class InstallationService implements iInstallationService {
     @Override
     public void deleteInstallation(Long id) {
 
-        List<Charge> chargeList = chargeService.getAllChargesByInstallationId(id);
+        List<Charge> chargeList = chargeRepository.findByInstallationId(id);
+
 
         for(var charge : chargeList){
-            chargeService.deleteCharge(charge.getId());
+            chargeRepository.deleteById(charge.getId());
         }
 
-        List<Payment> paymentList = paymentService.getPaymentByInstallationId(id);
+        List<Payment> paymentList = paymentRepository.findByInstallationId(id);
 
         for(var payment : paymentList){
-            paymentService.deletePayment(payment.getId());
+            paymentRepository.deleteById(payment.getId());
         }
 
         installationRepository.deleteById(id);

@@ -4,10 +4,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import pl.edu.pwr.internetapp.entity.*;
 import pl.edu.pwr.internetapp.repository.ClientRepository;
-import pl.edu.pwr.internetapp.repository.InstallationRepository;
 import pl.edu.pwr.internetapp.service.interfaces.iClientService;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,13 +14,14 @@ import java.util.Optional;
 public class ClientService implements iClientService{
 
     private final ClientRepository clientRepository;
-    private final InstallationRepository installationRepository;
-    private final InstallationService installationService;
+    private InstallationService installationServiceRef;
 
-    public ClientService(ClientRepository clientRepository, InstallationRepository installationRepository, InstallationService installationService) {
+
+    public void setInstallationServiceRef(InstallationService installationService){
+        installationServiceRef = installationService;
+    }
+    public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-        this.installationRepository = installationRepository;
-        this.installationService = installationService;
     }
 
     @Override
@@ -50,14 +49,14 @@ public class ClientService implements iClientService{
 
     Client client = clientOptional.orElseThrow(()-> new RuntimeException("Client not found wit id: " + id));
 
-    List<Installation> installationList = installationService.getAllInstallationsByClientId(client.getId());
+    List<Installation> installationList = installationServiceRef.getAllInstallationsByClientId(client.getId());
     if(installationList.isEmpty() || installationList==null){
         clientRepository.deleteById(id);
         return;
     }
 
     for(var installation : installationList){
-        installationRepository.deleteById(installation.getId());
+        installationServiceRef.deleteInstallation(installation.getId());
     }
     clientRepository.deleteById(id);
 
