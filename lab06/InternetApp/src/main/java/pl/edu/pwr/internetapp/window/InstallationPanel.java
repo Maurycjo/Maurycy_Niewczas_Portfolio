@@ -54,6 +54,34 @@ public class InstallationPanel extends JPanel {
             }
         });
 
+        addInstallationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+
+            }
+        });
+        editInstallationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+
+            }
+        });
+        paymentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int index = installationTable.getSelectedRow();
+
+                Long installationId = Long.valueOf(String.valueOf(installationTableModel.getValueAt(index, 0)));
+                mainWindow.changeToPaymentPanel(installationId);
+
+            }
+        });
+
 
     }
 

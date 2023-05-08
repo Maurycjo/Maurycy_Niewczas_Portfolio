@@ -84,7 +84,15 @@ public class MainWindow extends JFrame {
         getContentPane().add(installationPanel);
         this.repaint();
         installationPanel.revalidate();
+    }
 
+    public void changeToPaymentPanel(Long installationId){
+
+        paymentPanel = new PaymentPanel(this, chargeService, paymentService, installationId);
+        getContentPane().remove(installationPanel);
+        getContentPane().add(paymentPanel);
+        this.repaint();
+        paymentPanel.revalidate();
 
     }
 
