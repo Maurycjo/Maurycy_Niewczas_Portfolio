@@ -15,4 +15,8 @@ public interface ServiceTypeRepository extends JpaRepository<ServiceType, Long> 
     List<Installation> findAllById(Long serviceId);
 
     Optional<ServiceType> findByServiceName(String serviceTypeName);
+
+
 }
+
+

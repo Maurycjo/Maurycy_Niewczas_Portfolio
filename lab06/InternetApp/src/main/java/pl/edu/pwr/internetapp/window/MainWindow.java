@@ -1,24 +1,46 @@
 package pl.edu.pwr.internetapp.window;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import pl.edu.pwr.internetapp.service.implementation.*;
+
 import javax.swing.*;
 
+@Controller
 public class MainWindow extends JFrame {
 
     StartPanel startPanel;
     ClientPanel clientPanel;
-
     ServicePanel servicePanel;
+    InstallationPanel installationPanel;
+    PaymentPanel paymentPanel;
 
-    public MainWindow(){
+    private ClientService clientService;
+    private ChargeService chargeService;
+    private InstallationService installationService;
+    private PaymentService paymentService;
+    private ServiceTypeService serviceTypeService;
 
-        setSize(300, 300);
+    @Autowired
+    public MainWindow(ClientService clientService, ChargeService chargeService, InstallationService installationService, PaymentService paymentService, ServiceTypeService serviceTypeService){
+
+        this.clientService = clientService;
+        this.chargeService = chargeService;
+        this.installationService = installationService;
+        this.paymentService = paymentService;
+        this.serviceTypeService = serviceTypeService;
+
+        setSize(600, 500);
         startPanel = new StartPanel(this);
         getContentPane().add(startPanel);
+
+
     }
 
     public void changeToClientPanel(){
 
-        clientPanel = new ClientPanel(this);
+
+        clientPanel = new ClientPanel(this, clientService);
         getContentPane().remove(startPanel);
         startPanel = null;
         getContentPane().add(clientPanel);
@@ -45,7 +67,7 @@ public class MainWindow extends JFrame {
 
     public void changeToServicePanel() {
 
-        servicePanel = new ServicePanel(this);
+        servicePanel = new ServicePanel(this, serviceTypeService);
         getContentPane().remove(startPanel);
         startPanel = null;
         getContentPane().add(servicePanel);
@@ -53,4 +75,17 @@ public class MainWindow extends JFrame {
         servicePanel.revalidate();
 
     }
+
+    public void changeToInstallationPanel(Long clientId){
+
+        installationPanel = new InstallationPanel(this, installationService, clientId);
+        getContentPane().remove(clientPanel);
+        clientPanel=null;
+        getContentPane().add(installationPanel);
+        this.repaint();
+        installationPanel.revalidate();
+
+
+    }
+
 }

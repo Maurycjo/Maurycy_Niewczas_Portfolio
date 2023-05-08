@@ -74,4 +74,7 @@ public class InstallationService implements iInstallationService {
     public List<Installation> getInstallationByServiceId(Long serviceId) {
         return installationRepository.findByServiceTypeId(serviceId);
     }
+
+
+
 }

@@ -10,7 +10,9 @@ import pl.edu.pwr.internetapp.entity.Installation;
 import pl.edu.pwr.internetapp.entity.ServiceType;
 import pl.edu.pwr.internetapp.repository.*;
 import pl.edu.pwr.internetapp.service.implementation.*;
+import pl.edu.pwr.internetapp.window.MainWindow;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class DataInitializer implements CommandLineRunner {
 
 
+    private final MainWindow mainWindow;
     private final ClientService clientService;
 
     private final InstallationService installationService;
@@ -28,12 +31,15 @@ public class DataInitializer implements CommandLineRunner {
 
     private final ChargeService chargeService;
 
-    public DataInitializer(ClientService clientService, InstallationService installationService, ServiceTypeService serviceTypeService, PaymentService paymentService, ChargeService chargeService) {
+
+
+    public DataInitializer(ClientService clientService, InstallationService installationService, ServiceTypeService serviceTypeService, PaymentService paymentService, ChargeService chargeService, MainWindow mainWindow) {
         this.clientService = clientService;
         this.installationService = installationService;
         this.serviceTypeService = serviceTypeService;
         this.paymentService = paymentService;
         this.chargeService = chargeService;
+        this.mainWindow = mainWindow;
     }
 
     @Override
@@ -65,8 +71,8 @@ public class DataInitializer implements CommandLineRunner {
 
         clientService.setInstallationServiceRef(installationService);
 
-        installationService.deleteInstallation(1L);
-        installationService.deleteInstallation(3L);
+
+        EventQueue.invokeLater(()->mainWindow.setVisible(true));
 
     }
 }
