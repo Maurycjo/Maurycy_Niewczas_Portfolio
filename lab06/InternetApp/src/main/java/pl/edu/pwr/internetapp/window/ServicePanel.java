@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ServicePanel extends JPanel {
@@ -55,6 +57,28 @@ public class ServicePanel extends JPanel {
         addServiceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+
+                DialogFrame dialogFrame = new DialogFrame(2);
+                dialogFrame.setWindowActionName("Dodaj nowy Serwis");
+                ArrayList<String> labelNamesArrayList = new ArrayList<>(Arrays.asList("Nazwa", "Cena"));
+                dialogFrame.setLabelNamesInWindow(labelNamesArrayList);
+
+
+
+                dialogFrame.setActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+
+                        ArrayList<String> dataArrayList = dialogFrame.getTextDataFromTextFields();
+                        serviceTypeService.addServiceType(dataArrayList.get(0), Float.parseFloat(dataArrayList.get(1)));
+                        dialogFrame.dispose();
+                        fillServiceTable(serviceTypeService);
+                    }
+                });
+
+
 
             }
         });

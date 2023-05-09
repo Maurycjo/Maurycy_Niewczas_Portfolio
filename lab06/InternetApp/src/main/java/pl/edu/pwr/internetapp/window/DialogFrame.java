@@ -29,7 +29,7 @@ public class DialogFrame extends JDialog {
         this.setVisible(true);
 
         this.numbersOfFields = numbersOfFields;
-        this.setSize(new Dimension(300, 80*numbersOfFields));
+        this.setSize(new Dimension(320, 100*numbersOfFields));
         centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.Y_AXIS));
 
 
@@ -38,8 +38,8 @@ public class DialogFrame extends JDialog {
             dataTextLabel.add(new JLabel());
             dataTextFields.add(new JTextField());
 
-            dataTextLabel.get(i).setPreferredSize(new Dimension(100, 20));
-            dataTextFields.get(i).setPreferredSize(new Dimension(100, 20));
+            dataTextLabel.get(i).setPreferredSize(new Dimension(200, 20));
+            dataTextFields.get(i).setPreferredSize(new Dimension(200, 20));
 
             rowPanels.add(new JPanel(new FlowLayout(FlowLayout.LEFT)));
 

@@ -76,17 +76,6 @@ public class ClientPanel extends JPanel {
                     }
                 });
 
-
-
-
-
-
-
-
-
-
-
-
             }
         });
 
