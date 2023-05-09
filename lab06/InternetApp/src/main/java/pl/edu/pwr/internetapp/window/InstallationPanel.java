@@ -18,7 +18,7 @@ public class InstallationPanel extends JPanel {
     private InstallationService installationService;
     private Long clientId;
     JScrollPane installationScrollPane;
-    String[] installationColumnNames = {"Id", "Adres", "Numer Routera", "Typ Serwisu"};
+    String[] installationColumnNames = {"Id", "Adres", "Numer Routera"};
     DefaultTableModel installationTableModel = new DefaultTableModel(installationColumnNames, 0);
     JTable installationTable = new JTable(installationTableModel);
 
@@ -120,8 +120,6 @@ public class InstallationPanel extends JPanel {
             }
         });
 
-
-
     }
 
     private void fillInstallationTable(InstallationService installationService){
@@ -137,7 +135,7 @@ public class InstallationPanel extends JPanel {
             String[] installationTypeFields ={Long.toString(installation.getId()),
                     installation.getAddress(),
                     installation.getRouterNumber(),
-                    ""};
+                    };
 
             installationTableModel.addRow(installationTypeFields);
         }
