@@ -41,8 +41,20 @@ public class MainWindow extends JFrame {
 
 
         clientPanel = new ClientPanel(this, clientService);
-        getContentPane().remove(startPanel);
-        startPanel = null;
+
+        if(installationPanel==null){
+
+            getContentPane().remove(startPanel);
+            startPanel=null;
+        }
+        else{
+
+            getContentPane().remove(installationPanel);
+            installationPanel = null;
+
+        }
+
+
         getContentPane().add(clientPanel);
         this.repaint();
         clientPanel.revalidate();
@@ -79,8 +91,18 @@ public class MainWindow extends JFrame {
     public void changeToInstallationPanel(Long clientId){
 
         installationPanel = new InstallationPanel(this, installationService, clientId);
-        getContentPane().remove(clientPanel);
-        clientPanel=null;
+
+        if(clientPanel==null){
+            getContentPane().remove(paymentPanel);
+            paymentPanel=null;
+        }
+        else{
+
+            getContentPane().remove(clientPanel);
+            clientPanel=null;
+        }
+
+
         getContentPane().add(installationPanel);
         this.repaint();
         installationPanel.revalidate();
