@@ -54,10 +54,7 @@ public class PaymentPanel extends JPanel {
         buttonPanel.add(editPaymentButton);
 
         paymentScrollPane = new JScrollPane(paymentTable);
-        chargeScrollPane = new JScrollPane(paymentTable);
-        JPanel scrollPanePanel = new JPanel();
-        scrollPanePanel.add(paymentScrollPane, BorderLayout.EAST);
-        scrollPanePanel.add(chargeScrollPane, BorderLayout.WEST);
+        chargeScrollPane = new JScrollPane(chargeTable);
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -67,7 +64,8 @@ public class PaymentPanel extends JPanel {
         });
 
 
-        this.add(scrollPanePanel, BorderLayout.NORTH);
+        this.add(chargeScrollPane, BorderLayout.EAST);
+        this.add(paymentScrollPane, BorderLayout.WEST);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
     }

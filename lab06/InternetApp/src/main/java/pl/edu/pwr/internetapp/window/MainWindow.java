@@ -30,7 +30,7 @@ public class MainWindow extends JFrame {
         this.paymentService = paymentService;
         this.serviceTypeService = serviceTypeService;
 
-        setSize(600, 500);
+        setSize(800, 600);
         startPanel = new StartPanel(this);
         getContentPane().add(startPanel);
 
