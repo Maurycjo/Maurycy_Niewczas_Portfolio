@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -47,9 +49,43 @@ public class ClientPanel extends JPanel {
             }
         });
 
+
+
+
         addClientButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+
+                DialogFrame dialogFrame = new DialogFrame(2);
+                dialogFrame.setWindowActionName("Dodaj nowego Klienta");
+                ArrayList<String> labelNamesArrayList = new ArrayList<>(Arrays.asList("Imie", "Nazwisko"));
+                dialogFrame.setLabelNamesInWindow(labelNamesArrayList);
+
+
+
+                dialogFrame.setActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+
+                        ArrayList<String> dataArrayList = dialogFrame.getTextDataFromTextFields();
+                        clientService.addClient(dataArrayList.get(0), dataArrayList.get(1));
+                        dialogFrame.dispose();
+                        fillClientTable(clientService);
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
+
 
             }
         });

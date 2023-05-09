@@ -2,10 +2,11 @@ package pl.edu.pwr.internetapp.window;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class DialogFrame extends JFrame {
+public class DialogFrame extends JDialog {
 
 
     private ArrayList<JTextField> dataTextFields = new ArrayList<>();
@@ -15,13 +16,22 @@ public class DialogFrame extends JFrame {
     private JPanel centralPanel = new JPanel();
 
     private JLabel nameWindowPanel = new JLabel();
+    private JButton okButton = new JButton("Zatwierdz");
+
+    private ArrayList<String> fieldsDataArrayList;
+
+    ActionListener actionListener;
 
     private int numbersOfFields;
     DialogFrame(int numbersOfFields){
 
+
+        this.setVisible(true);
+
         this.numbersOfFields = numbersOfFields;
         this.setSize(new Dimension(300, 80*numbersOfFields));
         centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.Y_AXIS));
+
 
         for(int i=0;i<numbersOfFields; i++){
 
@@ -40,10 +50,22 @@ public class DialogFrame extends JFrame {
             centralPanel.add(rowPanels.get(i));
         }
 
+
+
         this.getContentPane().add(nameWindowPanel, BorderLayout.NORTH);
         this.getContentPane().add(centralPanel, BorderLayout.CENTER);
+        this.getContentPane().add(okButton, BorderLayout.SOUTH);
 
         this.repaint();
+    }
+
+    public void setActionListener(ActionListener actionListener){
+        this.actionListener = actionListener;
+        okButton.addActionListener(actionListener);
+    }
+
+    public ArrayList<String> getFieldsDataArrayList() {
+        return fieldsDataArrayList;
     }
 
     public void setWindowActionName(String name){
@@ -69,19 +91,19 @@ public class DialogFrame extends JFrame {
     }
 
 
-    public static void main(String[] args) {
-
-        DialogFrame dialogFrame = new DialogFrame(3);
-        dialogFrame.setVisible(true);
-
-        dialogFrame.setWindowActionName("Dodaj nowego Klienta");
-
-        ArrayList<String> labelNamesArrayList = new ArrayList<>(Arrays.asList("Id", "Imie", "Nazwisko"));
-
-        dialogFrame.setLabelNamesInWindow(labelNamesArrayList);
-
-
-    }
+//    public static void main(String[] args) {
+//
+//        DialogFrame dialogFrame = new DialogFrame(3);
+//        dialogFrame.setVisible(true);
+//
+//        dialogFrame.setWindowActionName("Dodaj nowego Klienta");
+//
+//        ArrayList<String> labelNamesArrayList = new ArrayList<>(Arrays.asList("Id", "Imie", "Nazwisko"));
+//
+//        dialogFrame.setLabelNamesInWindow(labelNamesArrayList);
+//
+//
+//    }
 
 
 }
