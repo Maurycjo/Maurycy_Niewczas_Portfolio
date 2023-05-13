@@ -11,4 +11,5 @@ import java.util.List;
 public interface ChargeRepository extends JpaRepository<Charge, Long> {
 
     List<Charge> findByInstallationId(Long installationId);
+    List<Charge> findAllByInstallation_Id(Long installationId);
 }

@@ -20,7 +20,7 @@ public class Charge {
     @Column(name = "amount_to_pay")
     private float amountToPay;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "installation_id")
     private Installation installation;
 

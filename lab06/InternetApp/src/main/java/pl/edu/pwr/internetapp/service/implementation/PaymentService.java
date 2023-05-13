@@ -46,4 +46,9 @@ public class PaymentService implements iPaymentService{
     public void deletePayment(Long id) {
     paymentRepository.deleteById(id);
     }
+
+    @Override
+    public List<Payment> getAllPayments() {
+        return paymentRepository.findAll();
+    }
 }

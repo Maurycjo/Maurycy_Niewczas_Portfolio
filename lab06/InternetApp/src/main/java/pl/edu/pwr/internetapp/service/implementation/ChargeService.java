@@ -33,7 +33,9 @@ public class ChargeService implements iChargeService{
 
     @Override
     public List<Charge> getAllChargesByInstallationId(Long installationId) {
-        return chargeRepository.findByInstallationId(installationId);
+        //return chargeRepository.findAllByInstallation_Id(installationId);
+        //return chargeRepository.findByInstallationId(installationId);
+        return null;
     }
 
     @Override
@@ -53,7 +55,7 @@ public class ChargeService implements iChargeService{
     }
 
     @Override
-    public void updateCharge(Long id, LocalDate paymentDeadline, float amountToPay, Long installationId) {
+    public Charge updateCharge(Long id, LocalDate paymentDeadline, float amountToPay, Long installationId) {
 
         Optional<Charge> chargeOptional = chargeRepository.findById(id);
         Charge charge = chargeOptional.orElseThrow(()-> new RuntimeException("Charge not found with id: " + id));
@@ -63,6 +65,8 @@ public class ChargeService implements iChargeService{
         Optional<Installation> installationOptional = installationRepository.findById(installationId);
         Installation installation = installationOptional.orElseThrow(()->new RuntimeException("Installation not found wit id: "+installationId));
         charge.setInstallation(installation);
+
+        return charge;
 
     }
 }

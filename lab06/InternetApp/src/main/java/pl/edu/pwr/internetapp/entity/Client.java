@@ -1,5 +1,6 @@
 package pl.edu.pwr.internetapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -7,6 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="clients")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Client {
 
     @Id

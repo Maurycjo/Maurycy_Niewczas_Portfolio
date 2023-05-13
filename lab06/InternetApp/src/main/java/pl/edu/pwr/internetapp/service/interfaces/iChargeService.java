@@ -1,11 +1,9 @@
 package pl.edu.pwr.internetapp.service.interfaces;
 
 import pl.edu.pwr.internetapp.entity.Charge;
-import pl.edu.pwr.internetapp.entity.Installation;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public interface iChargeService {
 
@@ -14,5 +12,5 @@ public interface iChargeService {
     List<Charge> getAllCharges();
     Charge getChargeById(Long id);
     void deleteCharge(Long id);
-    void updateCharge(Long id, LocalDate paymentDeadline, float amountToPay, Long installationId);
+    Charge updateCharge(Long id, LocalDate paymentDeadline, float amountToPay, Long installationId);
 }

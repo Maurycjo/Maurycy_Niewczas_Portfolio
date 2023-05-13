@@ -19,7 +19,7 @@ public class Payment {
     @Column(name = "amount_paid")
     private float amountPaid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "installation_id")
     private Installation installation;
 
