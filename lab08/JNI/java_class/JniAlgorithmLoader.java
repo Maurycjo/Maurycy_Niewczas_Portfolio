@@ -1,8 +1,6 @@
 package java_class;
 
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 
 public class JniAlgorithmLoader{
 
@@ -32,12 +30,32 @@ public class JniAlgorithmLoader{
         return matrix;
     }
 
+    public static void writeResultToFile(String fileName, double[][] matrix){
+
+        try {
+            FileWriter fileWriter = new FileWriter(fileName);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            // Zapisywanie macierzy do pliku
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[i].length; j++) {
+                    printWriter.print(matrix[i][j] + ",");
+                }
+                printWriter.println(); // Nowy wiersz po każdym wierszu macierzy
+            }
+
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 
     public native double[][] loadAlgorithm(double[][] data, double[][] kernel);
 
     public double[][] calculateSplot(double[][] data, double[][] kernel){
-
-
 
         return null;
     }
@@ -45,30 +63,25 @@ public class JniAlgorithmLoader{
     public static void main(String[] args) {
 
 
+        double[][] data;
+        double[][] kernel;
+        double[][] result;
         try {
-            double data[][] = loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/1.txt");
-            double kernel[][] = loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/2.txt");
-
-
-            for(int i =0;i<14;i++){
-
-                for(int j=0;j<14;j++){
-
-                    System.out.print(data[i][j]);
-                }
-                System.out.println();
-            }
-
+            data = loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/1.txt");
+            kernel = loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/2.txt");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
 
-
+        result = new JniAlgorithmLoader().loadAlgorithm(data, kernel);
+        writeResultToFile("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/result.txt", result);
 
 
     }
+
+
 
 
 }
