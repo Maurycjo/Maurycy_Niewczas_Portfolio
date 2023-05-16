@@ -10,7 +10,7 @@ extern "C" {
 /*
  * Class:     java_class_JniAlgorithmLoader
  * Method:    loadAlgorithm
- * Signature: ([[I[[I)[[I
+ * Signature: ([[D[[D)[[D
  */
 JNIEXPORT jobjectArray JNICALL Java_java_1class_JniAlgorithmLoader_loadAlgorithm
   (JNIEnv *, jobject, jobjectArray, jobjectArray);

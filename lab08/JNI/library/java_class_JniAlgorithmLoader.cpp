@@ -5,38 +5,84 @@
 JNIEXPORT jobjectArray JNICALL Java_java_1class_JniAlgorithmLoader_loadAlgorithm(JNIEnv* env, jobject obj, jobjectArray array1, jobjectArray array2)
   {
 
-    std::cout << "hello v2" << std::endl;
+    // get size of arrays
+    jsize size1 = env->GetArrayLength(array1);
+    jsize size2 = env->GetArrayLength(array2);
 
-    // Pobranie rozmiarów tablic
-    jsize numRows = env->GetArrayLength(array1);
-    jsize numCols = env->GetArrayLength(static_cast<jobjectArray>(env->GetObjectArrayElement(array1, 0)));
+    // check if arrays have same size
+    if (size1 != size2)
+    {
+        //throw exception if not
+        jclass exceptionClass = env->FindClass("java/lang/IllegalArgumentException");
+        env->ThrowNew(exceptionClass, "Array sizes do not match");
+        return nullptr;
+    }
 
-    // Tworzenie jobjectArray o rozmiarze numRows
-    jobjectArray resultArray = env->NewObjectArray(numRows, env->GetObjectClass(array1), nullptr);
+    // Pobierz pierwszy element z tablicy wejściowej (zakładamy, że tablica jest niepusta)
+    jobject firstRow = env->GetObjectArrayElement(array1, 0);
 
-    // Inicjalizacja elementów tablicy
-    for (int i = 0; i < numRows; i++) {
-        // Pobranie wiersza z array1
-        jobjectArray rowArray1 = static_cast<jobjectArray>(env->GetObjectArrayElement(array1, i));
+    // Pobierz rozmiar pierwszego wiersza
+    jsize rowSize = env->GetArrayLength(static_cast<jarray>(firstRow));
 
-        // Tworzenie jintArray o rozmiarze numCols
-        jintArray rowArray2 = env->NewIntArray(numCols);
+    // Sprawdź, czy wszystkie wiersze mają taki sam rozmiar
+    for (jsize i = 1; i < size1; ++i)
+    {
+        jobject row = env->GetObjectArrayElement(array1, i);
+        jsize currentRowSize = env->GetArrayLength(static_cast<jarray>(row));
 
-        // Pobranie danych z array2
-        jint* rowData2 = env->GetIntArrayElements(static_cast<jintArray>(env->GetObjectArrayElement(array2, i)), nullptr);
+        if (currentRowSize != rowSize)
+        {
+            // check if rows have same size
+            jclass exceptionClass = env->FindClass("java/lang/IllegalArgumentException");
+            env->ThrowNew(exceptionClass, "Inconsistent row sizes");
+            return nullptr;
+        }
+    }
 
-        // Ustawienie danych w rowArray2
-        env->SetIntArrayRegion(rowArray2, 0, numCols, rowData2);
+    // create new result matrix
+    jobjectArray resultArray = env->NewObjectArray(size1, env->GetObjectClass(firstRow), nullptr);
 
-        // Ustawienie wiersza w resultArray
-        env->SetObjectArrayElement(resultArray, i, rowArray2);
+   
+    for (jsize i = 0; i < size1; ++i)
+    {
+        //get row from first array
+        jobject inputRow = env->GetObjectArrayElement(array1, i);
+        jdoubleArray inputArray = static_cast<jdoubleArray>(inputRow);
+        jdouble* inputData = env->GetDoubleArrayElements(inputArray, nullptr);
 
-        // Zwolnienie pamięci
-        env->ReleaseIntArrayElements(static_cast<jintArray>(env->GetObjectArrayElement(array2, i)), rowData2, JNI_ABORT);
-        env->DeleteLocalRef(rowArray1);
-        env->DeleteLocalRef(rowArray2);
+        //get row from second array
+        jobject kernelRow = env->GetObjectArrayElement(array2, i);
+        jdoubleArray kernelArray = static_cast<jdoubleArray>(kernelRow);
+        jdouble* kernelData = env->GetDoubleArrayElements(kernelArray, nullptr);
+
+        // create result row
+        jdoubleArray resultRow = env->NewDoubleArray(rowSize);
+        jdouble* resultData = env->GetDoubleArrayElements(resultRow, nullptr);
+
+        // calculate splot for row
+        for (jsize j = 0; j < rowSize; ++j)
+        {
+            resultData[j] = 0.0;
+
+            
+            for (jsize k = 0; k < rowSize; k++)
+            {
+                // Calculate splot for element (i, j)
+                resultData[j] += inputData[k] * kernelData[rowSize - k - 1];
+            }
+        }
+
+        // save row to result matrix
+        env->SetDoubleArrayRegion(resultRow, 0, rowSize, resultData);
+        env->SetObjectArrayElement(resultArray, i, resultRow);
+
+        // Free memory
+        env->ReleaseDoubleArrayElements(inputArray, inputData, 0);
+        env->ReleaseDoubleArrayElements(kernelArray, kernelData, 0);
+        env->ReleaseDoubleArrayElements(resultRow, resultData, 0);
     }
 
     return resultArray;
+
   }
 
