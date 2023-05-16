@@ -36,28 +36,60 @@ public class JniAlgorithmLoader{
             FileWriter fileWriter = new FileWriter(fileName);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
-            // Zapisywanie macierzy do pliku
+
             for (int i = 0; i < matrix.length; i++) {
                 for (int j = 0; j < matrix[i].length; j++) {
                     printWriter.print(matrix[i][j] + ",");
                 }
-                printWriter.println(); // Nowy wiersz po każdym wierszu macierzy
+                printWriter.println();
             }
 
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
 
     public native double[][] loadAlgorithm(double[][] data, double[][] kernel);
 
-    public double[][] calculateSplot(double[][] data, double[][] kernel){
+    public static double[][] calculateSplot(double[][] data, double[][] kernel) {
 
-        return null;
+        int size1 = data.length;
+        int size2 = kernel.length;
+
+        // Check if arrays have the same size
+        if (size1 != size2) {
+            throw new IllegalArgumentException("Array sizes do not match");
+        }
+
+        // Get row size
+        int rowSize = data[0].length;
+
+        // Create result array
+        double[][] resultArray = new double[size1][rowSize];
+
+        // Perform convolution for each row
+        for (int i = 0; i < size1; i++) {
+            double[] inputRow = data[i];
+            double[] kernelRow = kernel[i];
+            double[] resultRow = new double[rowSize];
+
+            // Calculate convolution for row
+            for (int j = 0; j < rowSize; j++) {
+                resultRow[j] = 0.0;
+
+                for (int k = 0; k < rowSize; k++) {
+                    // Calculate convolution for element (i, j)
+                    resultRow[j] += inputRow[k] * kernelRow[rowSize - k - 1];
+                }
+            }
+
+            // Set row to result array
+            resultArray[i] = resultRow;
+        }
+
+        return resultArray;
     }
 
     public static void main(String[] args) {
@@ -65,7 +97,8 @@ public class JniAlgorithmLoader{
 
         double[][] data;
         double[][] kernel;
-        double[][] result;
+        double[][] result_native;
+        double[][] result_java;
         try {
             data = loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/1.txt");
             kernel = loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/2.txt");
@@ -75,8 +108,12 @@ public class JniAlgorithmLoader{
         }
 
 
-        result = new JniAlgorithmLoader().loadAlgorithm(data, kernel);
-        writeResultToFile("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/result.txt", result);
+
+        result_java = calculateSplot(data, kernel);
+        writeResultToFile("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/result_java.txt", result_java);
+
+        result_native = new JniAlgorithmLoader().loadAlgorithm(data, kernel);
+        writeResultToFile("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/result_native.txt", result_native);
 
 
     }
