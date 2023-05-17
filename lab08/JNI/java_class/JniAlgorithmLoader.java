@@ -9,7 +9,7 @@ public class JniAlgorithmLoader{
         //System.loadLibrary("lib_native_alg");
     }
 
-    public static double[][] loadData(String fileName) throws IOException {
+    public double[][] loadData(String fileName) throws IOException {
 
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
 
@@ -30,7 +30,7 @@ public class JniAlgorithmLoader{
         return matrix;
     }
 
-    public static void writeResultToFile(String fileName, double[][] matrix){
+    public void writeResultToFile(String fileName, double[][] matrix){
 
         try {
             FileWriter fileWriter = new FileWriter(fileName);
@@ -53,7 +53,7 @@ public class JniAlgorithmLoader{
 
     public native double[][] loadAlgorithm(double[][] data, double[][] kernel);
 
-    public static double[][] calculateSplot(double[][] data, double[][] kernel) {
+    public double[][] calculateSplot(double[][] data, double[][] kernel) {
 
         int size1 = data.length;
         int size2 = kernel.length;
@@ -94,27 +94,63 @@ public class JniAlgorithmLoader{
 
     public static void main(String[] args) {
 
+        JniAlgorithmLoader jniAlgorithmLoader = new JniAlgorithmLoader();
 
         double[][] data;
         double[][] kernel;
         double[][] result_native;
         double[][] result_java;
-        try {
-            data = loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/1.txt");
-            kernel = loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/2.txt");
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+        long nativeTimeSum = 0;
+        long normalTimeSum = 0;
+        long startTime;
+        long estimatedTime;
+
+        for(int i=0;i<3;i++) {
+
+
+            try {
+                data = jniAlgorithmLoader.loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/1.txt");
+                kernel = jniAlgorithmLoader.loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/2.txt");
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+            startTime = System.currentTimeMillis();
+            result_java = jniAlgorithmLoader.calculateSplot(data, kernel);
+            estimatedTime = System.currentTimeMillis() - startTime;
+            System.out.println(estimatedTime);
+            normalTimeSum +=estimatedTime;
+
+
         }
 
+        System.out.println("****");
+
+        for(int i=0;i<3;i++) {
 
 
-        result_java = calculateSplot(data, kernel);
-        writeResultToFile("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/result_java.txt", result_java);
+            try {
+                data = jniAlgorithmLoader.loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/1.txt");
+                kernel = jniAlgorithmLoader.loadData("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/2.txt");
 
-        result_native = new JniAlgorithmLoader().loadAlgorithm(data, kernel);
-        writeResultToFile("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/input_data/result_native.txt", result_native);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
+            startTime = System.currentTimeMillis();
+            result_native = jniAlgorithmLoader.loadAlgorithm(data, kernel);
+            estimatedTime = System.currentTimeMillis() - startTime;
+            System.out.println(estimatedTime);
+            nativeTimeSum +=estimatedTime;
+
+        }
+
+        System.out.println("Java algorithm: " + normalTimeSum);
+        System.out.println("C++  algorithm: " + nativeTimeSum);
 
     }
 
