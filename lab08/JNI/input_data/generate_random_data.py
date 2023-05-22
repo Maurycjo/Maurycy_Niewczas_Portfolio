@@ -18,5 +18,8 @@ def generate_random_data(filename="random_data.txt", min_size = 500, max_size = 
 
 
 if __name__ =="__main__":
-    for i in range(0, 5):
-        generate_random_data(filename=str(i) + ".txt")
+
+    for j in range(100, 1001, 100):
+        for i in range(0, 5):
+            generate_random_data(filename=str(j)+"_"+str(i) + ".txt")
+            
