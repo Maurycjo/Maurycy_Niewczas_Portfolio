@@ -107,7 +107,7 @@ public class JniAlgorithmLoader{
         long startTime;
         long estimatedTime;
 
-        for(int i=0;i<3;i++) {
+        
 
 
             try {
@@ -124,13 +124,13 @@ public class JniAlgorithmLoader{
             estimatedTime = System.currentTimeMillis() - startTime;
             System.out.println(estimatedTime);
             normalTimeSum +=estimatedTime;
+            jniAlgorithmLoader.writeResultToFile("result_java.txt", result_java);
 
-
-        }
+        
 
         System.out.println("****");
 
-        for(int i=0;i<3;i++) {
+        
 
 
             try {
@@ -146,8 +146,8 @@ public class JniAlgorithmLoader{
             estimatedTime = System.currentTimeMillis() - startTime;
             System.out.println(estimatedTime);
             nativeTimeSum +=estimatedTime;
-
-        }
+            jniAlgorithmLoader.writeResultToFile("result_native.txt", result_native);
+        
 
         System.out.println("Java algorithm: " + normalTimeSum);
         System.out.println("C++  algorithm: " + nativeTimeSum);

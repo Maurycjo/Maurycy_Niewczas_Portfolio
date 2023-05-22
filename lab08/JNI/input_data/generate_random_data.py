@@ -1,7 +1,7 @@
 import random
 
 
-def generate_random_data(filename="random_data.txt", min_size = 2000, max_size = 2000):
+def generate_random_data(filename="random_data.txt", min_size = 500, max_size = 500):
     size = random.randint(min_size, max_size)
 
     with open(filename, 'w') as writer:

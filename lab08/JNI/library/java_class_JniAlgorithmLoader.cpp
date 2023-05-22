@@ -9,8 +9,6 @@ JNIEXPORT jobjectArray JNICALL Java_java_1class_JniAlgorithmLoader_loadAlgorithm
 
     // Check if arrays have the same size
     if (size1 != size2) {
-        jclass exceptionClass = env->FindClass("java/lang/IllegalArgumentException");
-        env->ThrowNew(exceptionClass, "Array sizes do not match");
         return nullptr;
     }
 
