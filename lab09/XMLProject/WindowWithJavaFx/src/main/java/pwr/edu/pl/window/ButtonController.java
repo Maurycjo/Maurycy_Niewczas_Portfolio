@@ -35,7 +35,6 @@ public class ButtonController {
     @FXML
     void loadData(ActionEvent event) throws IOException {
 
-
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Wybierz plik");

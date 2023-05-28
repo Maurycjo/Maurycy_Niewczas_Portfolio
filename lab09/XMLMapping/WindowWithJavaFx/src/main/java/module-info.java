@@ -1,4 +1,4 @@
-module XMLMapping {
+module WindowWithJavaFx {
     requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.controls;
