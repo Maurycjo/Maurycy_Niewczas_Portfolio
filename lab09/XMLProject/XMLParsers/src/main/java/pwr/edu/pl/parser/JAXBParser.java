@@ -20,9 +20,9 @@ public class JAXBParser implements XmlParser{
     BipPoznanPl bipPoznanPl = null;
 
     @Override
-    public void load() {
+    public void load(File file) {
 
-        file = new File("/home/mniewczas/Desktop/xml/bip.poznan.pl.xml");
+        this.file = file;
 
     }
 
@@ -77,16 +77,5 @@ public class JAXBParser implements XmlParser{
             outputToDisplay = stringBuilder.toString();
 
     }
-
-    public static void main(String[] args) {
-
-        JAXBParser jaxbParser = new JAXBParser();
-        jaxbParser.load();
-        jaxbParser.deserialize();
-        jaxbParser.serialize();
-
-
-    }
-
 
 }

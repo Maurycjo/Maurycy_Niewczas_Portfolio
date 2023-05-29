@@ -6,4 +6,6 @@ module WindowWithJavaFx {
     exports pwr.edu.pl.window to javafx.graphics, javafx.fxml;
     opens pwr.edu.pl.window to javafx.fxml;
 
+    requires XMLParsers;
+
 }

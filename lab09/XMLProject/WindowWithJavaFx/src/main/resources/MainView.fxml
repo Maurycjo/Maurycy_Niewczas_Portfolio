@@ -8,39 +8,44 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.edu.pl.window.ButtonController">
-  <tabs>
-    <Tab text="JAXB">
-         <content>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <center>
-                  <ScrollPane prefHeight="160.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                    </content>
-                  </ScrollPane>
-               </center>
-               <bottom>
-                  <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
-                     <children>
-                        <Button fx:id="serializeButton" mnemonicParsing="false" onAction="#serialize" text="Serializuj" />
-                        <Button fx:id="deserializeButton" mnemonicParsing="false" onAction="#deserialize" text="Deserializuj" />
-                        <Button fx:id="loadDataButton" mnemonicParsing="false" onAction="#loadData" text="Wczytaj" />
-                     </children>
-                  </FlowPane>
-               </bottom>
-            </BorderPane>
-         </content>
-    </Tab>
-    <Tab text="JAXP">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
-      <Tab text="XSLT">
-         <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-         </content>
-      </Tab>
-  </tabs>
-</TabPane>
+
+<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.edu.pl.window.Controller">
+   <center>
+      <TabPane fx:id="myTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="jaxbTab" onSelectionChanged="#changedToJaxb" text="JAXB">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <ScrollPane prefHeight="160.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                          </content>
+                        </ScrollPane>
+                     </center>
+                  </BorderPane>
+               </content>
+          </Tab>
+          <Tab fx:id="jaxpTab" onSelectionChanged="#changedToJaxp" text="JAXP">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab onSelectionChanged="#changedToXslt" text="XSLT" fx:id="xsltTab">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <bottom>
+      <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="serializeButton" mnemonicParsing="false" onAction="#serialize" text="Serializuj" />
+            <Button fx:id="deserializeButton" mnemonicParsing="false" onAction="#deserialize" text="Deserializuj" />
+            <Button fx:id="loadDataButton" mnemonicParsing="false" onAction="#loadData" text="Wczytaj" />
+         </children>
+      </FlowPane>
+   </bottom>
+</BorderPane>

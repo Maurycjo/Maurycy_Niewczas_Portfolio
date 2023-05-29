@@ -33,6 +33,11 @@
             <artifactId>javafx-fxml</artifactId>
             <version>20.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>pwr.edu.pl</groupId>
+            <artifactId>XMLParsers</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 
