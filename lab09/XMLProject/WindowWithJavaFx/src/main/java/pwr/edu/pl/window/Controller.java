@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pwr.edu.pl.parser.JAXBParser;
@@ -26,6 +27,9 @@ public class Controller {
     public void setXmlParser(XmlParser xmlParser){
         this.xmlParser = xmlParser;
     }
+
+    @FXML
+    private TextArea outputTextArea;
     @FXML
     private Button deserializeButton;
 
@@ -39,7 +43,7 @@ public class Controller {
     void deserialize(ActionEvent event) {
 
         xmlParser.deserialize();
-        System.out.println(xmlParser.getOutput());
+        outputTextArea.setText(xmlParser.getOutput());
     }
 
     @FXML
@@ -49,7 +53,7 @@ public class Controller {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Wybierz plik");
         String userHomeDir = System.getProperty("user.home");
-        fileChooser.setInitialDirectory(new File(userHomeDir, "Desktop"));
+        fileChooser.setInitialDirectory(new File(userHomeDir+"/Desktop/xml"));
         File selectedFile = fileChooser.showOpenDialog(stage);
         event.consume();
         xmlParser.load(selectedFile);
@@ -59,7 +63,7 @@ public class Controller {
     @FXML
     void serialize(ActionEvent event) {
         xmlParser.serialize();
-        System.out.println(xmlParser.getOutput());
+        outputTextArea.setText(xmlParser.getOutput());
     }
 
     @FXML
@@ -82,7 +86,6 @@ public class Controller {
             return;
         }
         xmlParser = new JAXBParser();
-        System.out.println("JAxb");
 
     }
 
@@ -93,7 +96,7 @@ public class Controller {
             return;
         }
         xmlParser = new JAXPParser();
-        System.out.println("JAxp");
+
     }
 
     @FXML
@@ -103,7 +106,7 @@ public class Controller {
             return;
         }
         xmlParser = new XSLTParser();
-        System.out.println("Xslt");
+
     }
 
 
