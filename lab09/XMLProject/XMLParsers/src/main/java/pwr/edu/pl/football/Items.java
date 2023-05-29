@@ -23,4 +23,7 @@ public class Items {
     public void setCardList(List<Card> cardList) {
         this.cardList = cardList;
     }
+
+
+
 }

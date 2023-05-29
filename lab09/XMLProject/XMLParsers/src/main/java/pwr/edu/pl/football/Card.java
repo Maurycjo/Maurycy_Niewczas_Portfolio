@@ -121,4 +121,20 @@ public class Card {
     public void setData(String data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "link='" + link + '\'' +
+                ", id='" + id + '\'' +
+                ", date='" + date + '\'' +
+                ", shortcut='" + shortcut + '\'' +
+                ", component='" + component + '\'' +
+                ", cardLetter='" + cardLetter + '\'' +
+                ", cardType='" + cardType + '\'' +
+                ", number='" + number + '\'' +
+                ", sign='" + sign + '\'' +
+                ", data='" + data + '\'' +
+                '}';
+    }
 }
