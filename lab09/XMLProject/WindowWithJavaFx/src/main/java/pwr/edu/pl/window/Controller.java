@@ -127,7 +127,7 @@ public class Controller {
         }
 
         currentParser = xmlSAXParser;
-        currentTextArea = jaxbTextArea;
+        currentTextArea = saxTextArea;
 
     }
 

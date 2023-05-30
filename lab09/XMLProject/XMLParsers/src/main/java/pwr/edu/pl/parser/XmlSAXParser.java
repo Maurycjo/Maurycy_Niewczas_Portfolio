@@ -11,6 +11,7 @@ import java.io.IOException;
 public class XmlSAXParser implements XmlParser{
 
     File file;
+    private String outputToDisplay = null;
     @Override
     public void load(File file) {
     this.file = file;
@@ -19,7 +20,7 @@ public class XmlSAXParser implements XmlParser{
 
     @Override
     public String getOutput() {
-        return null;
+        return outputToDisplay;
     }
 
     @Override
@@ -32,10 +33,21 @@ public class XmlSAXParser implements XmlParser{
 
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser parser;
+
         try {
             XMLHandler handler = new XMLHandler();
             parser = saxParserFactory.newSAXParser();
             parser.parse(file, handler);
+
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for(var card : handler.getCardList()){
+                stringBuilder.append(card).append("\n");
+            }
+
+            this.outputToDisplay = stringBuilder.toString();
+
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         } catch (SAXException e) {
@@ -43,7 +55,6 @@ public class XmlSAXParser implements XmlParser{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 }
