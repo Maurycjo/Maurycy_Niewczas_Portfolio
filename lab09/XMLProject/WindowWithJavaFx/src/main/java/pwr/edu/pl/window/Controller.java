@@ -9,27 +9,28 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import pwr.edu.pl.parser.JAXBParser;
+import pwr.edu.pl.parser.DomParser;
 import pwr.edu.pl.parser.JAXPParser;
 import pwr.edu.pl.parser.XSLTParser;
 import pwr.edu.pl.parser.XmlParser;
 import javafx.scene.control.Tab;
-
+import javafx.scene.web.WebView;
 import java.io.File;
 import java.io.IOException;
 
 public class Controller {
 
     private Stage stage;
-    private XmlParser xmlParser = new JAXBParser();
+    private XmlParser xmlParser = new DomParser();
+    File loadedFile;
 
+    private Node currentTextArea;
 
     public void setXmlParser(XmlParser xmlParser){
         this.xmlParser = xmlParser;
     }
 
-    @FXML
-    private TextArea outputTextArea;
+    //buttons
     @FXML
     private Button deserializeButton;
 
@@ -39,11 +40,34 @@ public class Controller {
     @FXML
     private Button serializeButton;
 
+    //tabs
+    @FXML
+    private TabPane myTabPane;
+    @FXML
+    private Tab jaxbTab;
+    @FXML
+    private Tab domTab;
+    @FXML
+    private Tab saxTab;
+    @FXML
+    private Tab xsltTab;
+
+    //text areas
+
+    @FXML
+    private TextArea jaxbTextArea;
+    @FXML
+    private TextArea domTextArea;
+    @FXML
+    private TextArea saxTextArea;
+    @FXML
+    private WebView xsltWebView;
+
     @FXML
     void deserialize(ActionEvent event) {
-
+        xmlParser.load(loadedFile);
         xmlParser.deserialize();
-        outputTextArea.setText(xmlParser.getOutput());
+        //outputTextArea.setText(xmlParser.getOutput());
     }
 
     @FXML
@@ -54,58 +78,37 @@ public class Controller {
         fileChooser.setTitle("Wybierz plik");
         String userHomeDir = System.getProperty("user.home");
         fileChooser.setInitialDirectory(new File(userHomeDir+"/Desktop/xml"));
-        File selectedFile = fileChooser.showOpenDialog(stage);
+        loadedFile = fileChooser.showOpenDialog(stage);
         event.consume();
-        xmlParser.load(selectedFile);
+
 
     }
 
     @FXML
     void serialize(ActionEvent event) {
+
         xmlParser.serialize();
-        outputTextArea.setText(xmlParser.getOutput());
+        jaxbTextArea.setText(xmlParser.getOutput());
     }
 
-    @FXML
-    private TabPane myTabPane;
 
     @FXML
-    private Tab jaxbTab;
+    void changedToJaxb(ActionEvent event) {
 
+
+    }
     @FXML
-    private Tab jaxpTab;
-
-    @FXML
-    private Tab xsltTab;
-
-
-    @FXML
-    void changedToJaxb(Event event) {
-
-        if(xmlParser instanceof JAXBParser){
-            return;
-        }
-        xmlParser = new JAXBParser();
+    void changedToDom(ActionEvent event) {
 
     }
 
     @FXML
-    void changedToJaxp(Event event) {
-
-        if(xmlParser instanceof JAXPParser){
-            return;
-        }
-        xmlParser = new JAXPParser();
+    void changedToSax(ActionEvent event) {
 
     }
 
     @FXML
-    void changedToXslt(Event event) {
-
-        if(xmlParser instanceof XSLTParser){
-            return;
-        }
-        xmlParser = new XSLTParser();
+    void changedToXslt(ActionEvent event) {
 
     }
 

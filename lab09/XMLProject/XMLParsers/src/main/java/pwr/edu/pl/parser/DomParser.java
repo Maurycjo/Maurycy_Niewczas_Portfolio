@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.StringWriter;
 
 
-public class JAXBParser implements XmlParser{
+public class DomParser implements XmlParser{
 
 
     File file;

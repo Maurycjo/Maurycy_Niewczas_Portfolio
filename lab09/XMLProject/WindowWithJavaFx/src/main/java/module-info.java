@@ -7,5 +7,6 @@ module WindowWithJavaFx {
     opens pwr.edu.pl.window to javafx.fxml;
 
     requires XMLParsers;
+    requires javafx.web;
 
 }

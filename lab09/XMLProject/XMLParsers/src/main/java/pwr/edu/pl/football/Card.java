@@ -31,6 +31,21 @@ public class Card {
     @XmlElement(name = "dane_wnioskodawcy")
     private String data;
 
+    public Card(String link, String id, String date, String shortcut, String component, String cardLetter, String cardType, String number, String sign, String data) {
+        this.link = link;
+        this.id = id;
+        this.date = date;
+        this.shortcut = shortcut;
+        this.component = component;
+        this.cardLetter = cardLetter;
+        this.cardType = cardType;
+        this.number = number;
+        this.sign = sign;
+        this.data = data;
+    }
+
+    public Card() {
+    }
 
     public String getLink() {
         return link;

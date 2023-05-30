@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.web.WebView?>
 
 <BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pwr.edu.pl.window.Controller">
    <bottom>
@@ -18,20 +19,42 @@
          </children>
       </FlowPane>
    </bottom>
-   <top>
-      <TabPane fx:id="myTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+   <center>
+      <TabPane fx:id="myTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab fx:id="jaxbTab" onSelectionChanged="#changedToJaxb" text="JAXB" />
-          <Tab fx:id="jaxpTab" onSelectionChanged="#changedToJaxp" text="JAXP" />
-            <Tab onSelectionChanged="#changedToXslt" text="XSLT" fx:id="xsltTab" />
+          <Tab fx:id="jaxbTab" onSelectionChanged="#changedToJaxb" text="JAXB">
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <TextArea fx:id="jaxbTextArea" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+               </content></Tab>
+          <Tab fx:id="domTab" onSelectionChanged="#changedToDom" text="JAXP/DOM">
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <TextArea fx:id="domTextArea" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+               </content></Tab>
+            <Tab fx:id="saxTab" onSelectionChanged="#changedToSax" text="JAXP/SAX">
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <TextArea fx:id="saxTextArea" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+               </content></Tab>
+            <Tab onSelectionChanged="#changedToXslt" text="XSLT" fx:id="xsltTab">
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <WebView prefHeight="200.0" prefWidth="200.0" fx:id="xsltWebView" />
+                     </content>
+                  </ScrollPane>
+               </content></Tab>
         </tabs>
       </TabPane>
-   </top>
-   <center>
-      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="479.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <content>
-            <TextArea fx:id="outputTextArea" prefHeight="200.0" prefWidth="200.0" />
-         </content>
-      </ScrollPane>
    </center>
 </BorderPane>
