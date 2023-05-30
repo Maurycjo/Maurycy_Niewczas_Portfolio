@@ -9,25 +9,30 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import pwr.edu.pl.parser.DomParser;
-import pwr.edu.pl.parser.JAXPParser;
-import pwr.edu.pl.parser.XSLTParser;
-import pwr.edu.pl.parser.XmlParser;
+import pwr.edu.pl.parser.*;
 import javafx.scene.control.Tab;
 import javafx.scene.web.WebView;
+
 import java.io.File;
 import java.io.IOException;
 
 public class Controller {
 
     private Stage stage;
-    private XmlParser xmlParser = new DomParser();
     File loadedFile;
 
-    private Node currentTextArea;
+    private XmlParser currentParser;
+
+    private JAXBParser jaxbParser = new JAXBParser();
+    private DomParser domParser = new DomParser();
+    private XmlSAXParser xmlSAXParser = new XmlSAXParser();
+    private XSLTParser xsltParser = new XSLTParser();
+
+
+    private TextArea currentTextArea;
 
     public void setXmlParser(XmlParser xmlParser){
-        this.xmlParser = xmlParser;
+        currentParser = xmlParser;
     }
 
     //buttons
@@ -65,9 +70,9 @@ public class Controller {
 
     @FXML
     void deserialize(ActionEvent event) {
-        xmlParser.load(loadedFile);
-        xmlParser.deserialize();
-        //outputTextArea.setText(xmlParser.getOutput());
+        currentParser.load(loadedFile);
+        currentParser.deserialize();
+        currentTextArea.setText(currentParser.getOutput());
     }
 
     @FXML
@@ -87,28 +92,51 @@ public class Controller {
     @FXML
     void serialize(ActionEvent event) {
 
-        xmlParser.serialize();
-        jaxbTextArea.setText(xmlParser.getOutput());
+        currentParser.serialize();
+        currentTextArea.setText(currentParser.getOutput());
     }
 
 
     @FXML
-    void changedToJaxb(ActionEvent event) {
+    void changedToJaxb(Event event) {
 
+        serializeButton.setVisible(false);
+        if(currentParser instanceof JAXBParser){
+            return;
+        }
+        serializeButton.setVisible(true);
+        currentParser = jaxbParser;
+        currentTextArea = jaxbTextArea;
 
     }
     @FXML
-    void changedToDom(ActionEvent event) {
+    void changedToDom(Event event) {
+
+        if(currentParser instanceof DomParser){
+            return;
+        }
+        currentParser = domParser;
+        currentTextArea = domTextArea;
+    }
+
+    @FXML
+    void changedToSax(Event event) {
+
+        if(currentParser instanceof XmlSAXParser){
+            return;
+        }
+
+        currentParser = xmlSAXParser;
+        currentTextArea = jaxbTextArea;
 
     }
 
     @FXML
-    void changedToSax(ActionEvent event) {
-
-    }
-
-    @FXML
-    void changedToXslt(ActionEvent event) {
+    void changedToXslt(Event event) {
+        if(currentParser instanceof XSLTParser){
+            return;
+        }
+        currentParser = xsltParser;
 
     }
 

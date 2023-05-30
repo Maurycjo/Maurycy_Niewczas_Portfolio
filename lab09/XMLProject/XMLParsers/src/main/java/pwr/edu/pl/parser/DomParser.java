@@ -1,81 +1,102 @@
 package pwr.edu.pl.parser;
 
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import pwr.edu.pl.football.BipPoznanPl;
-import pwr.edu.pl.football.Items;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+import pwr.edu.pl.football.Card;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.StringWriter;
-
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DomParser implements XmlParser{
 
+    private DocumentBuilder builder;
+    private Document document;
 
-    File file;
-    JAXBContext jaxbContext;
-    String outputToDisplay;
-    BipPoznanPl bipPoznanPl = null;
+    private String outputToDisplay;
 
     @Override
     public void load(File file) {
 
-        this.file = file;
-
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        try {
+            builder = documentBuilderFactory.newDocumentBuilder();
+            document = builder.parse(file);
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SAXException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public String getOutput() {
-        if(outputToDisplay == null){
-            outputToDisplay = "First deserialize";
-        }
-
         return outputToDisplay;
-
     }
 
     @Override
     public void serialize() {
 
-        outputToDisplay = null;
-        Marshaller marshaller = null;
-        StringWriter stringWriter = new StringWriter();
-        try {
-            marshaller = jaxbContext.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(bipPoznanPl, stringWriter);
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
 
-        outputToDisplay = stringWriter.toString();
 
     }
 
     @Override
     public void deserialize() {
 
-        outputToDisplay = null;
-        try {
-            jaxbContext = JAXBContext.newInstance(BipPoznanPl.class);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            bipPoznanPl = (BipPoznanPl) unmarshaller.unmarshal(file);
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
+        //DOM
+        NodeList cardList = document.getElementsByTagName("karta_informacyjna");
+        List <Card> cardArrayList= new ArrayList<>();
 
-        Items items = bipPoznanPl.getData().getInformationCards().getItems();
+        for (int i = 0; i < cardList.getLength(); i++) {
+            Node cardNode = cardList.item(i);
+            if (cardNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element cardElement = (Element) cardNode;
+
+                String link = getTextValue(cardElement, "link");
+                String id = getTextValue(cardElement, "id");
+                String date = getTextValue(cardElement, "data");
+                String shortcut = getTextValue(cardElement, "skrot_organizacja");
+                String component = getTextValue(cardElement, "komponent_srodowiska");
+                String cardLetter = getTextValue(cardElement, "typ_karty");
+                String cardType = getTextValue(cardElement, "rodzaj_karty");
+                String number = getTextValue(cardElement, "nr_wpisu");
+                String sign = getTextValue(cardElement, "znak_sprawy");
+                String data = getTextValue(cardElement, "dane_wnioskodawcy");
+
+                cardArrayList.add(new Card(link, id, date, shortcut, component, cardType, cardLetter, number, sign, data));
+
+            }
+        }
 
         StringBuilder stringBuilder = new StringBuilder();
 
-            for(var card : items.getCardList()){
-                stringBuilder.append(card).append("\n");
-            }
+        for(var card : cardArrayList){
+            stringBuilder.append(card).append("\n");
+        }
 
-            outputToDisplay = stringBuilder.toString();
+        outputToDisplay = stringBuilder.toString();
+
 
     }
+
+    private static String getTextValue(Element parentElement, String elementName) {
+        NodeList nodeList = parentElement.getElementsByTagName(elementName);
+        if (nodeList.getLength() > 0) {
+            Element element = (Element) nodeList.item(0);
+            return element.getTextContent();
+        }
+        return "";
+    }
+
 
 }
