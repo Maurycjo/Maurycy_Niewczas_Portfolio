@@ -2,11 +2,23 @@ package pwr.edu.pl.parser;
 
 import java.io.File;
 
-public interface XmlParser {
+public abstract class XmlParser {
 
-    public void load(File file);
-    public String getOutput();
-    public void serialize();
-    public void deserialize();
+    File file;
+    String outputToDisplay;
+
+    public void load(File file){
+        this.file = file;
+    }
+    public String getOutput(){
+        return outputToDisplay;
+    }
+    public void deserialize(){
+
+        if(file == null){
+            outputToDisplay = "Wczytaj plik XSLT";
+            return;
+        }
+    }
 
 }

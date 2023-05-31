@@ -9,24 +9,38 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.StringWriter;
 
-public class XSLTParser{
+public class XSLTParser extends XmlParser{
 
+    private File xsltFile;
 
+    @Override
+    public String getOutput() {
+        return outputToDisplay;
+    }
 
-    public String transform(){
+    @Override
+    public void load(File file) {
+        super.load(file);
+    }
 
-        Result result = null;
+    public void loadXsltFile(File file){
+        this.xsltFile = file;
+    }
+
+    @Override
+    public void deserialize() {
+        super.deserialize();
+
         StringWriter stringWriter = null;
         try {
-            String xsltPath = "/home/mniewczas/Desktop/xml/abcd.xsl";
-            String xmlPath = "/home/mniewczas/Desktop/xml/bip.poznan.pl.xml";
 
-            File xsltFile = new File(xsltPath);
-            File xmlFile = new File(xmlPath);
-
+            if(xsltFile == null){
+                outputToDisplay = "Wczytaj plik XSLT";
+                return;
+            }
 
             Source xsltSource = new StreamSource(xsltFile);
-            Source xmlSource = new StreamSource(xmlFile);
+            Source xmlSource = new StreamSource(file);
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer(xsltSource);
@@ -38,13 +52,6 @@ public class XSLTParser{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return stringWriter.toString();
+        this.outputToDisplay = stringWriter.toString();
     }
-
-    public static void main(String[] args) {
-        XSLTParser xsltParser = new XSLTParser();
-        xsltParser.transform();
-    }
-
 }

@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.StringWriter;
 
 
-public class JAXBParser implements XmlParser{
+public class JAXBParser extends XmlParser{
 
 
     File file;
@@ -19,24 +19,18 @@ public class JAXBParser implements XmlParser{
     String outputToDisplay;
     BipPoznanPl bipPoznanPl = null;
 
-    @Override
-    public void load(File file) {
-
-        this.file = file;
-
-    }
 
     @Override
     public String getOutput() {
         if(outputToDisplay == null){
-            outputToDisplay = "First deserialize";
+            outputToDisplay = "Najpierw Deserializacja";
         }
 
         return outputToDisplay;
 
     }
 
-    @Override
+
     public void serialize() {
 
         outputToDisplay = null;
@@ -56,6 +50,8 @@ public class JAXBParser implements XmlParser{
 
     @Override
     public void deserialize() {
+        super.deserialize();
+
 
         outputToDisplay = null;
         try {

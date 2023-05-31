@@ -8,7 +8,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
 
-public class XmlSAXParser implements XmlParser{
+public class XmlSAXParser extends XmlParser{
 
     File file;
     private String outputToDisplay = null;
@@ -24,13 +24,8 @@ public class XmlSAXParser implements XmlParser{
     }
 
     @Override
-    public void serialize() {
-
-    }
-
-    @Override
     public void deserialize() {
-
+        super.deserialize();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser parser;
 

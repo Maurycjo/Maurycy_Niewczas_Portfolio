@@ -21,9 +21,9 @@ public class Controller {
     private Stage stage;
     File loadedFile;
 
-    private XmlParser currentParser;
 
     private JAXBParser jaxbParser = new JAXBParser();
+    private XmlParser currentParser = jaxbParser;
     private DomParser domParser = new DomParser();
     private XmlSAXParser xmlSAXParser = new XmlSAXParser();
     private XSLTParser xsltParser = new XSLTParser();
@@ -72,7 +72,12 @@ public class Controller {
     void deserialize(ActionEvent event) {
         currentParser.load(loadedFile);
         currentParser.deserialize();
-        currentTextArea.setText(currentParser.getOutput());
+
+        if(currentTextArea!=null){
+            currentTextArea.setText(currentParser.getOutput());
+        } else{
+            xsltWebView.getEngine().loadContent(currentParser.getOutput());
+        }
     }
 
     @FXML
@@ -86,13 +91,12 @@ public class Controller {
         loadedFile = fileChooser.showOpenDialog(stage);
         event.consume();
 
-
     }
 
     @FXML
     void serialize(ActionEvent event) {
 
-        currentParser.serialize();
+        jaxbParser.serialize();
         currentTextArea.setText(currentParser.getOutput());
     }
 
@@ -128,17 +132,15 @@ public class Controller {
 
         currentParser = xmlSAXParser;
         currentTextArea = saxTextArea;
-
     }
-
     @FXML
     void changedToXslt(Event event) {
 
-
-        xsltWebView.getEngine().loadContent(xsltParser.transform().toString());
-
+        if(currentParser instanceof XSLTParser){
+            return;
+        }
+        currentParser = xsltParser;
+        currentTextArea = null;
     }
-
-
 
 }

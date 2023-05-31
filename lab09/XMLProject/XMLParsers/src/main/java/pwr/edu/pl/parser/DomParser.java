@@ -15,12 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DomParser implements XmlParser{
+public class DomParser extends XmlParser{
 
     private DocumentBuilder builder;
     private Document document;
 
-    private String outputToDisplay;
 
     @Override
     public void load(File file) {
@@ -38,20 +37,10 @@ public class DomParser implements XmlParser{
         }
     }
 
-    @Override
-    public String getOutput() {
-        return outputToDisplay;
-    }
-
-    @Override
-    public void serialize() {
-
-
-
-    }
 
     @Override
     public void deserialize() {
+        super.deserialize();
 
         //DOM
         NodeList cardList = document.getElementsByTagName("karta_informacyjna");
