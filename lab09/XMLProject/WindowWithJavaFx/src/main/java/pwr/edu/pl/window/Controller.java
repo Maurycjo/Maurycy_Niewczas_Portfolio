@@ -133,10 +133,9 @@ public class Controller {
 
     @FXML
     void changedToXslt(Event event) {
-        if(currentParser instanceof XSLTParser){
-            return;
-        }
-        currentParser = xsltParser;
+
+
+        xsltWebView.getEngine().loadContent(xsltParser.transform().toString());
 
     }
 
