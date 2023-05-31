@@ -7,14 +7,12 @@ import jakarta.xml.bind.JAXBException;
 import pwr.edu.pl.football.BipPoznanPl;
 import pwr.edu.pl.football.Items;
 
-import java.io.File;
 import java.io.StringWriter;
 
 
 public class JAXBParser extends XmlParser{
 
 
-    File file;
     JAXBContext jaxbContext;
     String outputToDisplay;
     BipPoznanPl bipPoznanPl = null;
@@ -71,7 +69,6 @@ public class JAXBParser extends XmlParser{
             }
 
             outputToDisplay = stringBuilder.toString();
-
     }
 
 }
