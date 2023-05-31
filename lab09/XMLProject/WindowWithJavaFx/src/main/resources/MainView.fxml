@@ -15,7 +15,8 @@
          <children>
             <Button fx:id="serializeButton" mnemonicParsing="false" onAction="#serialize" text="Serializuj" />
             <Button fx:id="deserializeButton" mnemonicParsing="false" onAction="#deserialize" text="Deserializuj" />
-            <Button fx:id="loadDataButton" mnemonicParsing="false" onAction="#loadData" text="Wczytaj" />
+            <Button fx:id="loadDataButton" mnemonicParsing="false" onAction="#loadData" text="Wczytaj XML" />
+            <Button fx:id="loadXslButton" mnemonicParsing="false" onAction="#loadXsl" text="Wczytaj XSL" />
          </children>
       </FlowPane>
    </bottom>

@@ -20,16 +20,16 @@ public class Controller {
 
     private Stage stage;
     File loadedFile;
+    File xslFile;
 
 
     private JAXBParser jaxbParser = new JAXBParser();
-    private XmlParser currentParser = jaxbParser;
+    private XmlParser currentParser;
     private DomParser domParser = new DomParser();
     private XmlSAXParser xmlSAXParser = new XmlSAXParser();
     private XSLTParser xsltParser = new XSLTParser();
 
 
-    private TextArea currentTextArea;
 
     public void setXmlParser(XmlParser xmlParser){
         currentParser = xmlParser;
@@ -38,12 +38,13 @@ public class Controller {
     //buttons
     @FXML
     private Button deserializeButton;
-
     @FXML
     private Button loadDataButton;
-
     @FXML
     private Button serializeButton;
+
+    @FXML
+    private Button loadXslButton;
 
     //tabs
     @FXML
@@ -67,6 +68,9 @@ public class Controller {
     private TextArea saxTextArea;
     @FXML
     private WebView xsltWebView;
+
+    private TextArea currentTextArea;
+
 
     @FXML
     void deserialize(ActionEvent event) {
@@ -100,9 +104,23 @@ public class Controller {
         currentTextArea.setText(currentParser.getOutput());
     }
 
+    @FXML
+    void loadXsl(ActionEvent event){
+
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Wybierz plik");
+        String userHomeDir = System.getProperty("user.home");
+        fileChooser.setInitialDirectory(new File(userHomeDir+"/Desktop/xml"));
+        xslFile = fileChooser.showOpenDialog(stage);
+        xsltParser.loadXsltFile(xslFile);
+        event.consume();
+    }
+
 
     @FXML
     void changedToJaxb(Event event) {
+
 
         serializeButton.setVisible(false);
         if(currentParser instanceof JAXBParser){
