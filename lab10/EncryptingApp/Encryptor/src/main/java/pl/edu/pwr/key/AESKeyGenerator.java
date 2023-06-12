@@ -1,3 +1,5 @@
+package pl.edu.pwr.key;
+
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.io.FileOutputStream;
@@ -5,25 +7,24 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 
-public class MyKeyGenerator {
-
-    public void generateAesKey() {
+public class AESKeyGenerator extends MyKeyGenerator{
 
 
-        String defaultFileName = "testKlucz.bin";
+
+    public void generateKey(int size, String keyPath, String keyFileName) {
+
         KeyGenerator keyGenerator = null;
         try {
             keyGenerator = KeyGenerator.getInstance("AES");
-            keyGenerator.init(256);
+            keyGenerator.init(size);
 
             SecretKey secretKey = keyGenerator.generateKey();
             byte[] keyBytes = secretKey.getEncoded();
 
-            FileOutputStream fileOutputStream = new FileOutputStream("/home/mniewczas/Desktop/key_java/"+defaultFileName);
+            FileOutputStream fileOutputStream = new FileOutputStream(keyPath + fileKeyName);
             fileOutputStream.write(keyBytes);
             fileOutputStream.close();
 
-            //System.out.println("Wygenerowano klucz AES " + keyBytes);
 
         } catch (NoSuchAlgorithmException | IOException e){
             e.printStackTrace();
@@ -31,8 +32,9 @@ public class MyKeyGenerator {
     }
 
     public static void main(String[] args) {
-        MyKeyGenerator myKeyGenerator = new MyKeyGenerator();
-        myKeyGenerator.generateAesKey();
+        AESKeyGenerator myKeyGenerator = new AESKeyGenerator();
+       // myKeyGenerator.generateKey(256, "aes.bin");
     }
+
 
 }
