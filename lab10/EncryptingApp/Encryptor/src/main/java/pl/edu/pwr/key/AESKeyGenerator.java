@@ -21,7 +21,7 @@ public class AESKeyGenerator extends MyKeyGenerator{
             SecretKey secretKey = keyGenerator.generateKey();
             byte[] keyBytes = secretKey.getEncoded();
 
-            FileOutputStream fileOutputStream = new FileOutputStream(keyPath + fileKeyName);
+            FileOutputStream fileOutputStream = new FileOutputStream(keyPath + keyFileName);
             fileOutputStream.write(keyBytes);
             fileOutputStream.close();
 
@@ -30,11 +30,4 @@ public class AESKeyGenerator extends MyKeyGenerator{
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        AESKeyGenerator myKeyGenerator = new AESKeyGenerator();
-       // myKeyGenerator.generateKey(256, "aes.bin");
-    }
-
-
 }

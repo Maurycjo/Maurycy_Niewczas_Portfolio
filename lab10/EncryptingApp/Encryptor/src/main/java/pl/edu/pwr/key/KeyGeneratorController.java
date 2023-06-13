@@ -27,4 +27,13 @@ public class KeyGeneratorController {
     public void setKeyPath(String keyPath) {
         this.keyPath = keyPath;
     }
+
+    public static void main(String[] args) {
+        KeyGeneratorController keyGeneratorController = new KeyGeneratorController();
+
+        keyGeneratorController.generateKey(KeyTypeEnum.RSA, 2048, "rsaTest");
+
+    }
+
+
 }
