@@ -12,74 +12,54 @@ import java.security.spec.X509EncodedKeySpec;
 
 public class RsaEncryptor extends Encryptor {
 
-    private File pubRsaKey = new File("/home/mniewczas/Desktop/key_java/rsaTest.pub");
-    private File privRsaKey = new File("/home/mniewczas/Desktop/key_java/rsaTest");
+
 
     @Override
-    public void encryptFile() {
+    public void encryptFile(String dirName, String fileName, byte[] fileKeyBytes) {
 
         FileInputStream pubKeyFis = null;
         try {
-            //wczytanie klucza rsa
-            pubKeyFis = new FileInputStream(pubRsaKey);
-            byte[] pubKeyBytes = new byte[pubKeyFis.available()];
-            pubKeyFis.read(pubKeyBytes);
-            pubKeyFis.close();
 
 
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(pubKeyBytes);
+            X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(fileKeyBytes);
             PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
 
             Cipher rsaCipher = Cipher.getInstance("RSA");
             rsaCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
-            byte[] encryptedData = rsaCipher.doFinal(inputData);
+            loadFile(dirName, fileName);
 
-            FileOutputStream dataFos = new FileOutputStream("/home/mniewczas/Desktop/key_java/encryptedRsa");
+            byte[] encryptedData = rsaCipher.doFinal(fileDataBytes);
+
+            FileOutputStream dataFos = new FileOutputStream(dirName +"/"+ fileName + "_encryptedRsa" );
             dataFos.write(encryptedData);
             dataFos.close();
 
         } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException |
-                 InvalidKeyException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalBlockSizeException e) {
-            throw new RuntimeException(e);
-        } catch (BadPaddingException e) {
+                 InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     @Override
-    public void decryptFile() {
+    public void decryptFile(String dirName, String fileName, byte[] fileKeyBytes) {
 
-        File fileToDecrypt = new File("/home/mniewczas/Desktop/key_java/encryptedRsa");
         try {
-            FileInputStream fis = new FileInputStream(fileToDecrypt);
-            byte[] encryptedData = new byte[(int) fileToDecrypt.length()];
-            fis.read(encryptedData);
-            fis.close();
-
-            FileInputStream privKeyFis = new FileInputStream("/home/mniewczas/Desktop/key_java/rsaTest");
-            byte[] privKeyBytes = new byte[privKeyFis.available()];
-            privKeyFis.read(privKeyBytes);
-            privKeyFis.close();
-
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(privKeyBytes);
+            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(fileKeyBytes);
             PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
 
             // Inicjalizacja Cipher z algorytmem RSA
             Cipher rsaCipher = Cipher.getInstance("RSA");
             rsaCipher.init(Cipher.DECRYPT_MODE, privateKey);
 
+            loadFile(dirName, fileName);
             // Odszyfrowanie danych pliku przy użyciu klucza prywatnego RSA
-            byte[] decryptedData = rsaCipher.doFinal(encryptedData);
+            byte[] decryptedData = rsaCipher.doFinal(fileDataBytes);
 
             // Zapis odszyfrowanych danych do pliku
-            FileOutputStream dataFos = new FileOutputStream("/home/mniewczas/Desktop/key_java/decryptedRsa");
+            FileOutputStream dataFos = new FileOutputStream(dirName + "/" + fileName+"_decryptedRsa");
             dataFos.write(decryptedData);
             dataFos.close();
 
@@ -89,15 +69,6 @@ public class RsaEncryptor extends Encryptor {
                  InvalidKeySpecException | BadPaddingException | InvalidKeyException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static void main(String[] args) {
-
-        RsaEncryptor rsaEncryptor = new RsaEncryptor();
-        rsaEncryptor.loadFileToEncrypt();
-        rsaEncryptor.encryptFile();
-        rsaEncryptor.decryptFile();
-
     }
 
 }

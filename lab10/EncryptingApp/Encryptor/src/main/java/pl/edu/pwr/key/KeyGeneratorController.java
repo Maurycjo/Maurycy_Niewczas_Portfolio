@@ -1,5 +1,7 @@
 package pl.edu.pwr.key;
 
+import java.io.File;
+
 public class KeyGeneratorController {
 
 
@@ -8,6 +10,7 @@ public class KeyGeneratorController {
     MyKeyGenerator myKeyGenerator;
     AESKeyGenerator aesKeyGenerator = new AESKeyGenerator();
     RSAKeyGenerator rsaKeyGenerator = new RSAKeyGenerator();
+
     public void generateKey(KeyTypeEnum keyTypeEnum, int size, String keyFileName){
 
         if(keyTypeEnum == KeyTypeEnum.AES){
@@ -28,12 +31,6 @@ public class KeyGeneratorController {
         this.keyPath = keyPath;
     }
 
-    public static void main(String[] args) {
-        KeyGeneratorController keyGeneratorController = new KeyGeneratorController();
-
-        keyGeneratorController.generateKey(KeyTypeEnum.RSA, 2048, "rsaTest");
-
-    }
 
 
 }
