@@ -9,10 +9,17 @@ import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Arrays;
 
 public class RsaEncryptor extends Encryptor {
 
 
+
+    private int calculateSize(byte[] fileKeyBytes){
+
+        int size = fileKeyBytes.length;
+        return size - 50;
+    }
 
     @Override
     public void encryptFile(String dirName, String fileName, byte[] fileKeyBytes) {
@@ -20,6 +27,7 @@ public class RsaEncryptor extends Encryptor {
         FileInputStream pubKeyFis = null;
         try {
 
+            FileOutputStream dataFos = new FileOutputStream(dirName +"/"+ fileName + "_encryptedRsa" );
 
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(fileKeyBytes);
@@ -30,10 +38,36 @@ public class RsaEncryptor extends Encryptor {
 
             loadFile(dirName, fileName);
 
-            byte[] encryptedData = rsaCipher.doFinal(fileDataBytes);
+            int subArraySize = calculateSize(fileKeyBytes);
 
-            FileOutputStream dataFos = new FileOutputStream(dirName +"/"+ fileName + "_encryptedRsa" );
-            dataFos.write(encryptedData);
+            byte[] subArray = new byte[subArraySize];
+
+            int lastSize = fileDataBytes.length % subArraySize;
+            byte[] lastSubArray = new byte[lastSize];
+
+            for(int i=0; i<fileDataBytes.length; i+=subArraySize){
+
+
+                if(i+subArraySize > fileDataBytes.length){
+
+                    for(int k=0; k<lastSize; k++){
+                        lastSubArray[k] = fileDataBytes[i+k];
+                    }
+                    byte[] encryptedData = rsaCipher.doFinal(lastSubArray);
+                    dataFos.write(encryptedData);
+                } else{
+
+                    for(int j=i; j<i+subArraySize; j++){
+
+                        subArray[j-i] = fileDataBytes[j];
+                    }
+                    byte[] encryptedData =  rsaCipher.doFinal(subArray);
+                    dataFos.write(encryptedData);
+                }
+            }
+
+
+
             dataFos.close();
 
         } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException |
