@@ -20,12 +20,12 @@ public class RSAKeyGenerator extends MyKeyGenerator{
             PublicKey publicKey = keyPair.getPublic();
 
             // Zapis klucza prywatnego do pliku
-            FileOutputStream privateFos = new FileOutputStream(keyPath + keyFileName);
+            FileOutputStream privateFos = new FileOutputStream(keyPath +"/"+ keyFileName);
             privateFos.write(privateKey.getEncoded());
             privateFos.close();
 
             // Zapis klucza publicznego do pliku
-            FileOutputStream publicFos = new FileOutputStream(keyPath + keyFileName + ".pub");
+            FileOutputStream publicFos = new FileOutputStream(keyPath +"/"+ keyFileName + ".pub");
             publicFos.write(publicKey.getEncoded());
             publicFos.close();
 

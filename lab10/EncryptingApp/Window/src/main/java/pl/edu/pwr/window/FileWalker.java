@@ -1,6 +1,8 @@
 package pl.edu.pwr.window;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -67,4 +69,21 @@ public class FileWalker {
     public void setCurrentPathsArrayList(List<Path> currentPathsArrayList) {
         this.currentPathsArrayList = currentPathsArrayList;
     }
+
+    public String getFileDisplay(int idx){
+
+        Path filePath = currentPathsArrayList.get(idx);
+        String fileContent = "";
+
+        try {
+            byte[] bytes = Files.readAllBytes(filePath);
+            fileContent = new String (bytes);
+        } catch (IOException e) {
+            //handle exception
+        }
+
+        return fileContent;
+    }
+
+
 }

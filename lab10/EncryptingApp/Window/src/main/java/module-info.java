@@ -8,7 +8,7 @@ module Window {
     exports pl.edu.pwr.controller to javafx.fxml, javafx.graphics;
     opens pl.edu.pwr.controller to javafx.fxml;
 
-    //requires Encryptor;
+    requires Encryptor;
     requires javafx.web;
 
 

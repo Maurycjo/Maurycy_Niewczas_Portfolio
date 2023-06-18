@@ -21,7 +21,7 @@ public class AesEncryptor extends Encryptor{
         return new byte[16];
     }
     @Override
-    public void encryptFile(String dirName, String fileName, byte[] fileKeyBytes) {
+    public void encryptFile(String dirName, String fileName, byte[] fileKeyBytes, byte[] fileDataBytes) {
 
         try {
 
@@ -58,7 +58,7 @@ public class AesEncryptor extends Encryptor{
 
 
     @Override
-    public void decryptFile(String dirName, String fileName, byte[] fileKeyBytes) {
+    public void decryptFile(String dirName, String fileName, byte[] fileKeyBytes, byte[] fileDataBytes) {
 
         try {
 

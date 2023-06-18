@@ -5,7 +5,7 @@ import java.io.File;
 public class KeyGeneratorController {
 
 
-    private String keyPath = "/home/mniewczas/Desktop/key_java/";
+    private String keyPath = "/home/mniewczas/Desktop/key_java";
 
     MyKeyGenerator myKeyGenerator;
     AESKeyGenerator aesKeyGenerator = new AESKeyGenerator();

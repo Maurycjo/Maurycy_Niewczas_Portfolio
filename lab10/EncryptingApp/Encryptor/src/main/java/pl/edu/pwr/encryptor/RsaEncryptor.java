@@ -36,7 +36,7 @@ public class RsaEncryptor extends Encryptor {
     }
 
     @Override
-    public void encryptFile(String dirName, String fileName, byte[] fileKeyBytes) {
+    public void encryptFile(String dirName, String fileName, byte[] fileKeyBytes, byte[] fileDataBytes) {
 
         FileInputStream pubKeyFis = null;
         try {
@@ -50,7 +50,6 @@ public class RsaEncryptor extends Encryptor {
             Cipher rsaCipher = Cipher.getInstance("RSA");
             rsaCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
-            loadFile(dirName, fileName);
 
             int subArraySize = calculatePublicKeySize(fileKeyBytes);
 
@@ -88,7 +87,7 @@ public class RsaEncryptor extends Encryptor {
     }
 
     @Override
-    public void decryptFile(String dirName, String fileName, byte[] fileKeyBytes) {
+    public void decryptFile(String dirName, String fileName, byte[] fileKeyBytes, byte[] fileDataBytes) {
 
 
 
@@ -100,7 +99,7 @@ public class RsaEncryptor extends Encryptor {
             Cipher rsaCipher = Cipher.getInstance("RSA");
             rsaCipher.init(Cipher.DECRYPT_MODE, privateKey);
 
-            loadFile(dirName, fileName);
+
 
             int subArraySize = calculatePrivateKeySize(fileKeyBytes);
 

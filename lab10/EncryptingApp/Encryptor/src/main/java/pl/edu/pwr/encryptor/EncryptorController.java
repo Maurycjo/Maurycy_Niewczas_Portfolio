@@ -1,5 +1,6 @@
 package pl.edu.pwr.encryptor;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,6 +14,7 @@ public class EncryptorController {
     private RsaEncryptor rsaEncryptor = new RsaEncryptor();
 
     private byte [] fileKeyBytes;
+    private byte [] fileDataBytes;
     public String getDirName() {
         return dirName;
     }
@@ -20,6 +22,23 @@ public class EncryptorController {
     public void setDirName(String dirName) {
         this.dirName = dirName;
     }
+
+    public void loadFile(String fileName) {
+
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(dirName + "/" +fileName);
+            File fileEncryptDecrypt = new File(dirName + "/" + fileName);
+            long fileSize = fileEncryptDecrypt.length();
+            fileDataBytes = new byte[(int) fileSize];
+            fileInputStream.read(fileDataBytes);
+            fileInputStream.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public void loadKeyFromFile(String fileName){
 
@@ -47,7 +66,7 @@ public class EncryptorController {
         } else{
             return;
         }
-        encryptor.encryptFile(dirName, fileName, fileKeyBytes);
+        encryptor.encryptFile(dirName, fileName, fileKeyBytes, fileDataBytes);
     }
 
     public void decryptFile(EncryptorTypeEnum encryptorTypeEnum, String fileName){
@@ -59,8 +78,7 @@ public class EncryptorController {
         } else{
             return;
         }
-        encryptor.decryptFile(dirName, fileName, fileKeyBytes);
+        encryptor.decryptFile(dirName, fileName, fileKeyBytes, fileDataBytes);
     }
-
 
 }

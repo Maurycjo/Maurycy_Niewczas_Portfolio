@@ -34,7 +34,7 @@
                               <FlowPane prefHeight="49.0" prefWidth="253.0">
                                  <children>
                                     <Label text="Algorytm     " />
-                                    <ComboBox fx:id="algorithmOfCreatedKeyComboBox" prefWidth="150.0" />
+                                    <ComboBox fx:id="algorithmOfCreatedKeyComboBox" onAction="#algorithmSelected" prefWidth="150.0" />
                                  </children>
                               </FlowPane>
                               <FlowPane prefHeight="49.0" prefWidth="253.0">
@@ -66,18 +66,20 @@
                         <FlowPane alignment="CENTER" prefHeight="40.0" prefWidth="602.0" BorderPane.alignment="CENTER">
                            <children>
                               <Label text="Algorytm" />
-                              <ComboBox fx:id="selectAlgorithmComboBox" prefHeight="0.0" prefWidth="50.0" />
+                              <ComboBox fx:id="selectAlgorithmComboBox" prefHeight="24.0" prefWidth="93.0" />
                               <Pane prefHeight="28.0" prefWidth="57.0" />
-                              <Label text="Klucz" />
+                              <Label text="Klucz: " />
+                              <Label fx:id="selectedKeyLabel" minHeight="-Infinity" text="brak" />
                               <Button fx:id="removeKeyButton" mnemonicParsing="false" onAction="#removeKey" prefHeight="24.0" prefWidth="26.0" />
                               <Pane prefHeight="28.0" prefWidth="83.0" />
-                              <Label alignment="CENTER_RIGHT" text="Plik" />
+                              <Label alignment="CENTER_RIGHT" text="Plik: " />
+                              <Label fx:id="selectedFileLabel" text="brak" />
                               <Button fx:id="removeFileButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#removeFile" prefHeight="24.0" prefWidth="26.0" />
                            </children>
                         </FlowPane>
                      </top>
                      <center>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="adfhasfjhafjhaf&#10;adfhasfjhafjhaf&#10;adfhasfjhafjhafadfhasfjhafjhafadfhasfjhafjhaf&#10;adfhasfjhafjhaf" BorderPane.alignment="CENTER" />
+                        <TextArea fx:id="fileDisplayTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" BorderPane.alignment="CENTER" />
                      </center>
                   </BorderPane>
                </content>

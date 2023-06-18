@@ -21,7 +21,7 @@ public class AESKeyGenerator extends MyKeyGenerator{
             SecretKey secretKey = keyGenerator.generateKey();
             byte[] keyBytes = secretKey.getEncoded();
 
-            FileOutputStream fileOutputStream = new FileOutputStream(keyPath + keyFileName);
+            FileOutputStream fileOutputStream = new FileOutputStream(keyPath +"/"+ keyFileName);
             fileOutputStream.write(keyBytes);
             fileOutputStream.close();
 
