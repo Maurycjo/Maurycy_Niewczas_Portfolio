@@ -13,8 +13,8 @@ public class Main {
         EncryptorController encryptorController = new EncryptorController();
         KeyGeneratorController keyGeneratorController = new KeyGeneratorController();
 
-        keyGeneratorController.generateKey(KeyTypeEnum.RSA, 2048, "rsa_key");
-        keyGeneratorController.generateKey(KeyTypeEnum.AES, 256, "aes_key");
+        keyGeneratorController.generateKey(KeyTypeEnum.RSA, 1024, "rsa_key");
+        //keyGeneratorController.generateKey(KeyTypeEnum.AES, 256, "aes_key");
 
 //        encryptorController.loadKeyFromFile("aes_key");
 //        encryptorController.encryptFile(EncryptorTypeEnum.AES, "test.txt");
@@ -23,8 +23,8 @@ public class Main {
 
         encryptorController.loadKeyFromFile("rsa_key.pub");
         encryptorController.encryptFile(EncryptorTypeEnum.RSA, "test.txt");
-//        encryptorController.loadKeyFromFile("rsa_key");
-//        encryptorController.decryptFile(EncryptorTypeEnum.RSA, "test.txt_encryptedRsa");
+        encryptorController.loadKeyFromFile("rsa_key");
+        encryptorController.decryptFile(EncryptorTypeEnum.RSA, "test.txt_encryptedRsa");
 
     }
 }
