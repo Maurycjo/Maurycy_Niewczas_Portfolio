@@ -13,12 +13,7 @@ public abstract class XmlParser {
     public String getOutput(){
         return outputToDisplay;
     }
-    public void deserialize(){
+    abstract public void deserialize();
 
-        if(file == null){
-            outputToDisplay = "Wczytaj plik XSLT";
-            return;
-        }
-    }
 
 }

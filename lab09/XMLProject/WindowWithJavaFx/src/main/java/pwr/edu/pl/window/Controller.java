@@ -29,8 +29,6 @@ public class Controller {
     private XmlSAXParser xmlSAXParser = new XmlSAXParser();
     private XSLTParser xsltParser = new XSLTParser();
 
-
-
     public void setXmlParser(XmlParser xmlParser){
         currentParser = xmlParser;
     }

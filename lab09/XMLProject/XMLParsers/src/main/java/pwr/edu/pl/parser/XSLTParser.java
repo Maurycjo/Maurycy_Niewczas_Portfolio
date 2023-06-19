@@ -29,7 +29,6 @@ public class XSLTParser extends XmlParser{
 
     @Override
     public void deserialize() {
-        super.deserialize();
 
         StringWriter stringWriter = null;
         try {

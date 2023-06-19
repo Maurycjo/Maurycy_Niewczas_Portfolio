@@ -25,7 +25,6 @@ public class XmlSAXParser extends XmlParser{
 
     @Override
     public void deserialize() {
-        super.deserialize();
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser parser;
 

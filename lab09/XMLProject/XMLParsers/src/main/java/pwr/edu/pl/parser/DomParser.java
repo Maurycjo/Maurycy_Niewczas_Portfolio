@@ -40,7 +40,6 @@ public class DomParser extends XmlParser{
 
     @Override
     public void deserialize() {
-        super.deserialize();
 
         //DOM
         NodeList cardList = document.getElementsByTagName("karta_informacyjna");

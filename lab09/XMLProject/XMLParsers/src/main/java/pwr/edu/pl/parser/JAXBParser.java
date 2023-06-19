@@ -48,9 +48,11 @@ public class JAXBParser extends XmlParser{
 
     @Override
     public void deserialize() {
-        super.deserialize();
 
-
+        if(file == null){
+            outputToDisplay = "Wczytaj plik";
+            return;
+        }
         outputToDisplay = null;
         try {
             jaxbContext = JAXBContext.newInstance(BipPoznanPl.class);
