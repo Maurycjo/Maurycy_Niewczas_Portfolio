@@ -234,6 +234,7 @@ public class MainWindow extends JFrame {
 
     private void loadAdditionalInfo(FileElement fileElement){
 
+
         fileNameTextField.setText("Nazwa pliku: " + fileElement.getFileName());
         avgPressureTextField.setText("Średnie ciśnienie: Brak danych");
         avgTemperatureTextField.setText("Średnia temperatura: Brak danych");

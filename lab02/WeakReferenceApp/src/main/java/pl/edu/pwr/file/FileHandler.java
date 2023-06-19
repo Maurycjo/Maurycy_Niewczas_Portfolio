@@ -82,8 +82,9 @@ public class FileHandler {
                     .count(); // kończy strumień, ale nie wykonuje żadnych operacji
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
+        }}
+
+
 
 }
 
