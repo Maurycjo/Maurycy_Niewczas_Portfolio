@@ -17,9 +17,9 @@ public class RsaEncryptor extends Encryptor {
     private int calculatePublicKeySize(byte[] fileKeyBytes){
 
         int size = fileKeyBytes.length;
-        if(size == 294) return 245;
-        if(size == 162) return 117;
-        if(size == 94) return 53;
+        if(size == 294) return 256;
+        if(size == 162) return 128;;
+        if(size == 94) return 64;
 
         return 0;
     }
@@ -28,9 +28,9 @@ public class RsaEncryptor extends Encryptor {
 
         int size = fileKeyBytes.length;
 
-        if(size == 1217) return 256;
-        if(size == 634) return 128;
-        if(size == 344) return 64;
+        if(size == 1217) return 245;
+        if(size == 634)  return 117;
+        if(size == 344) return 53;
 
         return size;
     }
@@ -44,14 +44,14 @@ public class RsaEncryptor extends Encryptor {
             FileOutputStream dataFos = new FileOutputStream(dirName +"/"+ fileName + "_encryptedRsa" );
 
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(fileKeyBytes);
-            PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
+            PKCS8EncodedKeySpec privKeySpec = new PKCS8EncodedKeySpec(fileKeyBytes);
+            PrivateKey privateKey = keyFactory.generatePrivate(privKeySpec);
 
             Cipher rsaCipher = Cipher.getInstance("RSA");
-            rsaCipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            rsaCipher.init(Cipher.ENCRYPT_MODE, privateKey);
 
 
-            int subArraySize = calculatePublicKeySize(fileKeyBytes);
+            int subArraySize = calculatePrivateKeySize(fileKeyBytes);
 
             byte[] subArray = new byte[subArraySize];
 
@@ -93,15 +93,15 @@ public class RsaEncryptor extends Encryptor {
 
         try {
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(fileKeyBytes);
-            PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
+            X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(fileKeyBytes);
+            PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
 
             Cipher rsaCipher = Cipher.getInstance("RSA");
-            rsaCipher.init(Cipher.DECRYPT_MODE, privateKey);
+            rsaCipher.init(Cipher.DECRYPT_MODE, publicKey);
 
 
 
-            int subArraySize = calculatePrivateKeySize(fileKeyBytes);
+            int subArraySize = calculatePublicKeySize(fileKeyBytes);
 
             byte[] subArray = new byte[subArraySize];
 
