@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bip.poznan.pl>
+<data>
+<karty_informacyjne>
+<start>0</start>
+<stop>50</stop>
+<size>50</size>
+<total_size>40710</total_size>
+<items>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441D02&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441D02</id>
+<data>2023-05-23</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>odpady</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87894</nr_wpisu>
+<znak_sprawy>KSr-II.6221.83.2023</znak_sprawy>
+<dane_wnioskodawcy>Sieć Badawcza Łukasiewicz Instytut Metali Nieżelaznych SOWIŃSKIEGO 5, 44-121 GLIWICE</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044194A&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044194A</id>
+<data>2023-05-19</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87857</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.423.2023</znak_sprawy>
+<dane_wnioskodawcy>PIKAN SP. Z O.O. WICHROWA 20B, 60-449 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044191A&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044191A</id>
+<data>2023-05-18</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87848</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.416.2023</znak_sprawy>
+<dane_wnioskodawcy>AQUANET S.A. DOLNA WILDA 126, 61-492 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004418B2&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004418B2</id>
+<data>2023-05-18</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87844</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.186.2023</znak_sprawy>
+<dane_wnioskodawcy>Politechnika Poznańska MARII SKŁODOWSKIEJ-CURIE 5, 60-965 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441A6E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441A6E</id>
+<data>2023-05-18</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87875</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.187.2023</znak_sprawy>
+<dane_wnioskodawcy>Agamo Sp. z o.o. MARCELIŃSKA 90, 60-324 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004418CE&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004418CE</id>
+<data>2023-05-18</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87845</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.318.2023</znak_sprawy>
+<dane_wnioskodawcy>Plek1 Sp. z o.o. GRODZISKA 8, 60-363 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441842&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441842</id>
+<data>2023-05-18</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87842</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.184.2023</znak_sprawy>
+<dane_wnioskodawcy>A17 Sp. z o.o. SOLIDARNOŚCI AL. 173, 00-877 WARSZAWA</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441752&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441752</id>
+<data>2023-05-18</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87831</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.183.2023</znak_sprawy>
+<dane_wnioskodawcy>Poznańskie Inwestycje Miejskie Sp. z o.o. PLAC WIOSNY LUDÓW 2, 61-831 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044172E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044172E</id>
+<data>2023-05-18</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87827</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.183.2023</znak_sprawy>
+<dane_wnioskodawcy>Poznańskie Inwestycje Miejskie Sp. z o.o. PLAC WIOSNY LUDÓW 2, 61-831 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441832&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441832</id>
+<data>2023-05-17</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>decyzje środowiskowe</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87838</nr_wpisu>
+<znak_sprawy>KSr-V.6220.1.132.2023</znak_sprawy>
+<dane_wnioskodawcy>Agamo Sp. z o.o. MARCELIŃSKA 90, 60-324 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044182E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044182E</id>
+<data>2023-05-16</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>decyzje środowiskowe</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87837</nr_wpisu>
+<znak_sprawy>KSr-V.6220.1.131.2023</znak_sprawy>
+<dane_wnioskodawcy>PDC Industrial Center 192 Sp. z o.o. DOMANIEWSKA 50A, 02-672 WARSZAWA</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004415BA&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004415BA</id>
+<data>2023-05-16</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>decyzje środowiskowe</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87810</nr_wpisu>
+<znak_sprawy>KSr-V.6220.1.130.2023</znak_sprawy>
+<dane_wnioskodawcy>Jakon Nowa 1 SOWIA 4, 62-080 TARNOWO PODGÓRNE</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044178A&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044178A</id>
+<data>2023-05-16</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>odpady</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87834</nr_wpisu>
+<znak_sprawy>KSr-II.6221.81.2023</znak_sprawy>
+<dane_wnioskodawcy>TERMA SP. z o.o. CZAPLE 100, 80-298 GDAŃSK</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441946&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441946</id>
+<data>2023-05-16</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87856</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.422.2023</znak_sprawy>
+<dane_wnioskodawcy>PATINIKO Sp. z o.o. KOPANINA 28/32, 60-105 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441A36&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441A36</id>
+<data>2023-05-15</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87873</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.188.2023</znak_sprawy>
+<dane_wnioskodawcy>Zespół Szkół Odzieżowych im. W. Reymonta KAZIMIERZA WIELKIEGO 17, 61-863 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004411AE&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004411AE</id>
+<data>2023-05-11</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87776</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.402.2023</znak_sprawy>
+<dane_wnioskodawcy>DOMINIKA FLACZYK SIANOWSKA 112, 60-345 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441A5E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441A5E</id>
+<data>2023-05-11</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87874</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.186.2023</znak_sprawy>
+<dane_wnioskodawcy>Zrzeszenie Właścicieli i Zarządców Domów JANA KOCHANOWSKIEGO 17A, 60-846 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441902&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441902</id>
+<data>2023-05-10</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87847</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.414.2023</znak_sprawy>
+<dane_wnioskodawcy>WFH INWESTYCJE SPÓŁKA Z O. O S.K GUSTAWA POTWOROWSKIEGO 11, 60-212 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044111E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044111E</id>
+<data>2023-05-10</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87769</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.398.2023</znak_sprawy>
+<dane_wnioskodawcy>OSOBA FIZYCZNA</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044115A&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044115A</id>
+<data>2023-05-09</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87773</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.400.2023</znak_sprawy>
+<dane_wnioskodawcy>Poznańska Korporacja Budowlana PEKABEX S.A. SZARYCH SZEREGÓW 27, 60-462 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441D9E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441D9E</id>
+<data>2023-05-09</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87898</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.189.2023</znak_sprawy>
+<dane_wnioskodawcy>Wspólnota Mieszkaniowa ul. Mielżyńskiego 21 WILCZAK 49, 61-623 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004413DE&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004413DE</id>
+<data>2023-05-09</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87793</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.181.2023</znak_sprawy>
+<dane_wnioskodawcy>Stars.Space S.A. JEROZOLIMSKIE AL. 136, 02-305 WARSZAWA</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441356&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441356</id>
+<data>2023-05-08</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>decyzje środowiskowe</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87791</nr_wpisu>
+<znak_sprawy>KSr-V.6220.1.129.2023</znak_sprawy>
+<dane_wnioskodawcy>MODERTRANS POZNAŃ Sp. z o.o. STALOWA 5, 61-065 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004418D2&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004418D2</id>
+<data>2023-05-08</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87846</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.185.2023</znak_sprawy>
+<dane_wnioskodawcy>Politechnika Poznańska MARII SKŁODOWSKIEJ-CURIE 5, 60-965 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004414C6&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004414C6</id>
+<data>2023-05-04</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87805</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.392.2023</znak_sprawy>
+<dane_wnioskodawcy>Delpharm Poznań S. A. GRUNWALDZKA 189, 60-322 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044149A&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044149A</id>
+<data>2023-05-04</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87803</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.393.2023</znak_sprawy>
+<dane_wnioskodawcy>Delpharm Poznań S. A. GRUNWALDZKA 189, 60-322 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044102E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044102E</id>
+<data>2023-05-04</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87756</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.394.2023</znak_sprawy>
+<dane_wnioskodawcy>OSOBA FIZYCZNA</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00440E9A&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00440E9A</id>
+<data>2023-05-02</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87739</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.175.2023</znak_sprawy>
+<dane_wnioskodawcy>Wspólnota Mieszkaniowa Łukasiewicza 29 abc JÓZEFA ŁUKASZEWICZA 29/a,b,c, 60-729 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00440F9A&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00440F9A</id>
+<data>2023-04-28</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>decyzje środowiskowe</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87750</nr_wpisu>
+<znak_sprawy>KSr-V.6220.1.128.2023</znak_sprawy>
+<dane_wnioskodawcy>Kompania Piwowarska S.A SZWAJCARSKA 11, 61-285 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00440B96&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00440B96</id>
+<data>2023-04-28</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>decyzje środowiskowe</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87708</nr_wpisu>
+<znak_sprawy>KSr-V.6220.1.127.2023</znak_sprawy>
+<dane_wnioskodawcy>Nivea Polska Sp z o. o GNIEŹNIEŃSKA 32, 61-021 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441942&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441942</id>
+<data>2023-04-28</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87855</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.421.2023</znak_sprawy>
+<dane_wnioskodawcy>OSOBA FIZYCZNA</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00440F7A&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00440F7A</id>
+<data>2023-04-28</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87749</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.177.2023</znak_sprawy>
+<dane_wnioskodawcy>Województwo Wielkopolskie ALEJA NIEPODLEGŁOŚCI 34, 61-714 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00440F52&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00440F52</id>
+<data>2023-04-28</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87748</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.176.2023</znak_sprawy>
+<dane_wnioskodawcy>Wspólnota Mieszkaniowa &amp;quot;Polna 46&amp;quot; JÓZEFA WYBICKIEGO 6, 61-529 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044193E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044193E</id>
+<data>2023-04-27</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87854</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.420.2023</znak_sprawy>
+<dane_wnioskodawcy>Poznańskie Towarzystwo Budownictwa Społecznego Sp. z o. o. KONFEDERACKA 4, 60-281 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00440F22&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00440F22</id>
+<data>2023-04-27</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87745</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.365.2023</znak_sprawy>
+<dane_wnioskodawcy>KML INVEST SPÓŁKA Z O.O. MARIANA LANGIEWICZA 20A/2, 61-502 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00440A06&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00440A06</id>
+<data>2023-04-27</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87691</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.386.2023</znak_sprawy>
+<dane_wnioskodawcy>Wojskowy Zarzad Infrastruktury TADEUSZA KOŚCIUSZKI 92/98, 61-716 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00440D1E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00440D1E</id>
+<data>2023-04-26</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87724</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.174.2023</znak_sprawy>
+<dane_wnioskodawcy>Komenda Wojewódzka Policji JANA KOCHANOWSKIEGO 2a, 60-844 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00440C7E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00440C7E</id>
+<data>2023-04-26</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87715</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.316.2023</znak_sprawy>
+<dane_wnioskodawcy>GN GROUP T5 SP Z O.O PODGÓRNA 5A, 61-829 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004408FA&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004408FA</id>
+<data>2023-04-26</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87681</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.172.2023</znak_sprawy>
+<dane_wnioskodawcy>OSOBA FIZYCZNA</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044193A&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044193A</id>
+<data>2023-04-25</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87853</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.419.2023</znak_sprawy>
+<dane_wnioskodawcy>Uniwersytet im. Adama Mickiewicza w Poznaniu HENRYKA WIENIAWSKIEGO 1, 61-712 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00440852&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00440852</id>
+<data>2023-04-25</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87676</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.383.2023</znak_sprawy>
+<dane_wnioskodawcy>Grupa Cichy-Zasada sp. z o. o. sp.j. SKÓRZEWSKA 8, 62-081 WYSOGOTOWO</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044083E&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044083E</id>
+<data>2023-04-25</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87675</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.382.2023</znak_sprawy>
+<dane_wnioskodawcy>OSOBA FIZYCZNA</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004407E6&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004407E6</id>
+<data>2023-04-25</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87673</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.381.2023</znak_sprawy>
+<dane_wnioskodawcy>Veolia Energia Poznań S.A. ENERGETYCZNA 3, 61-016 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004407D2&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004407D2</id>
+<data>2023-04-25</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87672</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.380.2023</znak_sprawy>
+<dane_wnioskodawcy>Veolia Energia Poznań S.A. ENERGETYCZNA 3, 61-016 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004407B2&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004407B2</id>
+<data>2023-04-25</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87671</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.379.2023</znak_sprawy>
+<dane_wnioskodawcy>Szkoła Podstawowa nr 61 im. Komisji Edukacji Narodowej SZCZEPANKOWO 72a, 61-306 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004407AA&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004407AA</id>
+<data>2023-04-25</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87670</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.377.2023</znak_sprawy>
+<dane_wnioskodawcy>OSOBA FIZYCZNA</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004407A6&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004407A6</id>
+<data>2023-04-25</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87669</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.376.2023</znak_sprawy>
+<dane_wnioskodawcy>ZDM WILCZAK 17, 61-623 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT0044081A&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT0044081A</id>
+<data>2023-04-25</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (mkz)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87674</nr_wpisu>
+<znak_sprawy>KSr-III.6131.2.171.2023</znak_sprawy>
+<dane_wnioskodawcy>Wspólnota Mieszkaniowa ul. Czarnieckiego 5 STEFANA CZARNIECKIEGO 5, 61-538 POZNAŃ</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT004406A6&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT004406A6</id>
+<data>2023-04-24</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>decyzje środowiskowe</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87656</nr_wpisu>
+<znak_sprawy>KSr-V.6220.1.125.2023</znak_sprawy>
+<dane_wnioskodawcy>AB 4 Sp. z o.o. PL. NOWY RYNEK 4/4, 62-002 SUCHY LAS</dane_wnioskodawcy>
+</karta_informacyjna>
+<karta_informacyjna>
+<link>https://bip.poznan.pl/bip/karty_informacyjne.html?co=print&amp;noteid=OS_NT00441936&amp;typ_karty=A&amp;api=xml</link>
+<id>OS_NT00441936</id>
+<data>2023-04-24</data>
+<skrot_organizacja>WOS</skrot_organizacja>
+<komponent_srodowiska>zezwalanie na usuwanie drzew i krzewów (ksr)</komponent_srodowiska>
+<typ_karty>A</typ_karty>
+<rodzaj_karty>wnioski o wydanie decyzji</rodzaj_karty>
+<nr_wpisu>87852</nr_wpisu>
+<znak_sprawy>KSr-III.6131.1.418.2023</znak_sprawy>
+<dane_wnioskodawcy>Murapol Real Estate S.A. PARTYZANTÓW 49, 43-300 BIELSKO-BIAŁA</dane_wnioskodawcy>
+</karta_informacyjna>
+</items>
+</karty_informacyjne>
+</data>
+</bip.poznan.pl>
