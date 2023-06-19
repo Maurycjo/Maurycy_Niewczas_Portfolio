@@ -6,7 +6,7 @@ public class JniAlgorithmLoader{
 
     static{
         System.load("/home/mniewczas/Desktop/java_lab/maunie814_javatz_2023/lab08/JNI/library/libnativealg.so");
-        //System.loadLibrary("lib_native_alg");
+        //System.loadLibrary("nativealg");
     }
 
     public double[][] loadData(String fileName) throws IOException {
