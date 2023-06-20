@@ -10,3 +10,5 @@ There is quiz music application look with bundle and rest service
 
 
 ![polish quiz](https://github.com/Maurycjo/Maurycy_Niewczas_Portfolio/assets/59066809/14654a17-67f3-43ac-ab14-9d230261fdd6)
+
+You can change your language at any time. An information window will appear when you answer the question.
