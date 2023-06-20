@@ -89,7 +89,7 @@ public class Controller {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Wybierz plik");
         String userHomeDir = System.getProperty("user.home");
-        fileChooser.setInitialDirectory(new File(userHomeDir+"/Desktop/xml"));
+        fileChooser.setInitialDirectory(new File(userHomeDir+"/Desktop"));
         loadedFile = fileChooser.showOpenDialog(stage);
         event.consume();
 
@@ -109,7 +109,7 @@ public class Controller {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Wybierz plik");
         String userHomeDir = System.getProperty("user.home");
-        fileChooser.setInitialDirectory(new File(userHomeDir+"/Desktop/xml"));
+        fileChooser.setInitialDirectory(new File(userHomeDir+"/Desktop"));
         xslFile = fileChooser.showOpenDialog(stage);
         xsltParser.loadXsltFile(xslFile);
         event.consume();
