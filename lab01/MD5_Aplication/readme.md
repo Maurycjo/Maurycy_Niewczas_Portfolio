@@ -1,5 +1,7 @@
 to run application:
-myapp/bin/java --module Application/pl.edu.pwr.app.Main
+myapp/bin/java --module Application/pl.edu.pwr.app.Main\
+
+
 First view of application:
 ![Screenshot from 2023-06-20 14-58-13](https://github.com/Maurycjo/Maurycy_Niewczas_Portfolio/assets/59066809/99a0db32-242a-4c2a-92e0-5ef36afbabbb)
 
