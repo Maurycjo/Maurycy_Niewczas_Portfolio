@@ -1,4 +1,4 @@
-Maurycy Niewczas\ \
+Maurycy Niewczas
 
 There are JAVA programms writen by me between 01-03-2023 to 29-06-2023.
 The "master" branch contains the code with implementation, one directory per project. On the "release" branch there are executable JARs with description of the working programm and instructions on how to start them
@@ -24,4 +24,4 @@ Short Description of my projects:
 **Lab10/EncryptingApp** -An application that can generate public and private **RSA keys** and generate **AES key**.The application can **encrypt and decrypt** files using these keys. It can also traverse the file system and display files in its own window.\
 \
 (TASK IN PROGRESS) **Lab11/MultireleaseJar** -An application that uses previous project: WeakReferenceApp to make **multirelease jar** in versions java11, java15, java17. After that installer will be created.\
-\
+
