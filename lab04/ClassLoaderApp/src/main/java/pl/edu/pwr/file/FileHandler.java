@@ -1,5 +1,6 @@
 package pl.edu.pwr.file;
 
+import java.io.File;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -7,7 +8,8 @@ import java.util.stream.Stream;
 public class FileHandler {
 
 
-    private Path currentPath = Paths.get("../classToLoad/out/production/classToLoad");
+    private String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
+    private Path currentPath = Paths.get(desktopPath);
     private ArrayList<ElementInFileSystem> files = new ArrayList<>(); //FileInfo objects from path
     private ArrayList<Path> filesPath = new ArrayList<>();
     private ArrayList<Path> classPath = new ArrayList<>();
