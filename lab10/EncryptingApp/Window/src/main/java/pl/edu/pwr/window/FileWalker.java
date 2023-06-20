@@ -12,7 +12,8 @@ import java.util.stream.Stream;
 
 public class FileWalker {
 
-    private Path currentPath = Path.of("/home/mniewczas/Desktop/key_java/");
+    String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
+    private Path currentPath = Path.of("desktopPath");
 
     private List<Path> currentPathsArrayList = new ArrayList<>();
 
