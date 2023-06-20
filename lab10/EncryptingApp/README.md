@@ -1,4 +1,4 @@
-I used jsigner and keytool to sign my application jar an library jar. 
+I used jsigner and keytool to sign my application jar an library jar. There are executable jars in application directory.
 
 There are commands I using:
 
